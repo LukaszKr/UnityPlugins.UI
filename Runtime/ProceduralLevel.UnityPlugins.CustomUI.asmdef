@@ -1,0 +1,16 @@
+{
+    "name": "ProceduralLevel.UnityPlugins.CustomUI",
+    "references": [
+        "GUID:210304052f12ca14a9ff88e9466ff4a5"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "ProceduralLevel.Common.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": []
+}
