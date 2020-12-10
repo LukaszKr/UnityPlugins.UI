@@ -1,4 +1,5 @@
 ﻿using ProceduralLevel.UnityPlugins.Common.Extended;
+using ProceduralLevel.UnityPlugins.Input;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,12 +17,15 @@ namespace ProceduralLevel.UnityPlugins.CustomUI
 		private APanelElement m_Hovered = null;
 		private APanelElement m_Active = null;
 
+		[SerializeField]
+		private InputManager m_InputManager;
+
 		public void Update()
 		{
-			Vector2 vector = Input.mousePosition;
-			SetPointerPosition(Input.mousePosition);
+			Vector2 vector = m_InputManager.Mouse.Position;
+			SetPointerPosition(vector);
 
-			if(Input.GetMouseButton(0))
+			if(m_InputManager.Mouse.Get(EMouseButton.Left).Contains(EButtonState.IsDown))
 			{
 				UsePointer(EPointerType.Primary);
 			}

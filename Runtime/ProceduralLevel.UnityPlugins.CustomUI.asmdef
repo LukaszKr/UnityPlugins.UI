@@ -1,7 +1,8 @@
 {
     "name": "ProceduralLevel.UnityPlugins.CustomUI",
     "references": [
-        "GUID:210304052f12ca14a9ff88e9466ff4a5"
+        "GUID:210304052f12ca14a9ff88e9466ff4a5",
+        "GUID:7beb5c7201ff0194aa34fefed6f62094"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
@@ -12,5 +13,6 @@
     ],
     "autoReferenced": false,
     "defineConstraints": [],
-    "versionDefines": []
+    "versionDefines": [],
+    "noEngineReferences": false
 }
