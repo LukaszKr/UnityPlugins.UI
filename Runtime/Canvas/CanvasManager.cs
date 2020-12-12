@@ -1,7 +1,7 @@
-﻿using ProceduralLevel.UnityPlugins.Common.Extended;
-using ProceduralLevel.UnityPlugins.Input;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using ProceduralLevel.UnityPlugins.Common.Extended;
+using ProceduralLevel.UnityPlugins.Input;
 using UnityEngine;
 
 namespace ProceduralLevel.UnityPlugins.CustomUI

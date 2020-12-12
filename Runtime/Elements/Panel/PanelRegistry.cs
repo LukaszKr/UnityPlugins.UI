@@ -15,7 +15,7 @@ namespace ProceduralLevel.UnityPlugins.CustomUI
 		}
 
 		public TPanel GetPanel<TPanel>()
-			where TPanel: AUIPanel
+			where TPanel : AUIPanel
 		{
 			int length = m_Panels.Length;
 			for(int x = 0; x < length; ++x)

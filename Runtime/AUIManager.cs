@@ -1,5 +1,5 @@
-﻿using ProceduralLevel.UnityPlugins.Common.Extended;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using ProceduralLevel.UnityPlugins.Common.Extended;
 using UnityEngine;
 
 namespace ProceduralLevel.UnityPlugins.CustomUI
