@@ -18,14 +18,14 @@ namespace ProceduralLevel.UnityPlugins.CustomUI
 		private APanelElement m_Active = null;
 
 		[SerializeField]
-		private InputManager m_InputManager;
+		private InputManager m_InputManager = null;
 
 		public void Update()
 		{
 			Vector2 vector = m_InputManager.Mouse.Position;
 			SetPointerPosition(vector);
 
-			if(m_InputManager.Mouse.Get(EMouseButton.Left).Contains(EButtonState.IsDown))
+			if(m_InputManager.Mouse.Get(EMouseButton.Left).IsActive)
 			{
 				UsePointer(EPointerType.Primary);
 			}
