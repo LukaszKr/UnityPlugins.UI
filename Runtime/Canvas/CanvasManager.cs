@@ -25,7 +25,7 @@ namespace ProceduralLevel.UnityPlugins.CustomUI
 			Vector2 vector = m_InputManager.Mouse.Position;
 			SetPointerPosition(vector);
 
-			if(m_InputManager.Mouse.Get(EMouseButton.Left).IsActive)
+			if(m_InputManager.Mouse.Get(EMouseInputID.Left).IsActive)
 			{
 				UsePointer(EPointerType.Primary);
 			}
