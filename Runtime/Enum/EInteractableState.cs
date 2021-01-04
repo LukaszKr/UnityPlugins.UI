@@ -29,7 +29,7 @@ namespace ProceduralLevel.UnityPlugins.CustomUI
 
 		public static bool Contains(this EInteractableState state, EInteractableState other)
 		{
-			return (state & other) == other;
+			return other != 0 && (state & other) == other;
 		}
 
 		public static bool IsHovered(this EInteractableState state)
