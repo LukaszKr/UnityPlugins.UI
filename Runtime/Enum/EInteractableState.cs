@@ -7,7 +7,7 @@ namespace ProceduralLevel.UnityPlugins.CustomUI
 	{
 		Idle = 0,
 
-		Hovered = 1 << 1,
+		Hovered = 1 << 1, //pointer is over
 		Focused = 1 << 2,
 		Active = 1 << 3,
 		Selected = 1 << 4,

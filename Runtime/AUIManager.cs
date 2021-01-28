@@ -24,7 +24,7 @@ namespace ProceduralLevel.UnityPlugins.CustomUI
 				}
 			}
 
-			PanelRegistry registry = GetPanelRegistry();
+			IPanelRegistry registry = GetPanelRegistry();
 			TPanel panelPrefab = registry.GetPanel<TPanel>();
 			if(panelPrefab != null)
 			{
@@ -38,6 +38,6 @@ namespace ProceduralLevel.UnityPlugins.CustomUI
 		}
 
 		protected abstract UICanvas GetCanvasPrefab();
-		protected abstract PanelRegistry GetPanelRegistry();
+		protected abstract IPanelRegistry GetPanelRegistry();
 	}
 }

@@ -10,9 +10,9 @@ namespace ProceduralLevel.UnityPlugins.CustomUI
 
 		public readonly PointerHandler Pointer = new PointerHandler();
 
-		public readonly CustomEvent<EInteractableState> OnStateChanged = new CustomEvent<EInteractableState>();
-
 		public EInteractableState State { get { return m_State; } }
+		
+		public readonly CustomEvent<EInteractableState> OnStateChanged = new CustomEvent<EInteractableState>();
 
 		protected override void OnPrepare(EventBinder binder)
 		{
@@ -56,13 +56,15 @@ namespace ProceduralLevel.UnityPlugins.CustomUI
 			return SetState(m_State.SetFlag(EInteractableState.Selected, selected));
 		}
 
-		private bool SetState(EInteractableState state)
+		private bool SetState(EInteractableState newState)
 		{
-			if(m_State != state)
+			if(m_State != newState)
 			{
-				name = state.ToString();
-				m_State = state;
+				name = newState.ToString();
+				m_State = newState;
 				OnStateChanged.Invoke(m_State);
+
+
 				return true;
 			}
 			return false;

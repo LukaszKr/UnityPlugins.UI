@@ -7,8 +7,8 @@ using UnityEngine;
 
 namespace ProceduralLevel.UnityPluginsEditor.CustomUI
 {
-	[CustomEditor(typeof(PanelRegistry))]
-	public class PanelRegistryEditor: AExtendedEditor<PanelRegistry>
+	[CustomEditor(typeof(GenericPanelRegistry))]
+	public class PanelRegistryEditor: AExtendedEditor<GenericPanelRegistry>
 	{
 		protected override void Initialize()
 		{

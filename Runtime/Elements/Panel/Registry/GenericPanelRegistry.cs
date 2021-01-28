@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace ProceduralLevel.UnityPlugins.CustomUI
 {
-	[CreateAssetMenu(fileName = nameof(PanelRegistry), menuName = UIConsts.MENU_ROOT+nameof(PanelRegistry))]
-	public class PanelRegistry: ScriptableObject
+	[CreateAssetMenu(fileName = nameof(GenericPanelRegistry), menuName = UIConsts.MENU_ROOT+nameof(GenericPanelRegistry))]
+	public class GenericPanelRegistry: ScriptableObject, IPanelRegistry
 	{
 		[SerializeField]
 		private AUIPanel[] m_Panels = null;

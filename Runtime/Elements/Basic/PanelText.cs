@@ -3,10 +3,12 @@ using UnityEngine.UI;
 
 namespace ProceduralLevel.UnityPlugins.CustomUI
 {
-	public class UIText: APanelElement
+	public class PanelText: APanelElement
 	{
 		[SerializeField]
 		private Text m_Text = null;
+
+		public Text UnityText { get { return m_Text; } }
 
 		public void SetText(string value)
 		{
