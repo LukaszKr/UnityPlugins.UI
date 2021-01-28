@@ -4,7 +4,7 @@ using UnityEngine;
 namespace ProceduralLevel.UnityPlugins.CustomUI
 {
 	[CreateAssetMenu(fileName = nameof(BasicPanelRegistry), menuName = UIConsts.MENU_ROOT+nameof(BasicPanelRegistry))]
-	public class BasicPanelRegistry: ScriptableObject, IPanelRegistry
+	public class BasicPanelRegistry: ScriptableObject
 	{
 		[SerializeField]
 		private AUIPanel[] m_Panels = null;
@@ -14,7 +14,7 @@ namespace ProceduralLevel.UnityPlugins.CustomUI
 			m_Panels = panels.ToArray();
 		}
 
-		public TPanel GetPanel<TPanel>()
+		public TPanel GetPanelPrefab<TPanel>()
 			where TPanel : AUIPanel
 		{
 			int length = m_Panels.Length;

@@ -24,8 +24,7 @@ namespace ProceduralLevel.UnityPlugins.CustomUI
 				}
 			}
 
-			IPanelRegistry registry = GetPanelRegistry();
-			TPanel panelPrefab = registry.GetPanel<TPanel>();
+			TPanel panelPrefab = GetPanelPrefab<TPanel>();
 			if(panelPrefab != null)
 			{
 				UICanvas canvas = Instantiate(GetCanvasPrefab(), Transform, false);
@@ -38,6 +37,6 @@ namespace ProceduralLevel.UnityPlugins.CustomUI
 		}
 
 		protected abstract UICanvas GetCanvasPrefab();
-		protected abstract IPanelRegistry GetPanelRegistry();
+		protected abstract TPanel GetPanelPrefab<TPanel>() where TPanel : AUIPanel;
 	}
 }
