@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace ProceduralLevel.UnityPlugins.CustomUI
+﻿namespace ProceduralLevel.UnityPlugins.CustomUI
 {
 	public abstract class AUIPanel: AUIElement
 	{

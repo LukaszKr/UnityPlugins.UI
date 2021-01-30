@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 
 namespace ProceduralLevel.UnityPlugins.CustomUI
 {
-	public abstract class APanelElement: AUIElement, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
+	public class PanelElement: AUIElement, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
 	{
 		private EInteractionState m_State = EInteractionState.Idle;
 

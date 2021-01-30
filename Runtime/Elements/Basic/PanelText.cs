@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace ProceduralLevel.UnityPlugins.CustomUI
 {
-	public class PanelText: APanelElement
+	public class PanelText: PanelElement
 	{
 		[SerializeField]
 		private Text m_Text = null;

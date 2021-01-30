@@ -10,7 +10,7 @@ namespace ProceduralLevel.UnityPlugins.CustomUI
 
 		private readonly SortedList<int, PanelManagerEntry> m_Entries = new SortedList<int, PanelManagerEntry>();
 
-		private readonly APanelElement[] m_ElementBuffer = new APanelElement[BUFFER_SIZE];
+		private readonly PanelElement[] m_ElementBuffer = new PanelElement[BUFFER_SIZE];
 
 		internal void Add(AUIPanel panel, UICanvas canvas)
 		{
