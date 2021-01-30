@@ -7,7 +7,7 @@ namespace ProceduralLevel.UnityPlugins.CustomUI
 	public abstract class AUIManager: ExtendedMonoBehaviour
 	{
 		[SerializeField]
-		private APanelManager m_PanelManager = null;
+		private PanelManager m_PanelManager = null;
 
 		private readonly List<AUIPanel> m_SpawnedPanels = new List<AUIPanel>();
 

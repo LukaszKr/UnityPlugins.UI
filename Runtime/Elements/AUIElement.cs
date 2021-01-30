@@ -17,6 +17,7 @@ namespace ProceduralLevel.UnityPlugins.CustomUI
 		protected virtual void Awake()
 		{
 			m_RectTransform = GetComponent<RectTransform>();
+			TryPrepare();
 		}
 
 		private void OnDestroy()
@@ -40,7 +41,7 @@ namespace ProceduralLevel.UnityPlugins.CustomUI
 		}
 		#endregion
 
-		internal void TryPrepare()
+		private void TryPrepare()
 		{
 			if(!m_IsPrepared)
 			{
