@@ -3,17 +3,19 @@
 	public abstract class AUIPanel: AUIElement
 	{
 		private UICanvas m_Canvas;
-		private PanelManager m_PanelManager;
+		private PanelManager m_Manager;
 
 		private bool m_IsShown = false;
 
 		public UICanvas Canvas { get { return m_Canvas; } }
-		public PanelManager PanelManager { get { return m_PanelManager; } }
+		public PanelManager Manager { get { return m_Manager; } }
 
-		internal void Setup(UICanvas canvas, PanelManager panelManager)
+		internal void Setup(UICanvas canvas, PanelManager manager)
 		{
 			m_Canvas = canvas;
-			m_PanelManager = panelManager;
+			m_Manager = manager;
+
+			TryPrepare();
 		}
 
 		protected override void OnCleanup()
@@ -26,7 +28,7 @@
 			{
 				m_IsShown = true;
 				m_Canvas.GameObject.SetActive(true);
-				m_PanelManager.Add(this, m_Canvas);
+				m_Manager.Add(this, m_Canvas);
 				OnShow();
 			}
 		}
@@ -38,7 +40,7 @@
 				m_IsShown = false;
 				OnHide();
 				m_Canvas.GameObject.SetActive(false);
-				m_PanelManager.Remove(this);
+				m_Manager.Remove(this);
 			}
 		}
 

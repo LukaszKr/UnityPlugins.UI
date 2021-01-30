@@ -6,11 +6,7 @@ namespace ProceduralLevel.UnityPlugins.CustomUI
 {
 	public class PanelManager: ExtendedMonoBehaviour
 	{
-		private const int BUFFER_SIZE = 32;
-
 		private readonly SortedList<int, PanelManagerEntry> m_Entries = new SortedList<int, PanelManagerEntry>();
-
-		private readonly PanelElement[] m_ElementBuffer = new PanelElement[BUFFER_SIZE];
 
 		internal void Add(AUIPanel panel, UICanvas canvas)
 		{
