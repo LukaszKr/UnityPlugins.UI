@@ -11,8 +11,13 @@ namespace ProceduralLevel.UnityPlugins.CustomUI
 		public readonly PointerHandler Pointer = new PointerHandler();
 
 		public EInteractableState State { get { return m_State; } }
-		
-		public readonly CustomEvent<EInteractableState> OnStateChanged = new CustomEvent<EInteractableState>();
+
+		public readonly CustomEvent<APanelElement,EInteractableState> OnStateChanged = new CustomEvent<APanelElement, EInteractableState>();
+
+		public readonly CustomEvent<APanelElement, bool> OnHovered = new CustomEvent<APanelElement, bool>();
+		public readonly CustomEvent<APanelElement, bool> OnFocused = new CustomEvent<APanelElement, bool>();
+		public readonly CustomEvent<APanelElement, bool> OnActive = new CustomEvent<APanelElement, bool>();
+		public readonly CustomEvent<APanelElement, bool> OnSelected = new CustomEvent<APanelElement, bool>();
 
 		protected override void OnPrepare(EventBinder binder)
 		{
@@ -38,33 +43,50 @@ namespace ProceduralLevel.UnityPlugins.CustomUI
 		#region State
 		public bool SetHovered(bool hovered)
 		{
-			return SetState(m_State.SetFlag(EInteractableState.Hovered, hovered));
+			if(SetState(m_State.SetFlag(EInteractableState.Hovered, hovered)))
+			{
+				OnHovered.Invoke(this, hovered);
+				return true;
+			}
+			return false;
 		}
 
 		public bool SetFocused(bool focused)
 		{
-			return SetState(m_State.SetFlag(EInteractableState.Focused, focused));
+			if(SetState(m_State.SetFlag(EInteractableState.Focused, focused)))
+			{
+				OnFocused.Invoke(this, focused);
+				return true;
+			}
+			return false;
 		}
 
 		public bool SetActive(bool active)
 		{
-			return SetState(m_State.SetFlag(EInteractableState.Active, active));
+			if(SetState(m_State.SetFlag(EInteractableState.Active, active)))
+			{
+				OnActive.Invoke(this, active);
+				return true;
+			}
+			return false;
 		}
 
 		public bool SetSelected(bool selected)
 		{
-			return SetState(m_State.SetFlag(EInteractableState.Selected, selected));
+			if(SetState(m_State.SetFlag(EInteractableState.Selected, selected)))
+			{
+				OnSelected.Invoke(this, selected);
+				return true;
+			}
+			return false;
 		}
 
 		private bool SetState(EInteractableState newState)
 		{
 			if(m_State != newState)
 			{
-				name = newState.ToString();
 				m_State = newState;
-				OnStateChanged.Invoke(m_State);
-
-
+				OnStateChanged.Invoke(this, m_State);
 				return true;
 			}
 			return false;

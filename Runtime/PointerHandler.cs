@@ -4,7 +4,7 @@ namespace ProceduralLevel.UnityPlugins.CustomUI
 {
 	public class PointerHandler
 	{
-		private readonly EPointerStatus[] m_PointerStatus = new EPointerStatus[EPointerTypeExt.MAX_VALUE];
+		private readonly EPointerStatus[] m_PointerStatus = new EPointerStatus[EPointerTypeExt.Meta.MaxValue];
 
 		public readonly CustomEvent<EPointerType, bool> OnChanged = new CustomEvent<EPointerType, bool>();
 

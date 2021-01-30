@@ -1,34 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using ProceduralLevel.UnityPlugins.Common.Extended;
-using ProceduralLevel.UnityPlugins.Input;
 using UnityEngine;
 
 namespace ProceduralLevel.UnityPlugins.CustomUI
 {
-	public class CanvasManager: ExtendedMonoBehaviour
+	public abstract class APanelManager: ExtendedMonoBehaviour
 	{
 		private const int BUFFER_SIZE = 32;
 
-		private readonly SortedList<int, CanvasManagerEntry> m_Entries = new SortedList<int, CanvasManagerEntry>();
+		private readonly SortedList<int, PanelManagerEntry> m_Entries = new SortedList<int, PanelManagerEntry>();
 
 		private readonly APanelElement[] m_ElementBuffer = new APanelElement[BUFFER_SIZE];
 
 		private APanelElement m_Hovered = null;
+		private APanelElement m_Focused = null;
 		private APanelElement m_Active = null;
 
-		[SerializeField]
-		private InputManager m_InputManager = null;
+		public APanelElement Hovered { get { return m_Hovered; } }
+		public APanelElement Focused { get { return m_Focused; } }
+		public APanelElement Active { get { return m_Active; } }
 
-		public void Update()
+		private void Update()
 		{
-			Vector2 vector = m_InputManager.Mouse.Position;
-			SetPointerPosition(vector);
-
-			if(m_InputManager.Mouse.Get(EMouseInputID.Left).IsActive)
-			{
-				UsePointer(EPointerType.Primary);
-			}
+			UpdatePointer();
 			if(m_Active)
 			{
 				if(!m_Active.Pointer.IsActive())
@@ -39,8 +34,23 @@ namespace ProceduralLevel.UnityPlugins.CustomUI
 		}
 
 		#region Pointer
+		protected abstract void UpdatePointer();
+
 		public void UsePointer(EPointerType pointerType)
 		{
+			if(m_Focused != m_Hovered)
+			{
+				if(m_Focused != null)
+				{
+					m_Focused.SetFocused(false);
+				}
+				m_Focused = m_Hovered;
+				if(m_Focused != null)
+				{
+					m_Focused.SetFocused(true);
+				}
+			}
+
 			if(m_Hovered != null)
 			{
 				m_Active = m_Hovered;
@@ -54,11 +64,11 @@ namespace ProceduralLevel.UnityPlugins.CustomUI
 
 		public void SetPointerPosition(Vector2 vector)
 		{
-			IList<CanvasManagerEntry> entries = m_Entries.Values;
+			IList<PanelManagerEntry> entries = m_Entries.Values;
 			int count = entries.Count;
 			for(int x = count-1; x >= 0; --x)
 			{
-				CanvasManagerEntry entry = entries[x];
+				PanelManagerEntry entry = entries[x];
 				int offset = entry.Panel.GetElementsAt(vector, m_ElementBuffer);
 				if(offset > 0)
 				{
@@ -91,29 +101,23 @@ namespace ProceduralLevel.UnityPlugins.CustomUI
 		}
 		#endregion
 
-		public void Add(AUIPanel panel, UICanvas canvas)
+		internal void Add(AUIPanel panel, UICanvas canvas)
 		{
 			int index = IndexOf(panel);
 			if(index >= 0)
 			{
 				throw new Exception();
 			}
-			CanvasManagerEntry entry = new CanvasManagerEntry(panel, canvas);
+			PanelManagerEntry entry = new PanelManagerEntry(panel, canvas);
 			int sortingOrder = GetNextSortOrder();
 			canvas.SortingOrder = sortingOrder;
 			m_Entries.Add(sortingOrder, entry);
 		}
 
-		public void Remove(AUIPanel panel)
+		internal void Remove(AUIPanel panel)
 		{
 			int index = IndexOf(panel);
 			m_Entries.RemoveAt(index);
-		}
-
-		private CanvasManagerEntry GetEntry(AUIPanel panel)
-		{
-			int index = IndexOf(panel);
-			return m_Entries[index];
 		}
 
 		private int IndexOf(AUIPanel panel)
@@ -121,7 +125,7 @@ namespace ProceduralLevel.UnityPlugins.CustomUI
 			int count = m_Entries.Count;
 			for(int x = 0; x < count; ++x)
 			{
-				CanvasManagerEntry entry = m_Entries[x];
+				PanelManagerEntry entry = m_Entries[x];
 				if(entry.Panel == panel)
 				{
 					return x;
@@ -136,7 +140,7 @@ namespace ProceduralLevel.UnityPlugins.CustomUI
 			int maxOrder = 0;
 			for(int x = 0; x < count; ++x)
 			{
-				CanvasManagerEntry entry = m_Entries[x];
+				PanelManagerEntry entry = m_Entries[x];
 				maxOrder = Math.Max(entry.Canvas.SortingOrder, maxOrder);
 			}
 			return maxOrder+1;

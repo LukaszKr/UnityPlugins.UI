@@ -6,16 +6,18 @@ namespace ProceduralLevel.UnityPlugins.CustomUI
 	public abstract class AUIPanel: AUIElement
 	{
 		private UICanvas m_Canvas;
-		private CanvasManager m_CanvasManager;
+		private APanelManager m_PanelManager;
 
 		private readonly List<APanelElement> m_Elements = new List<APanelElement>();
 
 		private bool m_IsShown = false;
 
-		public void Setup(UICanvas canvas, CanvasManager canvasManager)
+		public IReadOnlyList<APanelElement> Elements { get { return m_Elements; } }
+
+		internal void Setup(UICanvas canvas, APanelManager panelManager)
 		{
 			m_Canvas = canvas;
-			m_CanvasManager = canvasManager;
+			m_PanelManager = panelManager;
 		}
 
 		protected override void OnCleanup()
@@ -35,7 +37,7 @@ namespace ProceduralLevel.UnityPlugins.CustomUI
 			{
 				m_IsShown = true;
 				m_Canvas.GameObject.SetActive(true);
-				m_CanvasManager.Add(this, m_Canvas);
+				m_PanelManager.Add(this, m_Canvas);
 				OnShow();
 			}
 		}
@@ -47,7 +49,7 @@ namespace ProceduralLevel.UnityPlugins.CustomUI
 				m_IsShown = false;
 				OnHide();
 				m_Canvas.GameObject.SetActive(false);
-				m_CanvasManager.Remove(this);
+				m_PanelManager.Remove(this);
 			}
 		}
 

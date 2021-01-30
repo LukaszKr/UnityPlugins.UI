@@ -1,4 +1,6 @@
-﻿namespace ProceduralLevel.UnityPlugins.CustomUI
+﻿using ProceduralLevel.Common.Ext;
+
+namespace ProceduralLevel.UnityPlugins.CustomUI
 {
 	public enum EPointerType
 	{
@@ -10,6 +12,6 @@
 
 	public static class EPointerTypeExt
 	{
-		public const int MAX_VALUE = 4;
+		public static readonly EnumExt<EPointerType> Meta = new EnumExt<EPointerType>();
 	}
 }

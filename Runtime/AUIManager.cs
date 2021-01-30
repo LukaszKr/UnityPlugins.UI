@@ -7,7 +7,7 @@ namespace ProceduralLevel.UnityPlugins.CustomUI
 	public abstract class AUIManager: ExtendedMonoBehaviour
 	{
 		[SerializeField]
-		private CanvasManager m_PanelOrderManager = null;
+		private APanelManager m_PanelManager = null;
 
 		private readonly List<AUIPanel> m_SpawnedPanels = new List<AUIPanel>();
 
@@ -29,7 +29,7 @@ namespace ProceduralLevel.UnityPlugins.CustomUI
 			{
 				UICanvas canvas = Instantiate(GetCanvasPrefab(), Transform, false);
 				TPanel spawnedPanel = Instantiate(panelPrefab, canvas.Transform);
-				spawnedPanel.Setup(canvas, m_PanelOrderManager);
+				spawnedPanel.Setup(canvas, m_PanelManager);
 				m_SpawnedPanels.Add(spawnedPanel);
 				return spawnedPanel;
 			}

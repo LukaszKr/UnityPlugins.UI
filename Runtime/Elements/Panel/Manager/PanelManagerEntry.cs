@@ -1,11 +1,11 @@
 ﻿namespace ProceduralLevel.UnityPlugins.CustomUI
 {
-	public class CanvasManagerEntry
+	internal class PanelManagerEntry
 	{
 		public readonly AUIPanel Panel;
 		public readonly UICanvas Canvas;
 
-		public CanvasManagerEntry(AUIPanel panel, UICanvas canvas)
+		public PanelManagerEntry(AUIPanel panel, UICanvas canvas)
 		{
 			Panel = panel;
 			Canvas = canvas;
