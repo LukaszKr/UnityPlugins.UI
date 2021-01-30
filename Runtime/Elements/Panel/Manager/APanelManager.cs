@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using ProceduralLevel.Common.Event;
 using ProceduralLevel.UnityPlugins.Common.Extended;
 using UnityEngine;
 
@@ -21,15 +22,16 @@ namespace ProceduralLevel.UnityPlugins.CustomUI
 		public APanelElement Focused { get { return m_Focused; } }
 		public APanelElement Active { get { return m_Active; } }
 
+		public readonly CustomEvent<APanelElement> OnHoveredChanged = new CustomEvent<APanelElement>();
+		public readonly CustomEvent<APanelElement> OnFocusedChanged = new CustomEvent<APanelElement>();
+		public readonly CustomEvent<APanelElement> OnActiveChanged = new CustomEvent<APanelElement>();
+
 		private void Update()
 		{
 			UpdatePointer();
-			if(m_Active)
+			if(m_Active && !m_Active.Pointer.IsActive())
 			{
-				if(!m_Active.Pointer.IsActive())
-				{
-					m_Active = null;
-				}
+				TrySetActive(null);
 			}
 		}
 
@@ -38,28 +40,13 @@ namespace ProceduralLevel.UnityPlugins.CustomUI
 
 		public void UsePointer(EPointerType pointerType)
 		{
-			if(m_Focused != m_Hovered)
-			{
-				if(m_Focused != null)
-				{
-					m_Focused.SetFocused(false);
-				}
-				m_Focused = m_Hovered;
-				if(m_Focused != null)
-				{
-					m_Focused.SetFocused(true);
-				}
-			}
-
-			if(m_Hovered != null)
-			{
-				m_Active = m_Hovered;
-			}
+			TrySetFocused(m_Hovered);
+			TrySetActive(m_Hovered);
 			if(m_Active)
 			{
-				m_Active.SetActive(true);
 				m_Active.Pointer.Use(pointerType);
 			}
+
 		}
 
 		public void SetPointerPosition(Vector2 vector)
@@ -72,7 +59,7 @@ namespace ProceduralLevel.UnityPlugins.CustomUI
 				int offset = entry.Panel.GetElementsAt(vector, m_ElementBuffer);
 				if(offset > 0)
 				{
-					UpdateHovered(m_ElementBuffer[0]);
+					TrySetHovered(m_ElementBuffer[0]);
 
 					for(int y = 0; y < offset; ++y)
 					{
@@ -81,24 +68,9 @@ namespace ProceduralLevel.UnityPlugins.CustomUI
 					return;
 				}
 			}
-			UpdateHovered(null);
+			TrySetHovered(null);
 		}
 
-		private void UpdateHovered(APanelElement element)
-		{
-			if(m_Hovered != element)
-			{
-				if(m_Hovered)
-				{
-					m_Hovered.SetHovered(false);
-				}
-				if(element)
-				{
-					element.SetHovered(true);
-				}
-				m_Hovered = element;
-			}
-		}
 		#endregion
 
 		internal void Add(AUIPanel panel, UICanvas canvas)
@@ -145,5 +117,58 @@ namespace ProceduralLevel.UnityPlugins.CustomUI
 			}
 			return maxOrder+1;
 		}
+
+		#region Elements
+		private void TrySetHovered(APanelElement element)
+		{
+			if(m_Hovered != element)
+			{
+				if(m_Hovered)
+				{
+					m_Hovered.SetHovered(false);
+				}
+				if(element)
+				{
+					element.SetHovered(true);
+				}
+				m_Hovered = element;
+				OnHoveredChanged.Invoke(element);
+			}
+		}
+
+		private void TrySetFocused(APanelElement element)
+		{
+			if(m_Focused != element)
+			{
+				if(m_Focused != null)
+				{
+					m_Focused.SetFocused(false);
+				}
+				m_Focused = element;
+				if(m_Focused != null)
+				{
+					m_Focused.SetFocused(true);
+				}
+				OnFocusedChanged.Invoke(m_Focused);
+			}
+		}
+
+		private void TrySetActive(APanelElement element)
+		{
+			if(m_Active != element)
+			{
+				if(m_Active != null)
+				{
+					m_Active.SetActive(false);
+				}
+				m_Active = element;
+				if(m_Active)
+				{
+					m_Active.SetActive(true);
+				}
+				OnActiveChanged.Invoke(element);
+			}
+		}
+		#endregion
 	}
 }

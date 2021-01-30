@@ -14,7 +14,7 @@ namespace ProceduralLevel.UnityPlugins.CustomUI
 		public RectTransform RectTransform { get { return m_RectTransform; } }
 
 		#region Unity
-		private void Awake()
+		protected virtual void Awake()
 		{
 			m_RectTransform = GetComponent<RectTransform>();
 		}
@@ -31,7 +31,6 @@ namespace ProceduralLevel.UnityPlugins.CustomUI
 
 		private void OnEnable()
 		{
-			TryPrepare();
 			m_Binder.Enable();
 		}
 
@@ -41,7 +40,7 @@ namespace ProceduralLevel.UnityPlugins.CustomUI
 		}
 		#endregion
 
-		private void TryPrepare()
+		internal void TryPrepare()
 		{
 			if(!m_IsPrepared)
 			{

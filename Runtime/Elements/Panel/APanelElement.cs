@@ -12,12 +12,18 @@ namespace ProceduralLevel.UnityPlugins.CustomUI
 
 		public EInteractableState State { get { return m_State; } }
 
-		public readonly CustomEvent<APanelElement,EInteractableState> OnStateChanged = new CustomEvent<APanelElement, EInteractableState>();
+		public readonly CustomEvent<EInteractableState> OnStateChanged = new CustomEvent<EInteractableState>();
 
-		public readonly CustomEvent<APanelElement, bool> OnHovered = new CustomEvent<APanelElement, bool>();
-		public readonly CustomEvent<APanelElement, bool> OnFocused = new CustomEvent<APanelElement, bool>();
-		public readonly CustomEvent<APanelElement, bool> OnActive = new CustomEvent<APanelElement, bool>();
-		public readonly CustomEvent<APanelElement, bool> OnSelected = new CustomEvent<APanelElement, bool>();
+		public readonly CustomEvent<bool> OnHovered = new CustomEvent<bool>();
+		public readonly CustomEvent<bool> OnFocused = new CustomEvent<bool>();
+		public readonly CustomEvent<bool> OnActive = new CustomEvent<bool>();
+		public readonly CustomEvent<bool> OnSelected = new CustomEvent<bool>();
+
+		protected override void Awake()
+		{
+			base.Awake();
+			TryPrepare();
+		}
 
 		protected override void OnPrepare(EventBinder binder)
 		{
@@ -34,10 +40,7 @@ namespace ProceduralLevel.UnityPlugins.CustomUI
 
 		public void Update()
 		{
-			if(Pointer.UpdateStatus() && !Pointer.IsActive())
-			{
-				SetActive(false);
-			}
+			Pointer.UpdateStatus();
 		}
 
 		#region State
@@ -45,7 +48,7 @@ namespace ProceduralLevel.UnityPlugins.CustomUI
 		{
 			if(SetState(m_State.SetFlag(EInteractableState.Hovered, hovered)))
 			{
-				OnHovered.Invoke(this, hovered);
+				OnHovered.Invoke( hovered);
 				return true;
 			}
 			return false;
@@ -55,7 +58,7 @@ namespace ProceduralLevel.UnityPlugins.CustomUI
 		{
 			if(SetState(m_State.SetFlag(EInteractableState.Focused, focused)))
 			{
-				OnFocused.Invoke(this, focused);
+				OnFocused.Invoke(focused);
 				return true;
 			}
 			return false;
@@ -65,7 +68,7 @@ namespace ProceduralLevel.UnityPlugins.CustomUI
 		{
 			if(SetState(m_State.SetFlag(EInteractableState.Active, active)))
 			{
-				OnActive.Invoke(this, active);
+				OnActive.Invoke(active);
 				return true;
 			}
 			return false;
@@ -75,7 +78,7 @@ namespace ProceduralLevel.UnityPlugins.CustomUI
 		{
 			if(SetState(m_State.SetFlag(EInteractableState.Selected, selected)))
 			{
-				OnSelected.Invoke(this, selected);
+				OnSelected.Invoke(selected);
 				return true;
 			}
 			return false;
@@ -86,7 +89,7 @@ namespace ProceduralLevel.UnityPlugins.CustomUI
 			if(m_State != newState)
 			{
 				m_State = newState;
-				OnStateChanged.Invoke(this, m_State);
+				OnStateChanged.Invoke(m_State);
 				return true;
 			}
 			return false;

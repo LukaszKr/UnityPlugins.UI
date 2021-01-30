@@ -12,12 +12,15 @@ namespace ProceduralLevel.UnityPlugins.CustomUI
 
 		private bool m_IsShown = false;
 
+		public UICanvas Canvas { get { return m_Canvas; } }
+		public APanelManager PanelManager { get { return m_PanelManager; } }
 		public IReadOnlyList<APanelElement> Elements { get { return m_Elements; } }
 
 		internal void Setup(UICanvas canvas, APanelManager panelManager)
 		{
 			m_Canvas = canvas;
 			m_PanelManager = panelManager;
+			TryPrepare();
 		}
 
 		protected override void OnCleanup()
