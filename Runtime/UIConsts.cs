@@ -2,8 +2,8 @@
 
 namespace ProceduralLevel.UnityPlugins.CustomUI
 {
-	public static class UIConsts
+	internal static class UIConsts
 	{
-		public const string MENU_ROOT = CommonConsts.MENU_ROOT+"CustomUI/";
+		public const string MENU_ROOT = "Procedural Level/CustomUI/";
 	}
 }
