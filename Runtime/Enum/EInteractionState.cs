@@ -10,6 +10,7 @@ namespace ProceduralLevel.UnityPlugins.CustomUI
 		Hovered = 1 << 1, //pointer is over
 		Active = 1 << 2,
 		Selected = 1 << 3,
+		Enabled = 1 << 4
 	}
 
 	public static class EInteractionStateExt
@@ -44,6 +45,11 @@ namespace ProceduralLevel.UnityPlugins.CustomUI
 		public static bool IsSelected(this EInteractionState state)
 		{
 			return state.Contains(EInteractionState.Selected);
+		}
+
+		public static bool IsEnabled(this EInteractionState state)
+		{
+			return state.Contains(EInteractionState.Enabled);
 		}
 	}
 }

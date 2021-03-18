@@ -1,4 +1,7 @@
-﻿namespace ProceduralLevel.UnityPlugins.CustomUI
+﻿using System;
+using ProceduralLevel.Common.Event;
+
+namespace ProceduralLevel.UnityPlugins.CustomUI
 {
 	public abstract class AUIPanel: AUIElement
 	{
@@ -24,12 +27,16 @@
 
 		public void Show()
 		{
-			if(!m_IsShown && CanShow())
+			if(!m_IsShown)
 			{
 				m_IsShown = true;
-				m_Canvas.GameObject.SetActive(true);
+				ShowAnimation();
 				m_Manager.Add(this, m_Canvas);
 				OnShow();
+			}
+			else
+			{
+				throw new InvalidOperationException();
 			}
 		}
 
@@ -39,14 +46,23 @@
 			{
 				m_IsShown = false;
 				OnHide();
-				m_Canvas.GameObject.SetActive(false);
+				HideAnimation();
 				m_Manager.Remove(this);
+			}
+			else
+			{
+				throw new InvalidOperationException();
 			}
 		}
 
-		protected virtual bool CanShow()
+		protected virtual void ShowAnimation()
 		{
-			return true;
+			m_Canvas.GameObject.SetActive(true);
+		}
+
+		protected virtual void HideAnimation()
+		{
+			m_Canvas.GameObject.SetActive(false);
 		}
 
 		protected virtual void OnShow()

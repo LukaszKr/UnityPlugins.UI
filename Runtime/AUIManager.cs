@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using ProceduralLevel.UnityPlugins.Common.Extended;
+using ProceduralLevel.UnityPlugins.Input;
 using UnityEngine;
 
 namespace ProceduralLevel.UnityPlugins.CustomUI
@@ -10,6 +12,11 @@ namespace ProceduralLevel.UnityPlugins.CustomUI
 		private PanelManager m_PanelManager = null;
 
 		private readonly List<AUIPanel> m_SpawnedPanels = new List<AUIPanel>();
+
+		public void Initialize(AInputManager inputManager)
+		{
+			m_PanelManager.Initialize(inputManager);
+		}
 
 		public TPanel GetPanel<TPanel>()
 			where TPanel : AUIPanel
@@ -33,7 +40,7 @@ namespace ProceduralLevel.UnityPlugins.CustomUI
 				m_SpawnedPanels.Add(spawnedPanel);
 				return spawnedPanel;
 			}
-			return null;
+			throw new NullReferenceException();
 		}
 
 		protected abstract UICanvas GetCanvasPrefab();

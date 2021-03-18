@@ -1,11 +1,10 @@
 ﻿using ProceduralLevel.Common.Event;
-using UnityEngine.EventSystems;
 
 namespace ProceduralLevel.UnityPlugins.CustomUI
 {
-	public class PanelElement: AUIElement, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
+	public class PanelElement: APanelElement
 	{
-		private EInteractionState m_State = EInteractionState.Idle;
+		private EInteractionState m_State = EInteractionState.Enabled;
 
 		public EInteractionState State { get { return m_State; } }
 
@@ -14,9 +13,16 @@ namespace ProceduralLevel.UnityPlugins.CustomUI
 		public readonly CustomEvent<bool> OnHovered = new CustomEvent<bool>();
 		public readonly CustomEvent<bool> OnActive = new CustomEvent<bool>();
 		public readonly CustomEvent<bool> OnSelected = new CustomEvent<bool>();
+		public readonly CustomEvent<bool> OnEnabled = new CustomEvent<bool>();
 
 		public readonly CustomEvent OnClick = new CustomEvent();
 
+		public bool IsHovered { get { return m_State.Contains(EInteractionState.Hovered); } }
+		public bool IsActive { get { return m_State.Contains(EInteractionState.Active); } }
+		public bool IsSelected { get { return m_State.Contains(EInteractionState.Selected); } }
+		public bool IsEnabled { get { return m_State.Contains(EInteractionState.Enabled); } }
+
+		#region Element Flow
 		protected override void OnPrepare(EventBinder binder)
 		{
 		}
@@ -24,11 +30,12 @@ namespace ProceduralLevel.UnityPlugins.CustomUI
 		protected override void OnCleanup()
 		{
 		}
+		#endregion
 
 		#region State
-		public bool SetHovered(bool hovered)
+		public bool TrySetHovered(bool hovered)
 		{
-			if(SetState(m_State.SetFlag(EInteractionState.Hovered, hovered)))
+			if((IsEnabled || !hovered) && SetState(m_State.SetFlag(EInteractionState.Hovered, hovered)))
 			{
 				OnHovered.Invoke(hovered);
 				return true;
@@ -36,9 +43,9 @@ namespace ProceduralLevel.UnityPlugins.CustomUI
 			return false;
 		}
 
-		public bool SetActive(bool active)
+		public bool TrySetActive(bool active)
 		{
-			if(SetState(m_State.SetFlag(EInteractionState.Active, active)))
+			if((IsEnabled || !active) && SetState(m_State.SetFlag(EInteractionState.Active, active)))
 			{
 				OnActive.Invoke(active);
 				if(!active && m_State.IsHovered())
@@ -50,11 +57,21 @@ namespace ProceduralLevel.UnityPlugins.CustomUI
 			return false;
 		}
 
-		public bool SetSelected(bool selected)
+		public bool TrySetSelected(bool selected)
 		{
 			if(SetState(m_State.SetFlag(EInteractionState.Selected, selected)))
 			{
 				OnSelected.Invoke(selected);
+				return true;
+			}
+			return false;
+		}
+
+		public bool TrySetEnabled(bool enabled)
+		{
+			if(SetState(m_State.SetFlag(EInteractionState.Enabled, enabled)))
+			{
+				OnEnabled.Invoke(enabled);
 				return true;
 			}
 			return false;
@@ -69,28 +86,6 @@ namespace ProceduralLevel.UnityPlugins.CustomUI
 				return true;
 			}
 			return false;
-		}
-		#endregion
-
-		#region Pointer
-		public void OnPointerUp(PointerEventData eventData)
-		{
-			SetActive(false);
-		}
-
-		public void OnPointerDown(PointerEventData eventData)
-		{
-			SetActive(true);
-		}
-
-		public void OnPointerExit(PointerEventData eventData)
-		{
-			SetHovered(false);
-		}
-
-		public void OnPointerEnter(PointerEventData eventData)
-		{
-			SetHovered(true);
 		}
 		#endregion
 	}

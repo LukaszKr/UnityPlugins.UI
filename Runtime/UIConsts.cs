@@ -1,6 +1,4 @@
-﻿using ProceduralLevel.UnityPlugins.Common;
-
-namespace ProceduralLevel.UnityPlugins.CustomUI
+﻿namespace ProceduralLevel.UnityPlugins.CustomUI
 {
 	internal static class UIConsts
 	{

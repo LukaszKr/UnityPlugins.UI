@@ -1,12 +1,138 @@
 ﻿using System;
 using System.Collections.Generic;
 using ProceduralLevel.UnityPlugins.Common.Extended;
+using ProceduralLevel.UnityPlugins.Input;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace ProceduralLevel.UnityPlugins.CustomUI
 {
 	public class PanelManager: ExtendedMonoBehaviour
 	{
-		private readonly SortedList<int, PanelManagerEntry> m_Entries = new SortedList<int, PanelManagerEntry>();
+		private AInputManager m_InputManager = null;
+
+		private readonly List<PanelManagerEntry> m_Entries = new List<PanelManagerEntry>();
+		private readonly List<RaycastResult> m_RaycastResults = new List<RaycastResult>(64);
+
+		private PanelElement m_HoveredElement = null;
+		private PanelElement m_ActiveElement = null;
+
+		private AInputDetector m_Interaction;
+
+		public void Initialize(AInputManager inputManager)
+		{
+			m_InputManager = inputManager;
+			m_Interaction = new DurationDetector()
+				.Add(EMouseInputID.Left)
+				.Add(ETouchInputID.Touch01);
+		}
+
+		private void Update()
+		{
+			m_Interaction.Update(m_InputManager);
+
+			MouseDevice mouse = m_InputManager.Mouse;
+			if(mouse.IsActive)
+			{
+				UpdatePointer(mouse.Position);
+			}
+			else if(m_InputManager.Touch.IsActive)
+			{
+				TouchDevice touchDevice = m_InputManager.Touch;
+				TouchData touch = touchDevice.Touches[0];
+				UpdatePointer(touch.Position);
+			}
+			else
+			{
+				TryEndInput();
+			}
+		}
+
+		#region Input Detection
+		private void UpdatePointer(Vector2 position)
+		{
+			m_RaycastResults.Clear();
+			PointerEventData eventData = new PointerEventData(null);
+			eventData.position = position;
+			int lastIndex = m_Entries.Count-1;
+
+			for(int x = lastIndex; x >= 0; --x)
+			{
+				PanelManagerEntry entry = m_Entries[x];
+				UICanvas canvas = entry.Canvas;
+				GraphicRaycaster raycaster = canvas.Raycaster;
+				raycaster.Raycast(eventData, m_RaycastResults);
+				if(m_RaycastResults.Count > 0)
+				{
+					break;
+				}
+			}
+
+			int count = m_RaycastResults.Count;
+			for(int x = 0; x < count; ++x)
+			{
+				RaycastResult result = m_RaycastResults[x];
+				GameObject target = result.gameObject;
+				PanelElement element = target.GetComponent<PanelElement>();
+				if(element != null)
+				{
+					HandleElementInput(element);
+					return;
+				}
+				element = target.GetComponentInParent<PanelElement>();
+				if(element != null)
+				{
+					HandleElementInput(element);
+					return;
+				}
+			}
+
+			TryEndInput();
+		}
+
+		private void HandleElementInput(PanelElement element)
+		{
+			if(m_HoveredElement != element)
+			{
+				if(m_HoveredElement != null)
+				{
+					m_HoveredElement.TrySetHovered(false);
+				}
+				m_HoveredElement = element;
+				element.TrySetHovered(true);
+			}
+
+			if(m_Interaction.Triggered)
+			{
+				if(m_ActiveElement == null)
+				{
+					m_ActiveElement = element;
+					element.TrySetActive(true);
+				}
+			}
+			else if(m_ActiveElement != null)
+			{
+				m_ActiveElement.TrySetActive(false);
+				m_ActiveElement = null;
+			}
+		}
+
+		private void TryEndInput()
+		{
+			if(!m_Interaction.Triggered && m_ActiveElement != null)
+			{
+				m_ActiveElement.TrySetActive(false);
+				m_ActiveElement = null;
+			}
+
+			if(m_HoveredElement != null)
+			{
+				m_HoveredElement.TrySetHovered(false);
+				m_HoveredElement = null;
+			}
+		}
+		#endregion
 
 		internal void Add(AUIPanel panel, UICanvas canvas)
 		{
@@ -18,7 +144,7 @@ namespace ProceduralLevel.UnityPlugins.CustomUI
 			PanelManagerEntry entry = new PanelManagerEntry(panel, canvas);
 			int sortingOrder = GetNextSortOrder();
 			canvas.SortingOrder = sortingOrder;
-			m_Entries.Add(sortingOrder, entry);
+			m_Entries.Add(entry);
 		}
 
 		internal void Remove(AUIPanel panel)
