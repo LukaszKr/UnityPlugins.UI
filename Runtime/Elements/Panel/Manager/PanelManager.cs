@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace ProceduralLevel.UnityPlugins.CustomUI
+namespace ProceduralLevel.UnityPlugins.UI
 {
 	public class PanelManager: ExtendedMonoBehaviour
 	{

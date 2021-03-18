@@ -1,4 +1,4 @@
-﻿namespace ProceduralLevel.UnityPlugins.CustomUI
+﻿namespace ProceduralLevel.UnityPlugins.UI
 {
 	internal static class UIConsts
 	{

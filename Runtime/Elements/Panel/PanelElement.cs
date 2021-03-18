@@ -1,6 +1,6 @@
 ﻿using ProceduralLevel.Common.Event;
 
-namespace ProceduralLevel.UnityPlugins.CustomUI
+namespace ProceduralLevel.UnityPlugins.UI
 {
 	public class PanelElement: APanelElement
 	{

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace ProceduralLevel.UnityPlugins.CustomUI
+namespace ProceduralLevel.UnityPlugins.UI
 {
 	[CreateAssetMenu(fileName = nameof(BasicPanelRegistry), menuName = UIConsts.MENU_ROOT+nameof(BasicPanelRegistry))]
 	public class BasicPanelRegistry: ScriptableObject

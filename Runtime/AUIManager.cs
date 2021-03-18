@@ -4,7 +4,7 @@ using ProceduralLevel.UnityPlugins.Common.Extended;
 using ProceduralLevel.UnityPlugins.Input;
 using UnityEngine;
 
-namespace ProceduralLevel.UnityPlugins.CustomUI
+namespace ProceduralLevel.UnityPlugins.UI
 {
 	public abstract class AUIManager: ExtendedMonoBehaviour
 	{

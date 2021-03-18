@@ -1,5 +1,5 @@
 {
-    "name": "ProceduralLevel.UnityPlugins.CustomUI.Editor",
+    "name": "ProceduralLevel.UnityPlugins.UI.Editor",
     "references": [
         "GUID:210304052f12ca14a9ff88e9466ff4a5",
         "GUID:09255ba187395ca4f8dfdd7bb760b467",

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ProceduralLevel.UnityPlugins.CustomUI
+namespace ProceduralLevel.UnityPlugins.UI
 {
 	[Flags]
 	public enum EInteractionState: byte

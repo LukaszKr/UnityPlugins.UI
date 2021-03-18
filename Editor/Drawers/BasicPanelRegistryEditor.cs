@@ -4,7 +4,7 @@ using ProceduralLevel.UnityPlugins.ExtendedEditor.Editor;
 using UnityEditor;
 using UnityEngine;
 
-namespace ProceduralLevel.UnityPlugins.CustomUI.Editor
+namespace ProceduralLevel.UnityPlugins.UI.Editor
 {
 	[CustomEditor(typeof(BasicPanelRegistry))]
 	public class BasicPanelRegistryEditor: AExtendedEditor<BasicPanelRegistry>

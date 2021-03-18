@@ -1,7 +1,7 @@
 ﻿using ProceduralLevel.UnityPlugins.Common.Extended;
 using UnityEngine;
 
-namespace ProceduralLevel.UnityPlugins.CustomUI
+namespace ProceduralLevel.UnityPlugins.UI
 {
 	public class AspectRatioConstraint: ExtendedMonoBehaviour
 	{
