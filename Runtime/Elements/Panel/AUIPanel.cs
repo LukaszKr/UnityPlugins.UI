@@ -1,5 +1,4 @@
 ﻿using System;
-using ProceduralLevel.Common.Event;
 
 namespace ProceduralLevel.UnityPlugins.UI
 {
@@ -25,9 +24,9 @@ namespace ProceduralLevel.UnityPlugins.UI
 		{
 		}
 
-		public void Show()
+		protected virtual void Show()
 		{
-			if(!m_IsShown)
+			if(CanShow())
 			{
 				m_IsShown = true;
 				ShowAnimation();
@@ -40,9 +39,9 @@ namespace ProceduralLevel.UnityPlugins.UI
 			}
 		}
 
-		public void Hide()
+		protected virtual void Hide()
 		{
-			if(m_IsShown)
+			if(CanHide())
 			{
 				m_IsShown = false;
 				OnHide();
@@ -71,6 +70,16 @@ namespace ProceduralLevel.UnityPlugins.UI
 
 		protected virtual void OnHide()
 		{
+		}
+
+		protected virtual bool CanShow()
+		{
+			return !m_IsShown;
+		}
+
+		protected virtual bool CanHide()
+		{
+			return m_IsShown;
 		}
 	}
 }
