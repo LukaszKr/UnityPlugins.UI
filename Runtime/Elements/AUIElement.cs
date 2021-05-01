@@ -9,7 +9,7 @@ namespace ProceduralLevel.UnityPlugins.UI
 		private RectTransform m_RectTransform;
 
 		private bool m_IsPrepared;
-		protected readonly EventBinder m_Binder = new EventBinder();
+		private readonly EventBinder m_ElementBinder = new EventBinder();
 
 		public RectTransform RectTransform { get { return m_RectTransform; } }
 
@@ -24,19 +24,19 @@ namespace ProceduralLevel.UnityPlugins.UI
 			if(m_IsPrepared)
 			{
 				m_IsPrepared = false;
-				m_Binder.UnbindAll();
+				m_ElementBinder.UnbindAll();
 				OnCleanup();
 			}
 		}
 
 		private void OnEnable()
 		{
-			m_Binder.Enable();
+			m_ElementBinder.Enable();
 		}
 
 		private void OnDisable()
 		{
-			m_Binder.Disable();
+			m_ElementBinder.Disable();
 		}
 		#endregion
 
@@ -45,7 +45,7 @@ namespace ProceduralLevel.UnityPlugins.UI
 			if(!m_IsPrepared)
 			{
 				m_IsPrepared = true;
-				OnPrepare(m_Binder);
+				OnPrepare(m_ElementBinder);
 			}
 		}
 

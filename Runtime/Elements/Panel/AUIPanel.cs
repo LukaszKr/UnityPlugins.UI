@@ -24,7 +24,7 @@ namespace ProceduralLevel.UnityPlugins.UI
 		{
 		}
 
-		protected virtual void Show()
+		protected void Show()
 		{
 			if(CanShow())
 			{
@@ -39,7 +39,7 @@ namespace ProceduralLevel.UnityPlugins.UI
 			}
 		}
 
-		protected virtual void Hide()
+		public void Hide()
 		{
 			if(CanHide())
 			{
