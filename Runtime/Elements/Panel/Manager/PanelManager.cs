@@ -10,7 +10,7 @@ namespace ProceduralLevel.UnityPlugins.UI
 {
 	public class PanelManager: ExtendedMonoBehaviour
 	{
-		private AInputManager m_InputManager = null;
+		private int m_UpdateTick;
 
 		private readonly List<PanelManagerEntry> m_Entries = new List<PanelManagerEntry>();
 		private readonly List<RaycastResult> m_RaycastResults = new List<RaycastResult>(64);
@@ -20,9 +20,8 @@ namespace ProceduralLevel.UnityPlugins.UI
 
 		private AInputDetector m_Interaction;
 
-		public void Initialize(AInputManager inputManager)
+		public void Initialize()
 		{
-			m_InputManager = inputManager;
 			m_Interaction = new DurationDetector()
 				.Add(EMouseInputID.Left)
 				.Add(ETouchInputID.Touch01);
@@ -30,16 +29,16 @@ namespace ProceduralLevel.UnityPlugins.UI
 
 		private void Update()
 		{
-			m_Interaction.Update(m_InputManager);
+			m_Interaction.Update(m_UpdateTick++);
 
-			MouseDevice mouse = m_InputManager.Mouse;
+			MouseDevice mouse = MouseDevice.Instance;
 			if(mouse.IsActive)
 			{
 				UpdatePointer(mouse.Position);
 			}
-			else if(m_InputManager.Touch.IsActive)
+			else if(TouchDevice.Instance.IsActive)
 			{
-				TouchDevice touchDevice = m_InputManager.Touch;
+				TouchDevice touchDevice = TouchDevice.Instance;
 				TouchData touch = touchDevice.Touches[0];
 				UpdatePointer(touch.Position);
 			}

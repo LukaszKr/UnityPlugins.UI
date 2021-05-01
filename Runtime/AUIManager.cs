@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using ProceduralLevel.UnityPlugins.Common.Extended;
-using ProceduralLevel.UnityPlugins.Input;
 using UnityEngine;
 
 namespace ProceduralLevel.UnityPlugins.UI
@@ -13,9 +12,9 @@ namespace ProceduralLevel.UnityPlugins.UI
 
 		private readonly List<AUIPanel> m_SpawnedPanels = new List<AUIPanel>();
 
-		public void Initialize(AInputManager inputManager)
+		public void Initialize()
 		{
-			m_PanelManager.Initialize(inputManager);
+			m_PanelManager.Initialize();
 		}
 
 		public TPanel GetPanel<TPanel>()
