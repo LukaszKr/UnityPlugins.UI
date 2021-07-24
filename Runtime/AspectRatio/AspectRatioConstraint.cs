@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace ProceduralLevel.UnityPlugins.UI
 {
-	public class AspectRatioConstraint: ExtendedMonoBehaviour
+	public class AspectRatioConstraint : ExtendedMonoBehaviour
 	{
 		private int m_KnownWidth;
 		private int m_KnownHeight;

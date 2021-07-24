@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace ProceduralLevel.UnityPlugins.UI
 {
-	public sealed class UICanvas: ExtendedMonoBehaviour
+	public sealed class UICanvas : ExtendedMonoBehaviour
 	{
 		[SerializeField]
 		private Canvas m_Canvas = null;

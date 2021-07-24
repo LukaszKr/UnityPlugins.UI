@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace ProceduralLevel.UnityPlugins.UI
 {
-	public class PanelManager: ExtendedMonoBehaviour
+	public class PanelManager : ExtendedMonoBehaviour
 	{
 		private int m_UpdateTick;
 

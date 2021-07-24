@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace ProceduralLevel.UnityPlugins.UI
 {
-	public abstract class AUIManager: ExtendedMonoBehaviour
+	public abstract class AUIManager : ExtendedMonoBehaviour
 	{
 		[SerializeField]
 		private PanelManager m_PanelManager = null;

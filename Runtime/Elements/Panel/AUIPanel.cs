@@ -2,7 +2,7 @@
 
 namespace ProceduralLevel.UnityPlugins.UI
 {
-	public abstract class AUIPanel: AUIElement
+	public abstract class AUIPanel : AUIElement
 	{
 		private UICanvas m_Canvas;
 		private PanelManager m_Manager;

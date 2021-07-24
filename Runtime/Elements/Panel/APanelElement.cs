@@ -1,6 +1,6 @@
 ﻿namespace ProceduralLevel.UnityPlugins.UI
 {
-	public abstract class APanelElement: AUIElement
+	public abstract class APanelElement : AUIElement
 	{
 		protected override void Awake()
 		{

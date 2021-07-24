@@ -2,7 +2,7 @@
 
 namespace ProceduralLevel.UnityPlugins.UI
 {
-	public abstract class AUIModelPanel<TModel>: AUIPanel
+	public abstract class AUIModelPanel<TModel> : AUIPanel
 		where TModel : class
 	{
 		protected TModel m_Model;

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ProceduralLevel.UnityPlugins.UI
 {
-	public abstract class AUIElement: ExtendedMonoBehaviour
+	public abstract class AUIElement : ExtendedMonoBehaviour
 	{
 		private RectTransform m_RectTransform;
 

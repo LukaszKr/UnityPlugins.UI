@@ -4,7 +4,7 @@ using UnityEngine;
 namespace ProceduralLevel.UnityPlugins.UI
 {
 	[CreateAssetMenu(fileName = nameof(BasicPanelRegistry), menuName = UIConsts.MENU_ROOT+nameof(BasicPanelRegistry))]
-	public class BasicPanelRegistry: ScriptableObject
+	public class BasicPanelRegistry : ScriptableObject
 	{
 		[SerializeField]
 		private AUIPanel[] m_Panels = null;

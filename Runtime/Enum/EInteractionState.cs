@@ -3,7 +3,7 @@
 namespace ProceduralLevel.UnityPlugins.UI
 {
 	[Flags]
-	public enum EInteractionState: byte
+	public enum EInteractionState : byte
 	{
 		Idle = 0,
 
