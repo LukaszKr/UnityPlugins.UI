@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using ProceduralLevel.UnityPlugins.ExtendedEditor.Editor;
+using ProceduralLevel.UnityPlugins.Common.Editor;
 using ProceduralLevel.UnityPlugins.UI.Unity;
 using UnityEditor;
 using UnityEngine;
