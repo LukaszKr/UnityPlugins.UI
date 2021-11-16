@@ -36,26 +36,26 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 			{
 				if(oldModel != null)
 				{
-					OnReplaceModel(m_ModelBinder, oldModel);
+					OnReplace(m_ModelBinder, oldModel);
 				}
 				else
 				{
-					OnAttachModel(m_ModelBinder);
+					OnAttach(m_ModelBinder);
 				}
 			}
 			else
 			{
-				OnDetachModel();
+				OnDetach();
 			}
 		}
 
-		protected virtual void OnReplaceModel(EventBinder binder, TModel oldModel)
+		protected virtual void OnReplace(EventBinder binder, TModel oldModel)
 		{
-			OnDetachModel();
-			OnAttachModel(binder);
+			OnDetach();
+			OnAttach(binder);
 		}
 
-		protected abstract void OnAttachModel(EventBinder binder);
-		protected abstract void OnDetachModel();
+		protected abstract void OnAttach(EventBinder binder);
+		protected abstract void OnDetach();
 	}
 }
