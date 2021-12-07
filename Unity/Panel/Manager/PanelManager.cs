@@ -29,7 +29,7 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 
 		private void Update()
 		{
-			m_Interaction.Update(m_UpdateTick++);
+			m_Interaction.Update(m_UpdateTick++, Time.deltaTime);
 
 			MouseDevice mouse = MouseDevice.Instance;
 			if(mouse.IsActive)
