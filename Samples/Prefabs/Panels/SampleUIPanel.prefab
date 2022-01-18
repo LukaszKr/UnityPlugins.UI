@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7705343657954279675}
   - component: {fileID: 792373007166539314}
   - component: {fileID: 4184192920456808620}
-  - component: {fileID: 1929697176520905543}
+  - component: {fileID: 7976152107364774965}
   m_Layer: 5
   m_Name: Red
   m_TagString: Untagged
@@ -79,7 +79,7 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Text
---- !u!114 &1929697176520905543
+--- !u!114 &7976152107364774965
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -88,7 +88,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 283630376054258065}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5e9dfb21d840f64ca6eb84bb70a8e2d, type: 3}
+  m_Script: {fileID: 11500000, guid: fa4878c95ab24764ea12e2a0c5587a84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &413353294688768976
@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 290490333821958263}
   - component: {fileID: 6003164998460290425}
   m_Layer: 0
-  m_Name: TestPanel
+  m_Name: SampleUIPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -192,7 +192,7 @@ GameObject:
   - component: {fileID: 413353295294763997}
   - component: {fileID: 413353295294763987}
   - component: {fileID: 413353295294763986}
-  - component: {fileID: 477229545234651028}
+  - component: {fileID: 1361071492735611667}
   m_Layer: 5
   m_Name: White
   m_TagString: Untagged
@@ -260,7 +260,7 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Text
---- !u!114 &477229545234651028
+--- !u!114 &1361071492735611667
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -269,7 +269,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 413353295294763996}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5e9dfb21d840f64ca6eb84bb70a8e2d, type: 3}
+  m_Script: {fileID: 11500000, guid: fa4878c95ab24764ea12e2a0c5587a84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7303817933872621411

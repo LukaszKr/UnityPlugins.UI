@@ -15,8 +15,8 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 		private readonly List<PanelManagerEntry> m_Entries = new List<PanelManagerEntry>();
 		private readonly List<RaycastResult> m_RaycastResults = new List<RaycastResult>(64);
 
-		private IInteractiveElement m_HoveredElement = null;
-		private IInteractiveElement m_ActiveElement = null;
+		private AInteractivePanelElement m_HoveredElement = null;
+		private AInteractivePanelElement m_ActiveElement = null;
 
 		private AInputDetector m_Interaction;
 		private bool m_InteractionActive;
@@ -49,14 +49,14 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 
 		private void UpdatePointer(Vector2 position)
 		{
-			IInteractiveElement hoveredElement = GetHoveredElement(position);
+			AInteractivePanelElement hoveredElement = GetHoveredElement(position);
 
 			if(m_Interaction.Triggered)
 			{
 				if(!m_InteractionActive && hoveredElement != null && m_ActiveElement == null)
 				{
 					m_ActiveElement = hoveredElement;
-					hoveredElement.InteractionHandler.TrySetActive(true);
+					hoveredElement.TrySetActive(true);
 				}
 				m_InteractionActive = true;
 			}
@@ -65,7 +65,7 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 				m_InteractionActive = false;
 				if(m_ActiveElement != null)
 				{
-					m_ActiveElement.InteractionHandler.TrySetActive(false);
+					m_ActiveElement.TrySetActive(false);
 					m_ActiveElement = null;
 				}
 			}
@@ -75,24 +75,24 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 			{
 				if(m_HoveredElement != null)
 				{
-					m_HoveredElement.InteractionHandler.TrySetHovered(false);
+					m_HoveredElement.TrySetHovered(false);
 				}
 				m_HoveredElement = hoveredElement;
 				if(m_HoveredElement != null)
 				{
-					hoveredElement.InteractionHandler.TrySetHovered(true);
+					hoveredElement.TrySetHovered(true);
 				}
 			}
 
 			if(hoveredElement == null && m_HoveredElement != null)
 			{
-				m_HoveredElement.InteractionHandler.TrySetHovered(false);
+				m_HoveredElement.TrySetHovered(false);
 				m_HoveredElement = null;
 			}
 		}
 		#endregion
 
-		public IInteractiveElement GetHoveredElement(Vector2 position)
+		public AInteractivePanelElement GetHoveredElement(Vector2 position)
 		{
 			m_RaycastResults.Clear();
 			PointerEventData eventData = new PointerEventData(null);
@@ -117,12 +117,12 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 			{
 				RaycastResult result = m_RaycastResults[x];
 				GameObject target = result.gameObject;
-				IInteractiveElement hoveredElement = target.GetComponent<IInteractiveComponent>();
+				AInteractivePanelElement hoveredElement = target.GetComponent<AInteractivePanelElement>();
 				if(hoveredElement != null)
 				{
 					return hoveredElement;
 				}
-				hoveredElement = target.GetComponentInParent<IInteractiveComponent>();
+				hoveredElement = target.GetComponentInParent<AInteractivePanelElement>();
 				if(hoveredElement != null)
 				{
 					return hoveredElement;

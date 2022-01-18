@@ -2,7 +2,7 @@
 
 namespace ProceduralLevel.UnityPlugins.UI.Unity
 {
-	public class InteractionHandler
+	public abstract class AInteractivePanelElement : APanelElement
 	{
 		private EInteractionState m_State = EInteractionState.Enabled;
 

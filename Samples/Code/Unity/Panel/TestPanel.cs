@@ -8,7 +8,7 @@ namespace ProceduralLevel.UnityPlugins.UI.Example
 	{
 		protected override void OnPrepare(EventBinder binder)
 		{
-			IInteractiveComponent[] elements = GetComponentsInChildren<IInteractiveComponent>();
+			AInteractivePanelElement[] elements = GetComponentsInChildren<AInteractivePanelElement>();
 			int length = elements.Length;
 			for(int x = 0; x < length; ++x)
 			{
@@ -21,12 +21,11 @@ namespace ProceduralLevel.UnityPlugins.UI.Example
 			base.Show();
 		}
 
-		private void Bind(EventBinder binder, IInteractiveComponent element)
+		private void Bind(EventBinder binder, AInteractivePanelElement element)
 		{
-			InteractionHandler handler = element.InteractionHandler;
-			binder.Bind(handler.OnActive, (active) => Debug.Log($"Active: {element.name}, {active}"));
-			binder.Bind(handler.OnHovered, (hovered) => Debug.Log($"Hovered: {element.name}, {hovered}"));
-			binder.Bind(handler.OnClick, () => Debug.Log($"Clicked: {element.name}"));
+			binder.Bind(element.OnActive, (active) => Debug.Log($"Active: {element.name}, {active}"));
+			binder.Bind(element.OnHovered, (hovered) => Debug.Log($"Hovered: {element.name}, {hovered}"));
+			binder.Bind(element.OnClick, () => Debug.Log($"Clicked: {element.name}"));
 		}
 	}
 }
