@@ -19,24 +19,24 @@ namespace ProceduralLevel.UnityPlugins.UI.Editor
 		{
 			if(GUILayout.Button("Refresh List"))
 			{
-				List<AUIPanel> panels = GetPanels();
+				List<APanel> panels = GetPanels();
 				Target.SetPanels(panels);
 				EditorUtility.SetDirty(Target);
 			}
 		}
 
-		private List<AUIPanel> GetPanels()
+		private List<APanel> GetPanels()
 		{
 			string targetPath = AssetDatabase.GetAssetPath(Target);
 			string directoryPath = Path.GetDirectoryName(targetPath);
 			string[] guids = AssetDatabase.FindAssets("t:prefab", new string[] { directoryPath });
 			int length = guids.Length;
 
-			List<AUIPanel> panels = new List<AUIPanel>(length);
+			List<APanel> panels = new List<APanel>(length);
 			for(int x = 0; x < length; ++x)
 			{
 				string assetPath = AssetDatabase.GUIDToAssetPath(guids[x]);
-				AUIPanel panelPrefab = AssetDatabase.LoadAssetAtPath<AUIPanel>(assetPath);
+				APanel panelPrefab = AssetDatabase.LoadAssetAtPath<APanel>(assetPath);
 				if(panelPrefab != null)
 				{
 					panels.Add(panelPrefab);

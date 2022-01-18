@@ -7,15 +7,15 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 	public class PanelRegistry : ScriptableObject
 	{
 		[SerializeField]
-		private AUIPanel[] m_Panels = null;
+		private APanel[] m_Panels = null;
 
-		public void SetPanels(List<AUIPanel> panels)
+		public void SetPanels(List<APanel> panels)
 		{
 			m_Panels = panels.ToArray();
 		}
 
 		public TPanel GetPanelPrefab<TPanel>()
-			where TPanel : AUIPanel
+			where TPanel : APanel
 		{
 			int length = m_Panels.Length;
 			for(int x = 0; x < length; ++x)

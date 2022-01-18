@@ -15,10 +15,11 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 		private readonly List<PanelManagerEntry> m_Entries = new List<PanelManagerEntry>();
 		private readonly List<RaycastResult> m_RaycastResults = new List<RaycastResult>(64);
 
-		private PanelElement m_HoveredElement = null;
-		private PanelElement m_ActiveElement = null;
+		private IInteractiveElement m_HoveredElement = null;
+		private IInteractiveElement m_ActiveElement = null;
 
 		private AInputDetector m_Interaction;
+		private bool m_InteractionActive;
 
 		public void Initialize()
 		{
@@ -42,14 +43,56 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 				TouchData touch = touchDevice.Touches[0];
 				UpdatePointer(touch.Position);
 			}
-			else
-			{
-				TryEndInput();
-			}
 		}
 
 		#region Input Detection
+
 		private void UpdatePointer(Vector2 position)
+		{
+			IInteractiveElement hoveredElement = GetHoveredElement(position);
+
+			if(m_Interaction.Triggered)
+			{
+				if(!m_InteractionActive && hoveredElement != null && m_ActiveElement == null)
+				{
+					m_ActiveElement = hoveredElement;
+					hoveredElement.InteractionHandler.TrySetActive(true);
+				}
+				m_InteractionActive = true;
+			}
+			else
+			{
+				m_InteractionActive = false;
+				if(m_ActiveElement != null)
+				{
+					m_ActiveElement.InteractionHandler.TrySetActive(false);
+					m_ActiveElement = null;
+				}
+			}
+
+
+			if(m_HoveredElement != hoveredElement)
+			{
+				if(m_HoveredElement != null)
+				{
+					m_HoveredElement.InteractionHandler.TrySetHovered(false);
+				}
+				m_HoveredElement = hoveredElement;
+				if(m_HoveredElement != null)
+				{
+					hoveredElement.InteractionHandler.TrySetHovered(true);
+				}
+			}
+
+			if(hoveredElement == null && m_HoveredElement != null)
+			{
+				m_HoveredElement.InteractionHandler.TrySetHovered(false);
+				m_HoveredElement = null;
+			}
+		}
+		#endregion
+
+		public IInteractiveElement GetHoveredElement(Vector2 position)
 		{
 			m_RaycastResults.Clear();
 			PointerEventData eventData = new PointerEventData(null);
@@ -69,71 +112,27 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 			}
 
 			int count = m_RaycastResults.Count;
+
 			for(int x = 0; x < count; ++x)
 			{
 				RaycastResult result = m_RaycastResults[x];
 				GameObject target = result.gameObject;
-				PanelElement element = target.GetComponent<PanelElement>();
-				if(element != null)
+				IInteractiveElement hoveredElement = target.GetComponent<IInteractiveComponent>();
+				if(hoveredElement != null)
 				{
-					HandleElementInput(element);
-					return;
+					return hoveredElement;
 				}
-				element = target.GetComponentInParent<PanelElement>();
-				if(element != null)
+				hoveredElement = target.GetComponentInParent<IInteractiveComponent>();
+				if(hoveredElement != null)
 				{
-					HandleElementInput(element);
-					return;
+					return hoveredElement;
 				}
 			}
 
-			TryEndInput();
+			return null;
 		}
 
-		private void HandleElementInput(PanelElement element)
-		{
-			if(m_HoveredElement != element)
-			{
-				if(m_HoveredElement != null)
-				{
-					m_HoveredElement.TrySetHovered(false);
-				}
-				m_HoveredElement = element;
-				element.TrySetHovered(true);
-			}
-
-			if(m_Interaction.Triggered)
-			{
-				if(m_ActiveElement == null)
-				{
-					m_ActiveElement = element;
-					element.TrySetActive(true);
-				}
-			}
-			else if(m_ActiveElement != null)
-			{
-				m_ActiveElement.TrySetActive(false);
-				m_ActiveElement = null;
-			}
-		}
-
-		private void TryEndInput()
-		{
-			if(!m_Interaction.Triggered && m_ActiveElement != null)
-			{
-				m_ActiveElement.TrySetActive(false);
-				m_ActiveElement = null;
-			}
-
-			if(m_HoveredElement != null)
-			{
-				m_HoveredElement.TrySetHovered(false);
-				m_HoveredElement = null;
-			}
-		}
-		#endregion
-
-		internal void Add(AUIPanel panel, UICanvas canvas)
+		internal void Add(APanel panel, UICanvas canvas)
 		{
 			int index = IndexOf(panel);
 			if(index >= 0)
@@ -146,13 +145,13 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 			m_Entries.Add(entry);
 		}
 
-		internal void Remove(AUIPanel panel)
+		internal void Remove(APanel panel)
 		{
 			int index = IndexOf(panel);
 			m_Entries.RemoveAt(index);
 		}
 
-		private int IndexOf(AUIPanel panel)
+		private int IndexOf(APanel panel)
 		{
 			int count = m_Entries.Count;
 			for(int x = 0; x < count; ++x)

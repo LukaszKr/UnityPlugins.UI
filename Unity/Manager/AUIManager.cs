@@ -10,7 +10,7 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 		[SerializeField]
 		private PanelManager m_PanelManager = null;
 
-		private readonly List<AUIPanel> m_SpawnedPanels = new List<AUIPanel>();
+		private readonly List<APanel> m_SpawnedPanels = new List<APanel>();
 
 		public void Initialize()
 		{
@@ -18,7 +18,7 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 		}
 
 		public TPanel GetPanel<TPanel>()
-			where TPanel : AUIPanel
+			where TPanel : APanel
 		{
 			int count = m_SpawnedPanels.Count;
 			for(int x = 0; x < count; ++x)
@@ -43,6 +43,6 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 		}
 
 		protected abstract UICanvas GetCanvasPrefab();
-		protected abstract TPanel GetPanelPrefab<TPanel>() where TPanel : AUIPanel;
+		protected abstract TPanel GetPanelPrefab<TPanel>() where TPanel : APanel;
 	}
 }
