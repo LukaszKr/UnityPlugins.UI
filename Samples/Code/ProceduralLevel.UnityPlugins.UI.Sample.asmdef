@@ -1,5 +1,6 @@
 {
     "name": "ProceduralLevel.UnityPlugins.UI.Sample",
+    "rootNamespace": "ProceduralLevel.UnityPlugins.UI.Sample",
     "references": [
         "GUID:7beb5c7201ff0194aa34fefed6f62094",
         "GUID:b4087cadc7f4a6047afc4df41fcbe04d",
