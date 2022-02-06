@@ -6,18 +6,17 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 {
 	public abstract class AUIManager : ExtendedMonoBehaviour
 	{
-		private PanelManager m_PanelManager = null;
+		public readonly PanelManager PanelManager = new PanelManager();
 
 		private readonly List<APanel> m_SpawnedPanels = new List<APanel>();
 
 		public void Initialize()
 		{
-			m_PanelManager = new PanelManager();
 		}
 
 		private void Update()
 		{
-			m_PanelManager.Update();
+			PanelManager.Update();
 		}
 
 		public TPanel GetPanel<TPanel>()
@@ -38,7 +37,7 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 			{
 				UICanvas canvas = Instantiate(GetCanvasPrefab(), Transform, false);
 				TPanel spawnedPanel = Instantiate(panelPrefab, canvas.Transform);
-				spawnedPanel.Setup(canvas, m_PanelManager);
+				spawnedPanel.Setup(canvas, PanelManager);
 				m_SpawnedPanels.Add(spawnedPanel);
 				return spawnedPanel;
 			}
