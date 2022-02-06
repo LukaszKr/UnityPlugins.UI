@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using ProceduralLevel.Common.Event;
 using ProceduralLevel.UnityPlugins.Input.Unity;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -20,11 +19,6 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 
 		private readonly AInputDetector m_Interaction;
 		private bool m_InteractionActive;
-
-		public IReadOnlyList<PanelManagerEntry> Entries => m_Entries;
-
-		public readonly CustomEvent<PanelManagerEntry> OnAdded = new CustomEvent<PanelManagerEntry>();
-		public readonly CustomEvent<PanelManagerEntry> OnRemoved = new CustomEvent<PanelManagerEntry>();
 
 		public PanelManager()
 		{
@@ -50,7 +44,7 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 			}
 		}
 
-		#region Input Detection
+		#region Input
 		private void UpdatePointer(Vector2 position)
 		{
 			AInteractivePanelElement hoveredElement = GetHoveredElement(position);
@@ -94,7 +88,6 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 				m_HoveredElement = null;
 			}
 		}
-		#endregion
 
 		public AInteractivePanelElement GetHoveredElement(Vector2 position)
 		{
@@ -135,6 +128,16 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 
 			return null;
 		}
+		#endregion
+
+		public void HideAll()
+		{
+			int count = m_Entries.Count;
+			for(int x = count-1; x >= 0; --x)
+			{
+				m_Entries[x].Panel.Hide();
+			}
+		}
 
 		internal void Add(APanel panel, UICanvas canvas)
 		{
@@ -147,21 +150,18 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 			int sortingOrder = GetNextSortOrder();
 			canvas.SortingOrder = sortingOrder;
 			m_Entries.Add(entry);
-			OnAdded.Invoke(entry);
 		}
 
 		internal void Remove(APanel panel)
 		{
 			int index = IndexOf(panel);
-			PanelManagerEntry entry = m_Entries[index];
 			m_Entries.RemoveAt(index);
-			OnRemoved.Invoke(entry);
 		}
 
 		private int IndexOf(APanel panel)
 		{
 			int count = m_Entries.Count;
-			for(int x = 0; x < count; ++x)
+			for(int x = count-1; x >= 0; --x)
 			{
 				PanelManagerEntry entry = m_Entries[x];
 				if(entry.Panel == panel)
