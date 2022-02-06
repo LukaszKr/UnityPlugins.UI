@@ -29,12 +29,12 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 			}
 		}
 
-		private void OnEnable()
+		protected virtual void OnEnable()
 		{
 			m_ElementBinder.Enable();
 		}
 
-		private void OnDisable()
+		protected virtual void OnDisable()
 		{
 			m_ElementBinder.Disable();
 		}
@@ -50,6 +50,9 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 		}
 
 		protected abstract void OnPrepare(EventBinder binder);
-		protected abstract void OnCleanup();
+
+		protected virtual void OnCleanup()
+		{
+		}
 	}
 }

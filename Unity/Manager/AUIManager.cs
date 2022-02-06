@@ -14,7 +14,7 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 		{
 		}
 
-		private void Update()
+		protected virtual void Update()
 		{
 			PanelManager.Update();
 		}

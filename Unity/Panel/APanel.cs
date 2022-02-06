@@ -21,10 +21,6 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 			TryPrepare();
 		}
 
-		protected override void OnCleanup()
-		{
-		}
-
 		protected void Show()
 		{
 			if(CanShow())
