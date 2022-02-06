@@ -27,7 +27,7 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 				.Add(ETouchInputID.Touch01);
 		}
 
-		private void Update()
+		internal void Update()
 		{
 			m_Interaction.Update(m_UpdateTick++, Time.deltaTime);
 

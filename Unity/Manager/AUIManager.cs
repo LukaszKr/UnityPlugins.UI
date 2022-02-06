@@ -15,6 +15,11 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 			m_PanelManager = new PanelManager();
 		}
 
+		private void Update()
+		{
+			m_PanelManager.Update();
+		}
+
 		public TPanel GetPanel<TPanel>()
 			where TPanel : APanel
 		{
