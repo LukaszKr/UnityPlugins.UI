@@ -10,7 +10,7 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 
 		private readonly List<APanel> m_SpawnedPanels = new List<APanel>();
 
-		public void Initialize()
+		public virtual void Initialize()
 		{
 		}
 
