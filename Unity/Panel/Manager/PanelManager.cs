@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using ProceduralLevel.UnityPlugins.Common.Unity.Extended;
 using ProceduralLevel.UnityPlugins.Input.Unity;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -8,7 +7,7 @@ using UnityEngine.UI;
 
 namespace ProceduralLevel.UnityPlugins.UI.Unity
 {
-	public class PanelManager : ExtendedMonoBehaviour
+	public class PanelManager
 	{
 		private int m_UpdateTick;
 
@@ -18,10 +17,10 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 		private AInteractivePanelElement m_HoveredElement = null;
 		private AInteractivePanelElement m_ActiveElement = null;
 
-		private AInputDetector m_Interaction;
+		private readonly AInputDetector m_Interaction;
 		private bool m_InteractionActive;
 
-		public void Initialize()
+		public PanelManager()
 		{
 			m_Interaction = new DurationDetector()
 				.Add(EMouseInputID.Left)
@@ -46,7 +45,6 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 		}
 
 		#region Input Detection
-
 		private void UpdatePointer(Vector2 position)
 		{
 			AInteractivePanelElement hoveredElement = GetHoveredElement(position);

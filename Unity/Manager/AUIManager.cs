@@ -1,20 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using ProceduralLevel.UnityPlugins.Common.Unity.Extended;
-using UnityEngine;
 
 namespace ProceduralLevel.UnityPlugins.UI.Unity
 {
 	public abstract class AUIManager : ExtendedMonoBehaviour
 	{
-		[SerializeField]
 		private PanelManager m_PanelManager = null;
 
 		private readonly List<APanel> m_SpawnedPanels = new List<APanel>();
 
 		public void Initialize()
 		{
-			m_PanelManager.Initialize();
+			m_PanelManager = new PanelManager();
 		}
 
 		public TPanel GetPanel<TPanel>()

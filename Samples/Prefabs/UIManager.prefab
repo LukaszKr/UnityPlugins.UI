@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 502727921497025329}
   - component: {fileID: 6915137503179413087}
-  - component: {fileID: 9146271319215726223}
   m_Layer: 0
   m_Name: UIManager
   m_TagString: Untagged
@@ -44,20 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99892fb1f37b134438abc10b40867527, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PanelManager: {fileID: 9146271319215726223}
   m_Canvas: {fileID: 2960094224974870357, guid: 9fa3ac9350716744ab00c212fcf10629,
     type: 3}
   m_Registries:
   - {fileID: 11400000, guid: 613566f2ff38b3e4eb0c3d3de552977d, type: 2}
---- !u!114 &9146271319215726223
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 502727921497025331}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25ec8d4c4cf8f0e4280c034fda86d3ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
