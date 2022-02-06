@@ -22,7 +22,7 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 			SetModel(null);
 		}
 
-		public virtual void SetModel(TModel newModel)
+		private void SetModel(TModel newModel)
 		{
 			if(newModel == m_Model)
 			{
