@@ -1,33 +1,17 @@
 ﻿using ProceduralLevel.Common.Context;
 using ProceduralLevel.Common.Event;
+using ProceduralLevel.UnityPlugins.UI.Unity;
 
-namespace ProceduralLevel.UnityPlugins.UI.Unity
+namespace ProceduralLevel.UnityPlugins.UI
 {
-	public abstract class AContextPanel<TContext> : APanel
+	public abstract class APanelContextElement<TContext> : APanelElement
 		where TContext : class
 	{
 		private ContextClass<TContext> m_Context;
 
 		public TContext Context { get { return m_Context?.Value; } }
 
-		protected override void Awake()
-		{
-			base.Awake();
-		}
-
-		public void Show(TContext context)
-		{
-			SetContext(context);
-			base.Show();
-		}
-
-		protected override void OnHide()
-		{
-			base.OnHide();
-			SetContext(null);
-		}
-
-		private void SetContext(TContext newContext)
+		public void SetContext(TContext newContext)
 		{
 			if(m_Context == null)
 			{
