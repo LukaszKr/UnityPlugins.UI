@@ -8,7 +8,7 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 	{
 		private ContextClass<TContext> m_Context;
 
-		public TContext Context { get { return m_Context?.Value; } }
+		public TContext Context { get { return m_Context?.Context; } }
 
 		protected override void Awake()
 		{
@@ -34,7 +34,7 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 				m_Context = new ContextClass<TContext>(OnAttach, OnDetach, OnReplace);
 			}
 
-			m_Context.SetValue(newContext);
+			m_Context.SetContext(newContext);
 		}
 
 		protected virtual void OnReplace(EventBinder binder, TContext oldContext)
