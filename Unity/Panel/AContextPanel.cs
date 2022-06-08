@@ -17,8 +17,8 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 
 		public void Show(TContext context)
 		{
-			SetContext(context);
 			base.Show();
+			SetContext(context);
 		}
 
 		protected override void OnHide()
