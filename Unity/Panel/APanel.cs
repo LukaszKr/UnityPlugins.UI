@@ -16,7 +16,6 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 		{
 			m_Canvas = canvas;
 			m_Manager = manager;
-			m_Canvas.GameObject.SetActive(false);
 
 			TryPrepare();
 		}
