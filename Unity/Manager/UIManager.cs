@@ -8,7 +8,7 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 		private UICanvas m_Canvas = null;
 
 		[SerializeField]
-		private PanelRegistry[] m_Registries = null;
+		private APanelRegistry[] m_Registries = null;
 
 		protected override UICanvas GetCanvasPrefab()
 		{
@@ -20,7 +20,7 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 			int length = m_Registries.Length;
 			for(int x = 0; x < length; ++x)
 			{
-				PanelRegistry registry = m_Registries[x];
+				APanelRegistry registry = m_Registries[x];
 				TPanel panelPrefab = registry.GetPanelPrefab<TPanel>();
 				if(panelPrefab)
 				{
