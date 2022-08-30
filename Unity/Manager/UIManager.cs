@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace ProceduralLevel.UnityPlugins.UI.Unity
 {
@@ -9,6 +10,8 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 
 		[SerializeField]
 		private APanelRegistry[] m_Registries = null;
+
+		private readonly List<APanelRegistry> m_RuntimeRegistries = new List<APanelRegistry>();
 
 		protected override UICanvas GetCanvasPrefab()
 		{
@@ -27,7 +30,29 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 					return panelPrefab;
 				}
 			}
+
+			int count = m_RuntimeRegistries.Count;
+			for(int x = 0; x < count; ++x)
+			{
+				APanelRegistry registry = m_RuntimeRegistries[x];
+				TPanel panelPrefab = registry.GetPanelPrefab<TPanel>();
+				if(panelPrefab)
+				{
+					return panelPrefab;
+				}
+
+			}
 			return null;
+		}
+
+		public void AddRuntimeRegistry(APanelRegistry registry)
+		{
+			m_RuntimeRegistries.Add(registry);
+		}
+
+		public bool RemoveRuntimeRegistry(APanelRegistry registry)
+		{
+			return m_RuntimeRegistries.Remove(registry);
 		}
 	}
 }
