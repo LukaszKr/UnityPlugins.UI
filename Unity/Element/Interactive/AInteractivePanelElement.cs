@@ -13,7 +13,7 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 		public readonly CustomEvent<bool> OnSelected = new CustomEvent<bool>();
 		public readonly CustomEvent<bool> OnEnabled = new CustomEvent<bool>();
 
-		public readonly CustomEvent OnClick = new CustomEvent();
+		public readonly CustomEvent OnClicked = new CustomEvent();
 
 		public EInteractionState State => m_State;
 
@@ -41,7 +41,7 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 				OnActive.Invoke(active);
 				if(!active && m_State.IsHovered())
 				{
-					OnClick.Invoke();
+					OnClicked.Invoke();
 				}
 				return true;
 			}

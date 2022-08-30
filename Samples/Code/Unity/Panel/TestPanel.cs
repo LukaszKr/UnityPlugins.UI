@@ -6,14 +6,25 @@ namespace ProceduralLevel.UnityPlugins.UI.Example
 {
 	public class TestPanel : APanel
 	{
+		[SerializeField]
+		private RectTransform m_Container = null;
+		[SerializeField]
+		private ProceduralUIConfig m_Config = null;
+
+		private ProceduralUI m_UI;
+
 		protected override void OnPrepare(EventBinder binder)
 		{
-			AInteractivePanelElement[] elements = GetComponentsInChildren<AInteractivePanelElement>();
-			int length = elements.Length;
-			for(int x = 0; x < length; ++x)
-			{
-				Bind(binder, elements[x]);
-			}
+			m_UI = new ProceduralUI(m_Container, m_Config);
+
+			UITextButton textButton = m_UI.TextButton();
+			textButton.Text.SetText("Hello World");
+			Bind(binder, textButton);
+			UIIconButton iconButton = m_UI.IconButton();
+			Bind(binder, iconButton);
+
+			m_UI.Label("Label Example");
+
 		}
 
 		public new void Show()
@@ -25,7 +36,7 @@ namespace ProceduralLevel.UnityPlugins.UI.Example
 		{
 			binder.Bind(element.OnActive, (active) => Debug.Log($"Active: {element.name}, {active}"));
 			binder.Bind(element.OnHovered, (hovered) => Debug.Log($"Hovered: {element.name}, {hovered}"));
-			binder.Bind(element.OnClick, () => Debug.Log($"Clicked: {element.name}"));
+			binder.Bind(element.OnClicked, () => Debug.Log($"Clicked: {element.name}"));
 		}
 	}
 }
