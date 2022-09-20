@@ -9,13 +9,13 @@ namespace ProceduralLevel.UnityPlugins.UI.Example
 		[SerializeField]
 		private RectTransform m_Container = null;
 		[SerializeField]
-		private ProceduralUIConfig m_Config = null;
+		private ImmediateUIConfig m_Config = null;
 
-		private ProceduralUI m_UI;
+		private ImmediateUI m_UI;
 
 		protected override void OnPrepare(EventBinder binder)
 		{
-			m_UI = new ProceduralUI(m_Container, m_Config);
+			m_UI = new ImmediateUI(m_Container, m_Config);
 
 			UITextButton textButton = m_UI.TextButton();
 			textButton.Text.SetText("Hello World");

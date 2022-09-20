@@ -2,8 +2,8 @@
 
 namespace ProceduralLevel.UnityPlugins.UI.Unity
 {
-	[CreateAssetMenu(fileName = nameof(ProceduralUIConfig), menuName = UIUnityConsts.MENU_ROOT+nameof(ProceduralUIConfig))]
-	public class ProceduralUIConfig : ScriptableObject
+	[CreateAssetMenu(fileName = nameof(ImmediateUIConfig), menuName = UIUnityConsts.MENU_ROOT+nameof(ImmediateUIConfig))]
+	public class ImmediateUIConfig : ScriptableObject
 	{
 		public UIText Label;
 

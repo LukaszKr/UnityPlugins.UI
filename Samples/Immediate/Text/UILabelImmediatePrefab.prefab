@@ -145,7 +145,7 @@ GameObject:
   - component: {fileID: 6193644398561370187}
   - component: {fileID: 6193644398561370184}
   m_Layer: 5
-  m_Name: UILabelProceduralPrefab
+  m_Name: UILabelImmediatePrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

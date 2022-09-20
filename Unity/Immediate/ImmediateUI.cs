@@ -4,16 +4,16 @@ using UnityEngine;
 
 namespace ProceduralLevel.UnityPlugins.UI.Unity
 {
-	public class ProceduralUI
+	public class ImmediateUI
 	{
 		public readonly RectTransform Container;
-		public readonly ProceduralUIConfig Config;
+		public readonly ImmediateUIConfig Config;
 
 		private readonly EventBinder m_Binder = new EventBinder();
 		private readonly Stack<AUILayout> m_LayoutStack = new Stack<AUILayout>();
 		private AUILayout m_CurrentLayout;
 
-		public ProceduralUI(RectTransform container, ProceduralUIConfig config)
+		public ImmediateUI(RectTransform container, ImmediateUIConfig config)
 		{
 			Container = container;
 			Config = config;

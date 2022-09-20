@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2879613929073980060}
   - component: {fileID: 6052845307838963369}
   m_Layer: 5
-  m_Name: UITextButtonProceduralPrefab
+  m_Name: UITextButtonImmediatePrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

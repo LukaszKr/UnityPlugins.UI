@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 2879613929073980060}
   - component: {fileID: 6176764515778024091}
   m_Layer: 5
-  m_Name: UIIconButtonProceduralPrefab
+  m_Name: UIIconButtonImmediatePrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

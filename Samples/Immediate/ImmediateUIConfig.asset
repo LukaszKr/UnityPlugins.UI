@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d1d95c5724493ec48a4b569812db2e05, type: 3}
-  m_Name: ProceduralUIConfig
+  m_Name: ImmediateUIConfig
   m_EditorClassIdentifier: 
   Label: {fileID: 6193644398561370184, guid: 37967765131aa2c4c906a74f24f55f3d, type: 3}
   Toggle: {fileID: 0}
