@@ -11,7 +11,7 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 		private bool m_IsPrepared;
 		private readonly EventBinder m_ElementBinder = new EventBinder();
 
-		public RectTransform RectTransform { get { return m_RectTransform; } }
+		public RectTransform RectTransform => m_RectTransform;
 
 		#region Unity
 		protected virtual void Awake()

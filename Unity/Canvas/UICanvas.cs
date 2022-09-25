@@ -19,7 +19,7 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 			set { m_Canvas.sortingOrder = value; }
 		}
 
-		public GraphicRaycaster Raycaster { get { return m_Raycaster; } }
+		public GraphicRaycaster Raycaster => m_Raycaster;
 
 		public void SetAlpha(float alpha)
 		{

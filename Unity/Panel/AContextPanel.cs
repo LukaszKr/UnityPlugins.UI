@@ -8,7 +8,7 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 	{
 		private ContextClass<TContext> m_Context;
 
-		public TContext Context { get { return m_Context?.Context; } }
+		public TContext Context => m_Context?.Context;
 
 		protected override void Awake()
 		{
@@ -17,7 +17,10 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 
 		public void Show(TContext context)
 		{
-			base.Show();
+			if(!IsShown)
+			{
+				Show();
+			}
 			SetContext(context);
 		}
 

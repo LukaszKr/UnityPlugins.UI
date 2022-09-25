@@ -9,8 +9,9 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 
 		private bool m_IsShown = false;
 
-		public UICanvas Canvas { get { return m_Canvas; } }
-		public PanelManager Manager { get { return m_Manager; } }
+		public bool IsShown => m_IsShown;
+		public UICanvas Canvas => m_Canvas;
+		public PanelManager Manager => m_Manager;
 
 		internal void Setup(UICanvas canvas, PanelManager manager)
 		{
