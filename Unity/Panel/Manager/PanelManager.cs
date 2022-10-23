@@ -49,7 +49,7 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 		{
 			AInteractivePanelElement hoveredElement = GetHoveredElement(position);
 
-			if(m_Interaction.Triggered)
+			if(m_Interaction.Active)
 			{
 				if(!m_InteractionActive && hoveredElement != null && m_ActiveElement == null)
 				{
