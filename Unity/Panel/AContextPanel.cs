@@ -45,7 +45,7 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 			{
 				if(oldContext != null)
 				{
-					OnReplace(m_ContextBinder, oldContext, context);
+					OnReplace(m_ContextBinder, oldContext);
 				}
 				else
 				{
@@ -58,7 +58,7 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 			}
 		}
 
-		protected virtual void OnReplace(EventBinder binder, TContext oldContext, TContext newContext)
+		protected virtual void OnReplace(EventBinder binder, TContext oldContext)
 		{
 			OnDetach();
 			OnAttach(binder);
