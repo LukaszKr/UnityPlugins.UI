@@ -1,14 +1,14 @@
 ﻿using ProceduralLevel.Common.Context;
 using ProceduralLevel.Common.Event;
+using System;
 
 namespace ProceduralLevel.UnityPlugins.UI.Unity
 {
 	public abstract class AContextPanel<TContext> : APanel
 		where TContext : class
 	{
-		private ContextClass<TContext> m_Context;
-
-		public TContext Context => m_Context?.Context;
+		protected TContext m_Context;
+		private readonly EventBinder m_ContextBinder = new EventBinder();
 
 		protected override void Awake()
 		{
@@ -30,23 +30,42 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 			SetContext(null);
 		}
 
-		private void SetContext(TContext newContext)
+		#region Context
+		public void SetContext(TContext context)
 		{
-			if(m_Context == null)
+			if(context == m_Context)
 			{
-				m_Context = new ContextClass<TContext>(OnAttach, OnDetach, OnReplace);
+				throw new InvalidOperationException();
 			}
 
-			m_Context.SetContext(newContext);
+			m_ContextBinder.UnbindAll();
+			TContext oldContext = m_Context;
+			m_Context = context;
+			if(context != null)
+			{
+				if(oldContext != null)
+				{
+					OnReplace(m_ContextBinder, oldContext, context);
+				}
+				else
+				{
+					OnAttach(m_ContextBinder);
+				}
+			}
+			else if(oldContext != null)
+			{
+				OnDetach();
+			}
 		}
 
 		protected virtual void OnReplace(EventBinder binder, TContext oldContext, TContext newContext)
 		{
 			OnDetach();
-			OnAttach(binder, newContext);
+			OnAttach(binder);
 		}
 
-		protected abstract void OnAttach(EventBinder binder, TContext context);
+		protected abstract void OnAttach(EventBinder binder);
 		protected abstract void OnDetach();
+		#endregion
 	}
 }
