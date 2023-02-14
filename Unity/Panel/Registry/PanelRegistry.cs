@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace ProceduralLevel.UnityPlugins.UI.Unity
@@ -14,13 +15,13 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 			m_Panels = panels.ToArray();
 		}
 
-		public override TPanel GetPanelPrefab<TPanel>()
+		public override APanel FindPanelPrefab(Type panelType)
 		{
 			int length = m_Panels.Length;
 			for(int x = 0; x < length; ++x)
 			{
-				TPanel panel = m_Panels[x] as TPanel;
-				if(panel != null)
+				APanel panel = m_Panels[x];
+				if(panel.GetType() == panelType)
 				{
 					return panel;
 				}

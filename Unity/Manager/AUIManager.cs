@@ -22,17 +22,22 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 		public TPanel GetPanel<TPanel>()
 			where TPanel : APanel
 		{
-			TPanel existingPanel = FindPanel<TPanel>();
+			return (TPanel)GetPanel(typeof(TPanel));
+		}
+
+		public APanel GetPanel(Type panelType)
+		{
+			APanel existingPanel = FindPanel(panelType);
 			if(existingPanel != null)
 			{
 				return existingPanel;
 			}
 
-			TPanel panelPrefab = GetPanelPrefab<TPanel>();
+			APanel panelPrefab = GetPanelPrefab(panelType);
 			if(panelPrefab != null)
 			{
 				UICanvas canvas = Instantiate(GetCanvasPrefab(), Transform, false);
-				TPanel spawnedPanel = Instantiate(panelPrefab, canvas.Transform);
+				APanel spawnedPanel = Instantiate(panelPrefab, canvas.Transform);
 				spawnedPanel.Setup(canvas, PanelManager);
 				m_SpawnedPanels.Add(spawnedPanel);
 				return spawnedPanel;
@@ -43,11 +48,16 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 		public TPanel FindPanel<TPanel>()
 			where TPanel : APanel
 		{
+			return FindPanel(typeof(TPanel)) as TPanel;
+		}
+
+		public APanel FindPanel(Type panelType)
+		{
 			int count = m_SpawnedPanels.Count;
 			for(int x = 0; x < count; ++x)
 			{
-				TPanel panel = m_SpawnedPanels[x] as TPanel;
-				if(panel != null && panel.GetType() == typeof(TPanel))
+				APanel panel = m_SpawnedPanels[x];
+				if(panel.GetType() == panelType)
 				{
 					return panel;
 				}
@@ -56,7 +66,13 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 			return null;
 		}
 
+		protected TPanel GetPanelPrefab<TPanel>() 
+			where TPanel : APanel
+		{
+			return GetPanelPrefab(typeof(TPanel)) as TPanel;
+		}
+
 		protected abstract UICanvas GetCanvasPrefab();
-		protected abstract TPanel GetPanelPrefab<TPanel>() where TPanel : APanel;
+		protected abstract APanel GetPanelPrefab(Type panelType);
 	}
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace ProceduralLevel.UnityPlugins.UI.Unity
@@ -9,7 +10,7 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 		private UICanvas m_Canvas = null;
 
 		[SerializeField]
-		private APanelRegistry[] m_Registries = null;
+		private List<APanelRegistry> m_Registries = new List<APanelRegistry>();
 
 		private readonly List<APanelRegistry> m_RuntimeRegistries = new List<APanelRegistry>();
 
@@ -18,29 +19,28 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 			return m_Canvas;
 		}
 
-		protected override TPanel GetPanelPrefab<TPanel>()
+		protected override APanel GetPanelPrefab(Type panelType)
 		{
-			int length = m_Registries.Length;
-			for(int x = 0; x < length; ++x)
+			APanel panel = SearchForPanel(panelType, m_Registries);
+			if(panel != null)
 			{
-				APanelRegistry registry = m_Registries[x];
-				TPanel panelPrefab = registry.GetPanelPrefab<TPanel>();
-				if(panelPrefab)
-				{
-					return panelPrefab;
-				}
+				return panel;
 			}
 
-			int count = m_RuntimeRegistries.Count;
+			return SearchForPanel(panelType, m_RuntimeRegistries);
+		}
+
+		private APanel SearchForPanel(Type panelType, List<APanelRegistry> registries)
+		{
+			int count = registries.Count;
 			for(int x = 0; x < count; ++x)
 			{
-				APanelRegistry registry = m_RuntimeRegistries[x];
-				TPanel panelPrefab = registry.GetPanelPrefab<TPanel>();
+				APanelRegistry registry = registries[x];
+				APanel panelPrefab = registry.FindPanelPrefab(panelType);
 				if(panelPrefab)
 				{
 					return panelPrefab;
 				}
-
 			}
 			return null;
 		}
