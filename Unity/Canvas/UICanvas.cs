@@ -13,17 +13,14 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 		[SerializeField]
 		private GraphicRaycaster m_Raycaster = null;
 
+		public Canvas UnityCanvas => m_Canvas;
+		public CanvasGroup CanvasGroup => m_Group;
+		public GraphicRaycaster Raycaster => m_Raycaster;
+
 		public int SortingOrder
 		{
 			get { return m_Canvas.sortingOrder; }
 			set { m_Canvas.sortingOrder = value; }
-		}
-
-		public GraphicRaycaster Raycaster => m_Raycaster;
-
-		public void SetAlpha(float alpha)
-		{
-			m_Group.alpha = alpha;
 		}
 	}
 }
