@@ -12,6 +12,7 @@ namespace ProceduralLevel.UnityPlugins.UI
 
 		public void SetContext(TContext context)
 		{
+			TryInitialize();
 			if(context == m_Context)
 			{
 				throw new InvalidOperationException();

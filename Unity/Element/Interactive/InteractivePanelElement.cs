@@ -4,7 +4,7 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 {
 	public class InteractivePanelElement : AInteractivePanelElement
 	{
-		protected override void OnPrepare(EventBinder binder)
+		protected override void OnInitialize(EventBinder binder)
 		{
 		}
 

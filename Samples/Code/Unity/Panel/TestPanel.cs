@@ -13,7 +13,7 @@ namespace ProceduralLevel.UnityPlugins.UI.Example
 
 		private ImmediateUI m_UI;
 
-		protected override void OnPrepare(EventBinder binder)
+		protected override void OnInitialize(EventBinder binder)
 		{
 			m_UI = new ImmediateUI(m_Container, m_Config);
 

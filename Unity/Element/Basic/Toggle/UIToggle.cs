@@ -11,7 +11,7 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 		public readonly CustomEvent<bool> OnValueChanged = new CustomEvent<bool>();
 
 		#region Element
-		protected override void OnPrepare(EventBinder binder)
+		protected override void OnInitialize(EventBinder binder)
 		{
 			binder.Bind(OnClicked, OnClickHandler);
 		}

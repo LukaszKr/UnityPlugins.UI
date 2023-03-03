@@ -6,7 +6,7 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 	public class UIButton : AInteractivePanelElement
 	{
 		#region Element
-		protected override void OnPrepare(EventBinder binder)
+		protected override void OnInitialize(EventBinder binder)
 		{
 		}
 		#endregion

@@ -10,7 +10,7 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 		private TextMeshProUGUI m_Text = null;
 
 		#region Element
-		protected override void OnPrepare(EventBinder binder)
+		protected override void OnInitialize(EventBinder binder)
 		{
 		}
 		#endregion

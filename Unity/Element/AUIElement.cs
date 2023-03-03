@@ -4,11 +4,11 @@ using UnityEngine;
 
 namespace ProceduralLevel.UnityPlugins.UI.Unity
 {
-	public abstract class AElement : ExtendedMonoBehaviour
+	public abstract class AUIElement : ExtendedMonoBehaviour
 	{
 		private RectTransform m_RectTransform;
 
-		private bool m_IsPrepared;
+		private bool m_IsInitialized;
 		private readonly EventBinder m_ElementBinder = new EventBinder();
 
 		public RectTransform RectTransform => m_RectTransform;
@@ -21,9 +21,9 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 
 		private void OnDestroy()
 		{
-			if(m_IsPrepared)
+			if(m_IsInitialized)
 			{
-				m_IsPrepared = false;
+				m_IsInitialized = false;
 				m_ElementBinder.UnbindAll();
 				OnCleanup();
 			}
@@ -40,16 +40,16 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 		}
 		#endregion
 
-		protected void TryPrepare()
+		protected void TryInitialize()
 		{
-			if(!m_IsPrepared)
+			if(!m_IsInitialized)
 			{
-				m_IsPrepared = true;
-				OnPrepare(m_ElementBinder);
+				m_IsInitialized = true;
+				OnInitialize(m_ElementBinder);
 			}
 		}
 
-		protected abstract void OnPrepare(EventBinder binder);
+		protected abstract void OnInitialize(EventBinder binder);
 
 		protected virtual void OnCleanup()
 		{

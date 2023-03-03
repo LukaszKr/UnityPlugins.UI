@@ -28,7 +28,7 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 		}
 
 		public TElement CreateElement<TElement>(TElement elementPrefab)
-			where TElement : AElement
+			where TElement : AUIElement
 		{
 			TElement instance = Object.Instantiate(elementPrefab);
 			AppendElement(instance.RectTransform);
