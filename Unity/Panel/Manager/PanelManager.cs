@@ -68,7 +68,6 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 				}
 			}
 
-
 			if(m_HoveredElement != hoveredElement)
 			{
 				if(m_HoveredElement != null)
@@ -80,12 +79,6 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 				{
 					hoveredElement.TrySetHovered(true);
 				}
-			}
-
-			if(hoveredElement == null && m_HoveredElement != null)
-			{
-				m_HoveredElement.TrySetHovered(false);
-				m_HoveredElement = null;
 			}
 		}
 
