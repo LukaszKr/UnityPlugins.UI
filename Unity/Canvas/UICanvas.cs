@@ -10,12 +10,9 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 		private Canvas m_Canvas = null;
 		[SerializeField]
 		private CanvasGroup m_Group = null;
-		[SerializeField]
-		private GraphicRaycaster m_Raycaster = null;
 
 		public Canvas UnityCanvas => m_Canvas;
 		public CanvasGroup CanvasGroup => m_Group;
-		public GraphicRaycaster Raycaster => m_Raycaster;
 
 		public int SortingOrder
 		{

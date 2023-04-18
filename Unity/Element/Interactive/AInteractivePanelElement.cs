@@ -1,8 +1,10 @@
 ﻿using ProceduralLevel.Common.Event;
+using UnityEngine.EventSystems;
 
 namespace ProceduralLevel.UnityPlugins.UI.Unity
 {
-	public abstract class AInteractivePanelElement : APanelElement
+	public abstract class AInteractivePanelElement : APanelElement, 
+		IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
 	{
 		private EInteractionState m_State = EInteractionState.Enabled;
 
@@ -21,7 +23,6 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 		public bool IsActive => m_State.Contains(EInteractionState.Active);
 		public bool IsSelected => m_State.Contains(EInteractionState.Selected);
 		public bool IsEnabled => m_State.Contains(EInteractionState.Enabled);
-
 
 		#region State
 		public bool TrySetHovered(bool hovered)
@@ -77,6 +78,28 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 				return true;
 			}
 			return false;
+		}
+		#endregion
+
+		#region Pointer Methods
+		public void OnPointerDown(PointerEventData eventData)
+		{
+			TrySetActive(false);
+		}
+
+		public void OnPointerUp(PointerEventData eventData)
+		{
+			TrySetActive(true);
+		}
+
+		public void OnPointerEnter(PointerEventData eventData)
+		{
+			TrySetHovered(true);
+		}
+
+		public void OnPointerExit(PointerEventData eventData)
+		{
+			TrySetHovered(false);
 		}
 		#endregion
 	}

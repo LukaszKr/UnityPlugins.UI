@@ -31,6 +31,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -54,7 +55,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Canvas: {fileID: 2960094224974870363}
   m_Group: {fileID: 2960094224974870356}
-  m_Raycaster: {fileID: 2960094224974870361}
 --- !u!223 &2960094224974870363
 Canvas:
   m_ObjectHideFlags: 0
@@ -98,6 +98,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &2960094224974870361
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -14,11 +14,6 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 		{
 		}
 
-		protected virtual void Update()
-		{
-			PanelManager.Update();
-		}
-
 		public TPanel GetPanel<TPanel>()
 			where TPanel : APanel
 		{
