@@ -84,12 +84,12 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 		#region Pointer Methods
 		public void OnPointerDown(PointerEventData eventData)
 		{
-			TrySetActive(false);
+			TrySetActive(true);
 		}
 
 		public void OnPointerUp(PointerEventData eventData)
 		{
-			TrySetActive(true);
+			TrySetActive(false);
 		}
 
 		public void OnPointerEnter(PointerEventData eventData)
