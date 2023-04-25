@@ -1,6 +1,5 @@
-﻿using ProceduralLevel.Common.Context;
+﻿using System;
 using ProceduralLevel.Common.Event;
-using System;
 
 namespace ProceduralLevel.UnityPlugins.UI.Unity
 {

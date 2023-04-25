@@ -26,7 +26,6 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 			if(CanShow())
 			{
 				m_IsShown = true;
-				ShowAnimation();
 				m_Manager.Add(this, m_Canvas);
 				OnShow();
 			}
@@ -42,7 +41,6 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 			{
 				m_IsShown = false;
 				OnHide();
-				HideAnimation();
 				m_Manager.Remove(this);
 			}
 			else
@@ -51,22 +49,14 @@ namespace ProceduralLevel.UnityPlugins.UI.Unity
 			}
 		}
 
-		protected virtual void ShowAnimation()
+		protected virtual void OnShow()
 		{
 			m_Canvas.GameObject.SetActive(true);
 		}
 
-		protected virtual void HideAnimation()
-		{
-			m_Canvas.GameObject.SetActive(false);
-		}
-
-		protected virtual void OnShow()
-		{
-		}
-
 		protected virtual void OnHide()
 		{
+			m_Canvas.GameObject.SetActive(false);
 		}
 
 		protected virtual bool CanShow()
