@@ -2,7 +2,7 @@
 using UnityEngine;
 using TMPro;
 
-namespace ProceduralLevel.UnityPlugins.UI.Unity
+namespace ProceduralLevel.UI.Unity
 {
 	public class UIText : APanelElement
 	{

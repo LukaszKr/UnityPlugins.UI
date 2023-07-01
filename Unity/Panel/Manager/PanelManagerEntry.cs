@@ -1,4 +1,4 @@
-﻿namespace ProceduralLevel.UnityPlugins.UI.Unity
+﻿namespace ProceduralLevel.UI.Unity
 {
 	internal class PanelManagerEntry
 	{

@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using ProceduralLevel.UnityPlugins.Common.Editor;
-using ProceduralLevel.UnityPlugins.UI.Unity;
+using ProceduralLevel.Common.Editor;
+using ProceduralLevel.UI.Unity;
 using UnityEditor;
 using UnityEngine;
 
-namespace ProceduralLevel.UnityPlugins.UI.Editor
+namespace ProceduralLevel.UI.Editor
 {
 	[CustomEditor(typeof(PanelRegistry))]
 	public class PanelRegistryEditor : AExtendedEditor<PanelRegistry>

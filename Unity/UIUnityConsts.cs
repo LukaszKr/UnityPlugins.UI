@@ -1,4 +1,4 @@
-﻿namespace ProceduralLevel.UnityPlugins.UI.Unity
+﻿namespace ProceduralLevel.UI.Unity
 {
 	public static class UIUnityConsts
 	{

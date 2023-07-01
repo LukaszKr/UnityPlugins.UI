@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ProceduralLevel.UnityPlugins.UI.Unity
+namespace ProceduralLevel.UI.Unity
 {
 	public class PanelManager
 	{

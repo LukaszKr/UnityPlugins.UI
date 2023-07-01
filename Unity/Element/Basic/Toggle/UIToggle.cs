@@ -1,6 +1,6 @@
 ﻿using ProceduralLevel.Common.Event;
 
-namespace ProceduralLevel.UnityPlugins.UI.Unity
+namespace ProceduralLevel.UI.Unity
 {
 	public class UIToggle : AInteractivePanelElement
 	{

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace ProceduralLevel.UnityPlugins.UI.Unity
+namespace ProceduralLevel.UI.Unity
 {
 	public class UILabelToggle : UIToggle
 	{

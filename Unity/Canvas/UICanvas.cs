@@ -1,8 +1,8 @@
-﻿using ProceduralLevel.UnityPlugins.Common.Unity.Extended;
+﻿using ProceduralLevel.Common.Unity.Extended;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace ProceduralLevel.UnityPlugins.UI.Unity
+namespace ProceduralLevel.UI.Unity
 {
 	public sealed class UICanvas : ExtendedMonoBehaviour
 	{

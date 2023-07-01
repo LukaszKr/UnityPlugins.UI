@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace ProceduralLevel.UnityPlugins.UI.Unity
+namespace ProceduralLevel.UI.Unity
 {
 	public abstract class APanelRegistry : ScriptableObject
 	{

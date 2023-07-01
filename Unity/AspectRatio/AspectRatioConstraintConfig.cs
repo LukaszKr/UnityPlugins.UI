@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace ProceduralLevel.UnityPlugins.UI.Unity
+namespace ProceduralLevel.UI.Unity
 {
 	[CreateAssetMenu(fileName = nameof(AspectRatioConstraintConfig), menuName = UIUnityConsts.MENU_ROOT+nameof(AspectRatioConstraintConfig))]
 	public class AspectRatioConstraintConfig : ScriptableObject

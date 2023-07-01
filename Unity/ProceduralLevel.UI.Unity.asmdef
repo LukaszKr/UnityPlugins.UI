@@ -1,14 +1,13 @@
 {
-    "name": "ProceduralLevel.UnityPlugins.UI.Editor",
-    "rootNamespace": "ProceduralLevel.UnityPlugins.UI.Editor",
+    "name": "ProceduralLevel.UI.Unity",
+    "rootNamespace": "ProceduralLevel.UI.Unity",
     "references": [
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f",
         "GUID:210304052f12ca14a9ff88e9466ff4a5",
-        "GUID:09255ba187395ca4f8dfdd7bb760b467",
-        "GUID:b4087cadc7f4a6047afc4df41fcbe04d"
+        "GUID:7beb5c7201ff0194aa34fefed6f62094"
     ],
-    "includePlatforms": [
-        "Editor"
-    ],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": true,

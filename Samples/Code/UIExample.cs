@@ -1,8 +1,8 @@
-﻿using ProceduralLevel.UnityPlugins.Common.Unity.Extended;
-using ProceduralLevel.UnityPlugins.UI.Unity;
+﻿using ProceduralLevel.Common.Unity.Extended;
+using ProceduralLevel.UI.Unity;
 using UnityEngine;
 
-namespace ProceduralLevel.UnityPlugins.UI.Example
+namespace ProceduralLevel.UI.Example
 {
 	public class UIExample : ExtendedMonoBehaviour
 	{

@@ -1,7 +1,7 @@
 ﻿using System;
 using ProceduralLevel.Common.Event;
 
-namespace ProceduralLevel.UnityPlugins.UI.Unity
+namespace ProceduralLevel.UI.Unity
 {
 	public abstract class AContextPanel<TContext> : APanel
 		where TContext : class

@@ -1,7 +1,7 @@
 ﻿using ProceduralLevel.Common.Event;
 using UnityEngine.EventSystems;
 
-namespace ProceduralLevel.UnityPlugins.UI.Unity
+namespace ProceduralLevel.UI.Unity
 {
 	public abstract class AInteractivePanelElement : APanelElement, 
 		IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
