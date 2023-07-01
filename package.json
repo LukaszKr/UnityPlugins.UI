@@ -1,13 +1,13 @@
 {
-	"name": "procedurallevel.unityplugins.ui",
+	"name": "procedurallevel.ui",
 	"version": "1.4.0",
 	"displayName": "UI",
 	"description": "",
 	"unity": "2020.3",
 	"unityRelease": "14f1",
 	"dependencies": {
-		"procedurallevel.unityplugins.common": "https://github.com/LukaszKr/UnityPlugins.Common.git",
-		"procedurallevel.unityplugins.input": "https://github.com/LukaszKr/UnityPlugins.Input.git"
+		"procedurallevel.common": "https://github.com/LukaszKr/UnityPlugins.Common.git",
+		"procedurallevel.input": "https://github.com/LukaszKr/UnityPlugins.Input.git"
 	},
 	"keywords": [
 	],
