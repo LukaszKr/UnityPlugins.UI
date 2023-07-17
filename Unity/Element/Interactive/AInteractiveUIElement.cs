@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 
 namespace ProceduralLevel.UI.Unity
 {
-	public abstract class AInteractivePanelElement : APanelElement, 
+	public abstract class AInteractiveUIElement : AUIElement, 
 		IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
 	{
 		private EInteractionState m_State = EInteractionState.Enabled;

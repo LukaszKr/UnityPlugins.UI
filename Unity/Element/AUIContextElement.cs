@@ -3,7 +3,7 @@ using ProceduralLevel.Common.Event;
 
 namespace ProceduralLevel.UI.Unity
 {
-	public abstract class APanelContextElement<TContext> : APanelElement
+	public abstract class AUIContextElement<TContext> : AUIElement
 		where TContext : class
 	{
 		protected TContext m_Context;

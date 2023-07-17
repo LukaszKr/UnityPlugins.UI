@@ -2,7 +2,7 @@
 
 namespace ProceduralLevel.UI.Unity
 {
-	public class InteractivePanelElement : AInteractivePanelElement
+	public class InteractiveUIElement : AInteractiveUIElement
 	{
 		protected override void OnInitialize(EventBinder binder)
 		{

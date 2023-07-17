@@ -4,7 +4,7 @@ using TMPro;
 
 namespace ProceduralLevel.UI.Unity
 {
-	public class UIText : APanelElement
+	public class UIText : AUIElement
 	{
 		[SerializeField]
 		private TextMeshProUGUI m_Text = null;

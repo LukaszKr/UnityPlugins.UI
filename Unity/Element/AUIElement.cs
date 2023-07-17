@@ -17,6 +17,7 @@ namespace ProceduralLevel.UI.Unity
 		protected virtual void Awake()
 		{
 			m_RectTransform = GetComponent<RectTransform>();
+			TryInitialize();
 		}
 
 		private void OnDestroy()
