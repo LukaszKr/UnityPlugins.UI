@@ -1,8 +1,7 @@
-﻿using ProceduralLevel.Common.Event;
-using ProceduralLevel.UI.Unity;
-using System;
+﻿using System;
+using ProceduralLevel.Common.Event;
 
-namespace ProceduralLevel.UI
+namespace ProceduralLevel.UI.Unity
 {
 	public abstract class APanelContextElement<TContext> : APanelElement
 		where TContext : class
