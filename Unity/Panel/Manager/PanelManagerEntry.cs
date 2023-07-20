@@ -1,6 +1,6 @@
 ﻿namespace ProceduralLevel.UI.Unity
 {
-	internal class PanelManagerEntry
+	public class PanelManagerEntry
 	{
 		public readonly APanel Panel;
 		public readonly UICanvas Canvas;

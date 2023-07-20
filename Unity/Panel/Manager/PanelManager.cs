@@ -7,6 +7,8 @@ namespace ProceduralLevel.UI.Unity
 	{
 		private readonly List<PanelManagerEntry> m_Entries = new List<PanelManagerEntry>();
 
+		public IReadOnlyList<PanelManagerEntry> Entries => m_Entries;
+
 		public void HideAll()
 		{
 			int count = m_Entries.Count;
