@@ -16,7 +16,6 @@ namespace ProceduralLevel.UI.Unity
 		#region Unity
 		protected virtual void Awake()
 		{
-			m_RectTransform = GetComponent<RectTransform>();
 			TryInitialize();
 		}
 
@@ -46,6 +45,7 @@ namespace ProceduralLevel.UI.Unity
 			if(!m_IsInitialized)
 			{
 				m_IsInitialized = true;
+				m_RectTransform = GetComponent<RectTransform>();
 				OnInitialize(m_ElementBinder);
 			}
 		}
