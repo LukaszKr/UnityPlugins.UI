@@ -29,7 +29,7 @@ namespace ProceduralLevel.UI.Unity
 			{
 				isLast = (x == count-1);
 				GridRowEntry entry = Entries[x];
-				LayoutElement element = entry.Element;
+				ALayoutElement element = entry.Element;
 				if(element is ILayoutGroupElement layoutElement)
 				{
 					layoutElement.DoLayout();
@@ -78,7 +78,7 @@ namespace ProceduralLevel.UI.Unity
 			return UsedWidth+width <= Grid.ColumnCount || UsedWidth == 0 && allowOverflowIfEmpty;
 		}
 
-		public GridRowEntry Add(LayoutElement element, int width)
+		public GridRowEntry Add(ALayoutElement element, int width)
 		{
 			GridRowEntry entry = new GridRowEntry(element, width);
 			Entries.Add(entry);

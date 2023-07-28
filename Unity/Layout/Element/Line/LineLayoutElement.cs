@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ProceduralLevel.UI.Unity
 {
-	public class LineLayoutElement : LayoutElement, ILayoutGroupElement
+	public class LineLayoutElement : ALayoutElement, ILayoutGroupElement
 	{
 		public ELayoutOrientation Orientation = ELayoutOrientation.Horizontal;
 		public int GapSize = 5;
@@ -12,7 +12,7 @@ namespace ProceduralLevel.UI.Unity
 
 		private readonly List<LineLayoutEntry> m_Entries = new List<LineLayoutEntry>();
 
-		public IEnumerable<LayoutElement> GetElements()
+		public IEnumerable<ALayoutElement> GetElements()
 		{
 			int count = m_Entries.Count;
 			for(int x = 0; x < count; ++x)
@@ -45,7 +45,7 @@ namespace ProceduralLevel.UI.Unity
 					usedSpace += GapSize;
 				}
 				LineLayoutEntry entry = m_Entries[x];
-				LayoutElement element = entry.Element;
+				ALayoutElement element = entry.Element;
 				if(element is ILayoutGroupElement groupElement)
 				{
 					groupElement.DoLayout();
@@ -72,7 +72,7 @@ namespace ProceduralLevel.UI.Unity
 			}
 		}
 
-		protected void ExpandElement(LayoutElement element)
+		protected void ExpandElement(ALayoutElement element)
 		{
 			switch(Orientation)
 			{
@@ -87,7 +87,7 @@ namespace ProceduralLevel.UI.Unity
 			}
 		}
 
-		protected int GetDimension(LayoutElement element)
+		protected int GetDimension(ALayoutElement element)
 		{
 			switch(Orientation)
 			{
@@ -100,7 +100,7 @@ namespace ProceduralLevel.UI.Unity
 			}
 		}
 
-		protected void SetDimension(LayoutElement element, int value)
+		protected void SetDimension(ALayoutElement element, int value)
 		{
 			switch(Orientation)
 			{
@@ -130,18 +130,28 @@ namespace ProceduralLevel.UI.Unity
 			return sum;
 		}
 
+		public TElement AddFlexible<TElement>(TElement element, int value)
+			where TElement : ALayoutElement
+		{
+			Add(new LineLayoutEntry(element, ELayoutEntryType.Flexible, value));
+			return element;
+		}
+
 		public LayoutElement AddFlexible(int value)
 		{
-			LayoutElement element = new LayoutElement();
-			Add(new LineLayoutEntry(element, ELayoutEntryType.Flexible, value));
+			return AddFlexible(new LayoutElement(), value);
+		}
+
+		public TElement AddStatic<TElement>(TElement element, int value)
+			where TElement : ALayoutElement
+		{
+			Add(new LineLayoutEntry(element, ELayoutEntryType.Static, value));
 			return element;
 		}
 
 		public LayoutElement AddStatic(int value)
 		{
-			LayoutElement element = new LayoutElement();
-			Add(new LineLayoutEntry(element, ELayoutEntryType.Static, value));
-			return element;
+			return AddStatic(new LayoutElement(), value);
 		}
 
 		public void Add(LineLayoutEntry entry)

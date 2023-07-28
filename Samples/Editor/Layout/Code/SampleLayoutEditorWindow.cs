@@ -49,11 +49,11 @@ namespace ProceduralLevel.UI.Samples.Editor
 
 			m_LineLayout = new LineLayoutElement();
 			m_LineLayout.Rect = new LayoutRect(50, 400, 400, 25);
-			m_LineLayout.AddStatic(25);
-			m_LineLayout.AddFlexible(1);
-			m_LineLayout.AddStatic(25);
-			m_LineLayout.AddFlexible(1);
-			m_LineLayout.AddStatic(25);
+			m_LineLayout.AddStatic(new LayoutElement(), 25);
+			m_LineLayout.AddFlexible(new LayoutElement(), 1);
+			m_LineLayout.AddStatic(new LayoutElement(), 25);
+			m_LineLayout.AddFlexible(new LayoutElement(), 1);
+			m_LineLayout.AddStatic(new LayoutElement(), 25);
 
 			m_ListLayout = new ListLayoutElement();
 			m_ListLayout.Add(new LayoutElement(50, 50));
@@ -81,7 +81,7 @@ namespace ProceduralLevel.UI.Samples.Editor
 			//Draw(m_LineLayout, 1);
 		}
 
-		protected void Draw(LayoutElement layout, int depth)
+		protected void Draw(ALayoutElement layout, int depth)
 		{
 			float tint = 1f/depth;
 			Color color = new Color(tint, tint, tint);
@@ -91,7 +91,7 @@ namespace ProceduralLevel.UI.Samples.Editor
 			{
 				Matrix4x4 current = GUI.matrix;
 				GUIExt.PushMatrix(current*Matrix4x4.Translate(rect.position));
-				foreach(LayoutElement element in group.GetElements())
+				foreach(ALayoutElement element in group.GetElements())
 				{
 					Draw(element, depth+1);
 				}

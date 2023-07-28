@@ -2,11 +2,11 @@
 {
 	public class LineLayoutEntry
 	{
-		public readonly LayoutElement Element;
+		public readonly ALayoutElement Element;
 		public readonly ELayoutEntryType Type;
 		public int Value;
 
-		public LineLayoutEntry(LayoutElement element, ELayoutEntryType type, int value)
+		public LineLayoutEntry(ALayoutElement element, ELayoutEntryType type, int value)
 		{
 			Element = element;
 			Type = type;

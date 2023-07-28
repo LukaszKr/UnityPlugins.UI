@@ -2,10 +2,10 @@
 {
 	public class GridRowEntry
 	{
-		public readonly LayoutElement Element;
+		public readonly ALayoutElement Element;
 		public int Width;
 
-		public GridRowEntry(LayoutElement element, int width)
+		public GridRowEntry(ALayoutElement element, int width)
 		{
 			Element = element;
 			Width = width;

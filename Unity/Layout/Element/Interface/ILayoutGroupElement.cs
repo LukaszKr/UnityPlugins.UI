@@ -4,7 +4,7 @@ namespace ProceduralLevel.UI.Unity
 {
 	public interface ILayoutGroupElement
 	{
-		IEnumerable<LayoutElement> GetElements();
+		IEnumerable<ALayoutElement> GetElements();
 		void DoLayout();
 	}
 }

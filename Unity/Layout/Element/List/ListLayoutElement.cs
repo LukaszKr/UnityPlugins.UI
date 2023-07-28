@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Xml.Linq;
 
 namespace ProceduralLevel.UI.Unity
 {
-	public class ListLayoutElement : LayoutElement, ILayoutGroupElement
+	public class ListLayoutElement : ALayoutElement, ILayoutGroupElement
 	{
 		public ELayoutOrientation Orientation = ELayoutOrientation.Vertical;
 		public int GapSize = 5;
@@ -12,7 +13,7 @@ namespace ProceduralLevel.UI.Unity
 
 		private readonly List<ListLayoutEntry> m_Entries = new List<ListLayoutEntry>();
 
-		public IEnumerable<LayoutElement> GetElements()
+		public IEnumerable<ALayoutElement> GetElements()
 		{
 			foreach(ListLayoutEntry entry in m_Entries)
 			{
@@ -41,27 +42,19 @@ namespace ProceduralLevel.UI.Unity
 			}
 		}
 
-		public ListLayoutEntry Add(LayoutElement element)
+		public TElement Add<TElement>(TElement element)
+			where TElement : ALayoutElement
 		{
-			ListLayoutEntry entry = new ListLayoutEntry(element);
-			m_Entries.Add(entry);
-			return entry;
+			m_Entries.Add(new ListLayoutEntry(element));
+			return element;
 		}
 
-		private int GetElementSize(LayoutElement element)
+		public LayoutElement Add()
 		{
-			switch(Orientation)
-			{
-				case ELayoutOrientation.Horizontal:
-					return element.Rect.Width;
-				case ELayoutOrientation.Vertical:
-					return element.Rect.Height;
-				default:
-					throw new NotImplementedException(Orientation.ToString());
-			}
+			return Add(new LayoutElement());
 		}
 
-		private int SetElementSize(LayoutElement element)
+		private int GetElementSize(ALayoutElement element)
 		{
 			switch(Orientation)
 			{
@@ -74,7 +67,7 @@ namespace ProceduralLevel.UI.Unity
 			}
 		}
 
-		private void SEtElementPosition(LayoutElement element, int position)
+		private void SEtElementPosition(ALayoutElement element, int position)
 		{
 			switch(Orientation)
 			{
@@ -89,7 +82,7 @@ namespace ProceduralLevel.UI.Unity
 			}
 		}
 
-		private void StretchElement(LayoutElement element)
+		private void StretchElement(ALayoutElement element)
 		{
 			switch(Orientation)
 			{

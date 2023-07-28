@@ -2,9 +2,9 @@
 {
 	public class ListLayoutEntry
 	{
-		public readonly LayoutElement Element;
+		public readonly ALayoutElement Element;
 
-		public ListLayoutEntry(LayoutElement element)
+		public ListLayoutEntry(ALayoutElement element)
 		{
 			Element = element;
 		}

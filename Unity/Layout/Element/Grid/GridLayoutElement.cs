@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace ProceduralLevel.UI.Unity
 {
-	public class GridLayoutElement : LayoutElement, ILayoutGroupElement
+	public class GridLayoutElement : ALayoutElement, ILayoutGroupElement
 	{
 		private int m_ColumnCount;
 		private int m_ColumnGap = 5;
@@ -21,7 +21,7 @@ namespace ProceduralLevel.UI.Unity
 			m_ColumnCount = columnCount;
 		}
 
-		public IEnumerable<LayoutElement> GetElements()
+		public IEnumerable<ALayoutElement> GetElements()
 		{
 			int rowCount = m_Rows.Count;
 			for(int rowIndex = 0; rowIndex < rowCount; ++rowIndex)
@@ -30,7 +30,7 @@ namespace ProceduralLevel.UI.Unity
 				int elementCount = row.Entries.Count;
 				for(int elementIndex = 0; elementIndex < elementCount; ++elementIndex)
 				{
-					LayoutElement element = row.Entries[elementIndex].Element;
+					ALayoutElement element = row.Entries[elementIndex].Element;
 					yield return element;
 				}
 			}
@@ -105,7 +105,7 @@ namespace ProceduralLevel.UI.Unity
 			}
 		}
 
-		public GridRowEntry Add(LayoutElement element, int width)
+		public GridRowEntry Add(ALayoutElement element, int width)
 		{
 			if(m_CurrentRow == null || m_CurrentRow.UsedWidth+width > m_ColumnCount)
 			{
