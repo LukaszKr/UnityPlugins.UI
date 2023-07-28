@@ -3,7 +3,7 @@ using ProceduralLevel.Common.Unity;
 using ProceduralLevel.UI.Unity;
 using UnityEngine;
 
-namespace ProceduralLevel.UI.Example
+namespace ProceduralLevel.UI.Samples
 {
 	public class TestPanel : APanel
 	{
