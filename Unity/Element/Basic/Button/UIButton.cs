@@ -1,5 +1,4 @@
 ﻿using ProceduralLevel.Common.Event;
-using System;
 
 namespace ProceduralLevel.UI.Unity
 {

@@ -1,6 +1,4 @@
 ﻿using System;
-using ProceduralLevel.Common.Collision2D;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 namespace ProceduralLevel.UI.Unity
