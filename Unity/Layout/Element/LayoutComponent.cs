@@ -34,6 +34,11 @@ namespace ProceduralLevel.UI.Unity
 		#endregion
 
 		#region Create
+		public static LayoutComponent Create(Transform parent, string name)
+		{
+			return LayoutFactory.Create(new Layout(), parent, name);
+		}
+
 		public static LayoutComponent Create(Layout layout, Transform parent, string name)
 		{
 			return LayoutFactory.Create(layout, parent, name);
