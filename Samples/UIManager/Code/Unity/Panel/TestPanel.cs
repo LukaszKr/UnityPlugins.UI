@@ -11,17 +11,17 @@ namespace ProceduralLevel.UI.Samples
 		[SerializeField]
 		private RectTransform m_NestedPrefab = null;
 
-		private LayoutElement m_Container;
+		private Layout m_Container;
 
 		protected override void OnInitialize(EventBinder binder)
 		{
-			m_Container = new LayoutElement();
+			m_Container = new Layout();
 			m_Container.Orientation = ELayoutOrientation.Vertical;
 
 			LayoutComponent container = LayoutComponent.Create(m_Container, Transform, "Container");
 			LayoutComponent topBar = container.AddStatic("TopBar", 100);
 			LayoutComponent middle = container.AddFlexible("Middle", 1);
-			middle.Element.Orientation = ELayoutOrientation.Vertical;
+			middle.Layout.Orientation = ELayoutOrientation.Vertical;
 			for(int x = 0; x < 3; ++x)
 			{
 				middle.AddFlexible($"{x}", x+1, m_LayoutComponentPrefab);
@@ -29,11 +29,11 @@ namespace ProceduralLevel.UI.Samples
 			LayoutComponent bottomBar = container.AddStatic("BottomBar", 100);
 
 			topBar.AddStatic("TopLeft", 100, m_LayoutComponentPrefab);
-			topBar.Element.AddFlexible();
+			topBar.Layout.AddFlexible();
 			topBar.AddStatic("TopRight", 100, m_LayoutComponentPrefab);
 
 			bottomBar.AddStatic("BottomLeft", 100, m_LayoutComponentPrefab);
-			bottomBar.Element.AddFlexible();
+			bottomBar.Layout.AddFlexible();
 			bottomBar.AddStatic("BottomRight", 200).SpawnAndNest(m_NestedPrefab);
 		}
 

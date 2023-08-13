@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace ProceduralLevel.UI.Unity
 {
-	public class LayoutElement
+	public class Layout
 	{
 		public LayoutRect Rect;
 		public ELayoutOrientation Orientation = ELayoutOrientation.Horizontal;
@@ -14,28 +14,28 @@ namespace ProceduralLevel.UI.Unity
 
 		private readonly List<LayoutEntry> m_Childrens = new List<LayoutEntry>();
 
-		public LayoutElement(int width = 0, int height = 20)
+		public Layout(int width = 0, int height = 20)
 		{
 			Rect = new LayoutRect(0, 0, width, height);
 		}
 
-		public LayoutElement(ELayoutOrientation orientation)
+		public Layout(ELayoutOrientation orientation)
 		{
 			Orientation = orientation;
 		}
 
-		public LayoutElement(ELayoutOrientation orientation, int size)
+		public Layout(ELayoutOrientation orientation, int size)
 		{
 			Orientation = orientation;
 			Rect.SetSize(orientation.GetOther(), size);
 		}
 
-		public IEnumerable<LayoutElement> GetChildrens()
+		public IEnumerable<Layout> GetChildrens()
 		{
 			int count = m_Childrens.Count;
 			for(int x = 0; x < count; ++x)
 			{
-				yield return m_Childrens[x].Element;
+				yield return m_Childrens[x].Layout;
 			}
 		}
 
@@ -70,17 +70,17 @@ namespace ProceduralLevel.UI.Unity
 					usedSpace += GapSize;
 				}
 				LayoutEntry entry = m_Childrens[x];
-				LayoutElement element = entry.Element;
+				Layout layout = entry.Layout;
 				if(entry.Expand)
 				{
 					int expandTo = Rect.GetSize(otherOrientation);
-					element.Rect.SetSize(otherOrientation, expandTo);
+					layout.Rect.SetSize(otherOrientation, expandTo);
 				}
-				element.DoLayout();
-				SetPosition(element, usedSpace);
-				int elementSize = entry.GetValue(Orientation, perFlexibleUnit);
-				element.Rect.SetSize(Orientation, elementSize);
-				usedSpace += elementSize;
+				layout.DoLayout();
+				SetPosition(layout, usedSpace);
+				int layoutSize = entry.GetValue(Orientation, perFlexibleUnit);
+				layout.Rect.SetSize(Orientation, layoutSize);
+				usedSpace += layoutSize;
 			}
 			if(ShouldExpand)
 			{
@@ -88,17 +88,17 @@ namespace ProceduralLevel.UI.Unity
 			}
 		}
 
-		private void SetPosition(LayoutElement element, int value)
+		private void SetPosition(Layout layout, int value)
 		{
 			switch(Orientation)
 			{
 				case ELayoutOrientation.Horizontal:
-					element.Rect.X = value;
-					element.Rect.Y = 0;
+					layout.Rect.X = value;
+					layout.Rect.Y = 0;
 					break;
 				case ELayoutOrientation.Vertical:
-					element.Rect.X = 0;
-					element.Rect.Y = value;
+					layout.Rect.X = 0;
+					layout.Rect.Y = value;
 					break;
 				default:
 					throw new NotImplementedException(Orientation.ToString());
@@ -121,31 +121,31 @@ namespace ProceduralLevel.UI.Unity
 		}
 		#endregion
 
-		public LayoutElement AddFlexible(LayoutElement element, int value = 1)
+		public Layout AddFlexible(Layout layout, int value = 1)
 		{
-			Add(new LayoutEntry(element, ELayoutEntryType.Flexible, value));
-			return element;
+			Add(new LayoutEntry(layout, ELayoutEntryType.Flexible, value));
+			return layout;
 		}
 
-		public LayoutElement AddFlexible(int value = 1)
+		public Layout AddFlexible(int value = 1)
 		{
-			return AddFlexible(new LayoutElement(), value);
+			return AddFlexible(new Layout(), value);
 		}
 
-		public LayoutElement AddStatic(LayoutElement element, int value)
+		public Layout AddStatic(Layout layout, int value)
 		{
-			Add(new LayoutEntry(element, ELayoutEntryType.Static, value));
-			return element;
+			Add(new LayoutEntry(layout, ELayoutEntryType.Static, value));
+			return layout;
 		}
 
-		public LayoutElement AddStatic(LayoutElement element)
+		public Layout AddStatic(Layout layout)
 		{
-			return AddStatic(element, 0);
+			return AddStatic(layout, 0);
 		}
 
-		public LayoutElement AddStatic(int value)
+		public Layout AddStatic(int value)
 		{
-			return AddStatic(new LayoutElement(), value);
+			return AddStatic(new Layout(), value);
 		}
 
 		public void Add(LayoutEntry entry)

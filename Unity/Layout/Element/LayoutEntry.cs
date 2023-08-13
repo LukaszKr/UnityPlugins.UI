@@ -4,14 +4,14 @@ namespace ProceduralLevel.UI.Unity
 {
 	public class LayoutEntry
 	{
-		public readonly LayoutElement Element;
+		public readonly Layout Layout;
 		public readonly ELayoutEntryType Type;
 		public int Value;
 		public bool Expand = true;
 
-		public LayoutEntry(LayoutElement element, ELayoutEntryType type, int value)
+		public LayoutEntry(Layout layout, ELayoutEntryType type, int value)
 		{
-			Element = element;
+			Layout = layout;
 			Type = type;
 			Value = value;
 		}
@@ -25,7 +25,7 @@ namespace ProceduralLevel.UI.Unity
 				case ELayoutEntryType.Static:
 					if(Value == 0)
 					{
-						return Element.Rect.GetSize(orientation);
+						return Layout.Rect.GetSize(orientation);
 					}
 					return Value;
 				default:
@@ -35,7 +35,7 @@ namespace ProceduralLevel.UI.Unity
 
 		public override string ToString()
 		{
-			return $"({Type}, {Value}, {Element.Rect})";
+			return $"({Type}, {Value}, {Layout.Rect})";
 		}
 	}
 }

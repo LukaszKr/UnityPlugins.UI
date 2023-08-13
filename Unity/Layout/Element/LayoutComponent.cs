@@ -5,14 +5,14 @@ using UnityEngine;
 namespace ProceduralLevel.UI.Unity
 {
 	[RequireComponent(typeof(RectTransform))]
-	public class LayoutComponent : AContextComponent<LayoutElement>
+	public class LayoutComponent : AContextComponent<Layout>
 	{
 		private LayoutRect m_DisplayedRect;
 
 		[SerializeField]
 		private RectTransform m_RectComponent;
 
-		public LayoutElement Element => m_Context;
+		public Layout Layout => m_Context;
 
 		#region Context
 		protected override void OnInitialize()
@@ -34,43 +34,43 @@ namespace ProceduralLevel.UI.Unity
 		#endregion
 
 		#region Create
-		public static LayoutComponent Create(LayoutElement element, Transform parent, string name)
+		public static LayoutComponent Create(Layout layout, Transform parent, string name)
 		{
-			return LayoutFactory.Create(element, parent, name);
+			return LayoutFactory.Create(layout, parent, name);
 		}
 
-		private LayoutComponent Create(LayoutElement element, string name, LayoutComponent prefab = null)
+		private LayoutComponent Create(Layout layout, string name, LayoutComponent prefab = null)
 		{
-			return LayoutFactory.Create(element, Transform, name, prefab);
+			return LayoutFactory.Create(layout, Transform, name, prefab);
 		}
 
-		public LayoutComponent AddFlexible(LayoutElement element, string name, int value = 1, LayoutComponent prefab = null)
+		public LayoutComponent AddFlexible(Layout layout, string name, int value = 1, LayoutComponent prefab = null)
 		{
-			m_Context.AddFlexible(element, value);
-			return Create(element, name, prefab);
+			m_Context.AddFlexible(layout, value);
+			return Create(layout, name, prefab);
 		}
 
 		public LayoutComponent AddFlexible(string name, int value = 1, LayoutComponent prefab = null)
 		{
-			return AddFlexible(new LayoutElement(), name, value, prefab);
+			return AddFlexible(new Layout(), name, value, prefab);
 		}
 
-		public LayoutComponent AddStatic(LayoutElement element, string name, int value, LayoutComponent prefab = null)
+		public LayoutComponent AddStatic(Layout layout, string name, int value, LayoutComponent prefab = null)
 		{
-			m_Context.AddStatic(element, value);
-			return Create(element, name, prefab);
+			m_Context.AddStatic(layout, value);
+			return Create(layout, name, prefab);
 		}
 
-		public LayoutComponent AddStatic(LayoutElement element, string name, LayoutComponent prefab = null)
+		public LayoutComponent AddStatic(Layout layout, string name, LayoutComponent prefab = null)
 		{
-			m_Context.AddStatic(element, 0);
-			return Create(element, name, prefab);
+			m_Context.AddStatic(layout, 0);
+			return Create(layout, name, prefab);
 		}
 
 		public LayoutComponent AddStatic(string name, int value, LayoutComponent prefab = null)
 		{
-			LayoutElement element = m_Context.AddStatic(value);
-			return Create(element, name, prefab);
+			Layout layout = m_Context.AddStatic(value);
+			return Create(layout, name, prefab);
 		}
 		#endregion
 

@@ -37,12 +37,12 @@ namespace ProceduralLevel.UI.Unity
 			rect.sizeDelta = new Vector2(0f, 0f);
 		}
 
-		public static void ApplyLayout(this RectTransform rect, LayoutElement element)
+		public static void ApplyLayout(this RectTransform rect, Layout layout)
 		{
 			rect.anchorMin = new Vector2(0f, 1f);
 			rect.anchorMax = new Vector2(0f, 1f);
 			Vector2 pivot = rect.pivot;
-			LayoutRect layoutRect = element.Rect;
+			LayoutRect layoutRect = layout.Rect;
 			Vector2 position = new Vector2(layoutRect.X, -layoutRect.Y);
 			position.x += pivot.x*layoutRect.Width;
 			position.y -= pivot.y*layoutRect.Height;

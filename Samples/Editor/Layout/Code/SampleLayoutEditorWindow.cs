@@ -12,7 +12,7 @@ namespace ProceduralLevel.UI.Samples.Editor
 
 		public override string Title => TITLE;
 
-		private LayoutElement m_VerticalLine;
+		private Layout m_VerticalLine;
 
 		[MenuItem(UIUnityConsts.SAMPLE_MENU+TITLE)]
 		public static void OpenEditorWindow()
@@ -27,34 +27,34 @@ namespace ProceduralLevel.UI.Samples.Editor
 
 		private void PrepareLayout()
 		{
-			m_VerticalLine = new LayoutElement(ELayoutOrientation.Vertical);
+			m_VerticalLine = new Layout(ELayoutOrientation.Vertical);
 			m_VerticalLine.Rect.Y = 20;
-			LayoutElement line = m_VerticalLine.AddStatic(new LayoutElement(), 50);
-			line.AddFlexible(new LayoutElement(), 3);
-			line.AddFlexible(new LayoutElement(), 2);
+			Layout line = m_VerticalLine.AddStatic(new Layout(), 50);
+			line.AddFlexible(new Layout(), 3);
+			line.AddFlexible(new Layout(), 2);
 
-			line = m_VerticalLine.AddStatic(new LayoutElement(), 50);
-			line.AddFlexible(new LayoutElement(), 2);
-			line.AddFlexible(new LayoutElement(), 1);
-			line.AddFlexible(new LayoutElement(), 3);
+			line = m_VerticalLine.AddStatic(new Layout(), 50);
+			line.AddFlexible(new Layout(), 2);
+			line.AddFlexible(new Layout(), 1);
+			line.AddFlexible(new Layout(), 3);
 
-			LayoutElement horizontalLine = new LayoutElement();
-			horizontalLine.AddStatic(new LayoutElement(), 25);
-			horizontalLine.AddFlexible(new LayoutElement(), 1);
-			horizontalLine.AddStatic(new LayoutElement(), 25);
-			horizontalLine.AddFlexible(new LayoutElement(), 1);
-			horizontalLine.AddStatic(new LayoutElement(), 25);
+			Layout horizontalLine = new Layout();
+			horizontalLine.AddStatic(new Layout(), 25);
+			horizontalLine.AddFlexible(new Layout(), 1);
+			horizontalLine.AddStatic(new Layout(), 25);
+			horizontalLine.AddFlexible(new Layout(), 1);
+			horizontalLine.AddStatic(new Layout(), 25);
 
-			LayoutElement verticalLine = new LayoutElement();
+			Layout verticalLine = new Layout();
 			verticalLine.Orientation = ELayoutOrientation.Vertical;
-			verticalLine.AddStatic(new LayoutElement(), 50);
-			verticalLine.AddStatic(new LayoutElement(), 100);
-			verticalLine.AddStatic(new LayoutElement(), 70);
+			verticalLine.AddStatic(new Layout(), 50);
+			verticalLine.AddStatic(new Layout(), 100);
+			verticalLine.AddStatic(new Layout(), 70);
 
-			LayoutElement horizontalLine2 = new LayoutElement();
-			horizontalLine2.AddStatic(new LayoutElement(), 150);
-			horizontalLine2.AddFlexible(new LayoutElement(), 2);
-			horizontalLine2.AddFlexible(new LayoutElement(), 3);
+			Layout horizontalLine2 = new Layout();
+			horizontalLine2.AddStatic(new Layout(), 150);
+			horizontalLine2.AddFlexible(new Layout(), 2);
+			horizontalLine2.AddFlexible(new Layout(), 3);
 
 			m_VerticalLine.AddStatic(horizontalLine, 20);
 			m_VerticalLine.AddStatic(verticalLine);
@@ -70,7 +70,7 @@ namespace ProceduralLevel.UI.Samples.Editor
 			//Draw(m_LineLayout, 1);
 		}
 
-		protected void Draw(LayoutElement element, int depth)
+		protected void Draw(Layout element, int depth)
 		{
 			float tint = 1f/depth;
 			Color color = new Color(tint, tint, tint);
@@ -79,7 +79,7 @@ namespace ProceduralLevel.UI.Samples.Editor
 
 			Matrix4x4 current = GUI.matrix;
 			GUIExt.PushMatrix(current*Matrix4x4.Translate(rect.position));
-			foreach(LayoutElement child in element.GetChildrens())
+			foreach(Layout child in element.GetChildrens())
 			{
 				Draw(child, depth+1);
 			}
