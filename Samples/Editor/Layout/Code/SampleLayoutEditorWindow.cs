@@ -27,34 +27,34 @@ namespace ProceduralLevel.UI.Samples.Editor
 
 		private void PrepareLayout()
 		{
-			m_VerticalLine = new Layout(ELayoutOrientation.Vertical);
+			m_VerticalLine = new Layout();
 			m_VerticalLine.Rect.Y = 20;
-			Layout line = m_VerticalLine.AddStatic(new Layout(), 50);
-			line.AddFlexible(new Layout(), 3);
-			line.AddFlexible(new Layout(), 2);
+			Layout line = m_VerticalLine.AddStatic(50, ELayoutOrientation.Horizontal);
+			line.AddFlexible(3);
+			line.AddFlexible(2);
 
-			line = m_VerticalLine.AddStatic(new Layout(), 50);
-			line.AddFlexible(new Layout(), 2);
-			line.AddFlexible(new Layout(), 1);
-			line.AddFlexible(new Layout(), 3);
+			line = m_VerticalLine.AddStatic(50, ELayoutOrientation.Horizontal);
+			line.AddFlexible(2);
+			line.AddFlexible(1);
+			line.AddFlexible(3);
 
-			Layout horizontalLine = new Layout();
-			horizontalLine.AddStatic(new Layout(), 25);
-			horizontalLine.AddFlexible(new Layout(), 1);
-			horizontalLine.AddStatic(new Layout(), 25);
-			horizontalLine.AddFlexible(new Layout(), 1);
-			horizontalLine.AddStatic(new Layout(), 25);
+			Layout horizontalLine = new Layout(ELayoutOrientation.Horizontal);
+			horizontalLine.AddStatic(25);
+			horizontalLine.AddFlexible(1);
+			horizontalLine.AddStatic(25);
+			horizontalLine.AddFlexible(1);
+			horizontalLine.AddStatic(25);
 
 			Layout verticalLine = new Layout();
 			verticalLine.Orientation = ELayoutOrientation.Vertical;
-			verticalLine.AddStatic(new Layout(), 50);
-			verticalLine.AddStatic(new Layout(), 100);
-			verticalLine.AddStatic(new Layout(), 70);
+			verticalLine.AddStatic(50);
+			verticalLine.AddStatic(100);
+			verticalLine.AddStatic(70);
 
-			Layout horizontalLine2 = new Layout();
-			horizontalLine2.AddStatic(new Layout(), 150);
-			horizontalLine2.AddFlexible(new Layout(), 2);
-			horizontalLine2.AddFlexible(new Layout(), 3);
+			Layout horizontalLine2 = new Layout(ELayoutOrientation.Horizontal);
+			horizontalLine2.AddStatic(150);
+			horizontalLine2.AddFlexible(2);
+			horizontalLine2.AddFlexible(3);
 
 			m_VerticalLine.AddStatic(horizontalLine, 20);
 			m_VerticalLine.AddStatic(verticalLine);

@@ -15,18 +15,17 @@ namespace ProceduralLevel.UI.Samples
 
 		protected override void OnInitialize(EventBinder binder)
 		{
-			m_Container = new Layout();
-			m_Container.Orientation = ELayoutOrientation.Vertical;
+			m_Container = new Layout(ELayoutOrientation.Vertical);
 
 			LayoutComponent container = LayoutComponent.Create(m_Container, Transform, "Container");
-			LayoutComponent topBar = container.AddStatic("TopBar", 100);
-			LayoutComponent middle = container.AddFlexible("Middle", 1);
+			LayoutComponent topBar = container.AddStatic("TopBar", 100, ELayoutOrientation.Horizontal);
+			LayoutComponent middle = container.AddFlexible("Middle", 1, ELayoutOrientation.Horizontal);
 			middle.Layout.Orientation = ELayoutOrientation.Vertical;
 			for(int x = 0; x < 3; ++x)
 			{
 				middle.AddFlexible($"{x}", x+1, m_LayoutComponentPrefab);
 			}
-			LayoutComponent bottomBar = container.AddStatic("BottomBar", 100);
+			LayoutComponent bottomBar = container.AddStatic("BottomBar", 100, ELayoutOrientation.Horizontal);
 
 			topBar.AddStatic("TopLeft", 100, m_LayoutComponentPrefab);
 			topBar.Layout.AddFlexible();

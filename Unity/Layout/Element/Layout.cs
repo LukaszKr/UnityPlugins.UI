@@ -14,14 +14,10 @@ namespace ProceduralLevel.UI.Unity
 
 		private readonly List<LayoutEntry> m_Childrens = new List<LayoutEntry>();
 
-		public Layout(int width = 0, int height = 20)
-		{
-			Rect = new LayoutRect(0, 0, width, height);
-		}
-
-		public Layout(ELayoutOrientation orientation)
+		public Layout(ELayoutOrientation orientation = ELayoutOrientation.Vertical, int width = 0, int height = 20)
 		{
 			Orientation = orientation;
+			Rect = new LayoutRect(0, 0, width, height);
 		}
 
 		public Layout(ELayoutOrientation orientation, int size)
@@ -121,15 +117,15 @@ namespace ProceduralLevel.UI.Unity
 		}
 		#endregion
 
-		public Layout AddFlexible(Layout layout, int value = 1)
+		public Layout AddFlexible(Layout layout, int value)
 		{
 			Add(new LayoutEntry(layout, ELayoutEntryType.Flexible, value));
 			return layout;
 		}
 
-		public Layout AddFlexible(int value = 1)
+		public Layout AddFlexible(int value = 1, ELayoutOrientation orientation = ELayoutOrientation.Vertical)
 		{
-			return AddFlexible(new Layout(), value);
+			return AddFlexible(new Layout(orientation), value);
 		}
 
 		public Layout AddStatic(Layout layout, int value)
@@ -143,12 +139,12 @@ namespace ProceduralLevel.UI.Unity
 			return AddStatic(layout, 0);
 		}
 
-		public Layout AddStatic(int value)
+		public Layout AddStatic(int value, ELayoutOrientation orientation = ELayoutOrientation.Vertical)
 		{
-			return AddStatic(new Layout(), value);
+			return AddStatic(new Layout(orientation), value);
 		}
 
-		public void Add(LayoutEntry entry)
+		private void Add(LayoutEntry entry)
 		{
 			m_Childrens.Add(entry);
 		}

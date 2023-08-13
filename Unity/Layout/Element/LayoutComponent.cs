@@ -34,9 +34,9 @@ namespace ProceduralLevel.UI.Unity
 		#endregion
 
 		#region Create
-		public static LayoutComponent Create(Transform parent, string name)
+		public static LayoutComponent Create(Transform parent, string name, ELayoutOrientation orientation = ELayoutOrientation.Vertical)
 		{
-			return LayoutFactory.Create(new Layout(), parent, name);
+			return LayoutFactory.Create(new Layout(orientation), parent, name);
 		}
 
 		public static LayoutComponent Create(Layout layout, Transform parent, string name)
@@ -49,15 +49,20 @@ namespace ProceduralLevel.UI.Unity
 			return LayoutFactory.Create(layout, Transform, name, prefab);
 		}
 
-		public LayoutComponent AddFlexible(Layout layout, string name, int value = 1, LayoutComponent prefab = null)
+		public LayoutComponent AddFlexible(Layout layout, string name, int value, LayoutComponent prefab = null)
 		{
 			m_Context.AddFlexible(layout, value);
 			return Create(layout, name, prefab);
 		}
 
-		public LayoutComponent AddFlexible(string name, int value = 1, LayoutComponent prefab = null)
+		public LayoutComponent AddFlexible(string name, int value, ELayoutOrientation orientation = ELayoutOrientation.Vertical)
 		{
-			return AddFlexible(new Layout(), name, value, prefab);
+			return AddFlexible(name, value, null, orientation);
+		}
+
+		public LayoutComponent AddFlexible(string name, int value, LayoutComponent prefab, ELayoutOrientation orientation = ELayoutOrientation.Vertical)
+		{
+			return AddFlexible(new Layout(orientation), name, value, prefab);
 		}
 
 		public LayoutComponent AddStatic(Layout layout, string name, int value, LayoutComponent prefab = null)
@@ -72,9 +77,14 @@ namespace ProceduralLevel.UI.Unity
 			return Create(layout, name, prefab);
 		}
 
-		public LayoutComponent AddStatic(string name, int value, LayoutComponent prefab = null)
+		public LayoutComponent AddStatic(string name, int value, ELayoutOrientation orientation = ELayoutOrientation.Vertical)
 		{
-			Layout layout = m_Context.AddStatic(value);
+			return AddStatic(name, value, null, orientation);
+		}
+
+		public LayoutComponent AddStatic(string name, int value, LayoutComponent prefab, ELayoutOrientation orientation = ELayoutOrientation.Vertical)
+		{
+			Layout layout = m_Context.AddStatic(value, orientation);
 			return Create(layout, name, prefab);
 		}
 		#endregion
