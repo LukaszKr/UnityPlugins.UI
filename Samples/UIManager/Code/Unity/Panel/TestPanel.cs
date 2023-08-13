@@ -19,8 +19,7 @@ namespace ProceduralLevel.UI.Samples
 
 			LayoutComponent container = LayoutComponent.Create(m_Container, Transform, "Container");
 			LayoutComponent topBar = container.AddStatic("TopBar", 100, ELayoutOrientation.Horizontal);
-			LayoutComponent middle = container.AddFlexible("Middle", 1, ELayoutOrientation.Horizontal);
-			middle.Layout.Orientation = ELayoutOrientation.Vertical;
+			LayoutComponent middle = container.AddFlexible("Middle", 1, ELayoutOrientation.Vertical);
 			for(int x = 0; x < 3; ++x)
 			{
 				middle.AddFlexible($"{x}", x+1, m_LayoutComponentPrefab);
@@ -34,6 +33,8 @@ namespace ProceduralLevel.UI.Samples
 			bottomBar.AddStatic("BottomLeft", 100, m_LayoutComponentPrefab);
 			bottomBar.Layout.AddFlexible();
 			bottomBar.AddStatic("BottomRight", 200).SpawnAndNest(m_NestedPrefab);
+
+			FitToScreen();
 		}
 
 		public new void Show()
@@ -42,6 +43,11 @@ namespace ProceduralLevel.UI.Samples
 		}
 
 		private void Update()
+		{
+			FitToScreen();
+		}
+
+		private void FitToScreen()
 		{
 			RectTransform rect = GetComponent<RectTransform>();
 			m_Container.Rect = new LayoutRect(20, 20, (int)rect.rect.width-40, (int)rect.rect.height-40);

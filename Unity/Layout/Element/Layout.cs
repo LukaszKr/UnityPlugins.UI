@@ -72,10 +72,10 @@ namespace ProceduralLevel.UI.Unity
 					int expandTo = Rect.GetSize(otherOrientation);
 					layout.Rect.SetSize(otherOrientation, expandTo);
 				}
-				layout.DoLayout();
-				SetPosition(layout, usedSpace);
 				int layoutSize = entry.GetValue(Orientation, perFlexibleUnit);
 				layout.Rect.SetSize(Orientation, layoutSize);
+				layout.DoLayout();
+				SetPosition(layout, usedSpace);
 				usedSpace += layoutSize;
 			}
 			if(ShouldExpand)
