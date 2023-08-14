@@ -39,42 +39,21 @@ namespace ProceduralLevel.UI.Unity
 			return LayoutFactory.Create(new Layout(orientation), parent, name);
 		}
 
-		public static LayoutComponent Create(Layout layout, Transform parent, string name)
-		{
-			return LayoutFactory.Create(layout, parent, name);
-		}
-
-		private LayoutComponent Create(Layout layout, string name, LayoutComponent prefab = null)
-		{
-			return LayoutFactory.Create(layout, Transform, name, prefab);
-		}
-
-		public LayoutComponent AddFlexible(Layout layout, string name, int value, LayoutComponent prefab = null)
-		{
-			m_Context.AddFlexible(layout, value);
-			return Create(layout, name, prefab);
-		}
-
 		public LayoutComponent AddFlexible(string name, int value, ELayoutOrientation orientation = ELayoutOrientation.Vertical)
 		{
 			return AddFlexible(name, value, null, orientation);
 		}
 
+		public TPrefab AddFlexible<TPrefab>(string name, int value, TPrefab prefab, ELayoutOrientation orientation = ELayoutOrientation.Vertical)
+			where TPrefab : Component
+		{
+			return AddFlexible(name, value, null, orientation).Spawn(prefab);
+		}
+
 		public LayoutComponent AddFlexible(string name, int value, LayoutComponent prefab, ELayoutOrientation orientation = ELayoutOrientation.Vertical)
 		{
-			return AddFlexible(new Layout(orientation), name, value, prefab);
-		}
-
-		public LayoutComponent AddStatic(Layout layout, string name, int value, LayoutComponent prefab = null)
-		{
-			m_Context.AddStatic(layout, value);
-			return Create(layout, name, prefab);
-		}
-
-		public LayoutComponent AddStatic(Layout layout, string name, LayoutComponent prefab = null)
-		{
-			m_Context.AddStatic(layout, 0);
-			return Create(layout, name, prefab);
+			Layout layout = m_Context.AddFlexible(value, orientation);
+			return LayoutFactory.Create(layout, Transform, name, prefab);
 		}
 
 		public LayoutComponent AddStatic(string name, int value, ELayoutOrientation orientation = ELayoutOrientation.Vertical)
@@ -82,22 +61,28 @@ namespace ProceduralLevel.UI.Unity
 			return AddStatic(name, value, null, orientation);
 		}
 
+		public TPrefab AddStatic<TPrefab>(string name, int value, TPrefab prefab, ELayoutOrientation orientation = ELayoutOrientation.Vertical)
+			where TPrefab : Component
+		{
+			return AddStatic(name, value, null, orientation).Spawn(prefab);
+		}
+
 		public LayoutComponent AddStatic(string name, int value, LayoutComponent prefab, ELayoutOrientation orientation = ELayoutOrientation.Vertical)
 		{
 			Layout layout = m_Context.AddStatic(value, orientation);
-			return Create(layout, name, prefab);
+			return LayoutFactory.Create(layout, Transform, name, prefab);
 		}
 		#endregion
 
 		#region Nesting
-		public TObject SpawnAndNest<TObject>(TObject prefab)
-			where TObject : Component
+		public TPrefab Spawn<TPrefab>(TPrefab prefab)
+			where TPrefab : Component
 		{
-			TObject spawned = Instantiate(prefab);
-			return Nest(spawned);
+			TPrefab spawned = Instantiate(prefab);
+			return Insert(spawned);
 		}
 
-		public TObject Nest<TObject>(TObject target)
+		public TObject Insert<TObject>(TObject target)
 			where TObject : Component
 		{
 			RectTransform rect = target.GetComponent<RectTransform>();

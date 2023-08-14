@@ -11,20 +11,18 @@ namespace ProceduralLevel.UI.Samples
 		[SerializeField]
 		private RectTransform m_NestedPrefab = null;
 
-		private Layout m_Container;
+		private LayoutComponent m_Container;
 
 		protected override void OnInitialize(EventBinder binder)
 		{
-			m_Container = new Layout(ELayoutOrientation.Vertical);
-
-			LayoutComponent container = LayoutComponent.Create(m_Container, Transform, "Container");
-			LayoutComponent topBar = container.AddStatic("TopBar", 100, ELayoutOrientation.Horizontal);
-			LayoutComponent middle = container.AddFlexible("Middle", 1, ELayoutOrientation.Vertical);
+			m_Container = LayoutComponent.Create(Transform, "Container");
+			LayoutComponent topBar = m_Container.AddStatic("TopBar", 100, ELayoutOrientation.Horizontal);
+			LayoutComponent middle = m_Container.AddFlexible("Middle", 1, ELayoutOrientation.Vertical);
 			for(int x = 0; x < 3; ++x)
 			{
 				middle.AddFlexible($"{x}", x+1, m_LayoutComponentPrefab);
 			}
-			LayoutComponent bottomBar = container.AddStatic("BottomBar", 100, ELayoutOrientation.Horizontal);
+			LayoutComponent bottomBar = m_Container.AddStatic("BottomBar", 100, ELayoutOrientation.Horizontal);
 
 			topBar.AddStatic("TopLeft", 100, m_LayoutComponentPrefab);
 			topBar.Layout.AddFlexible();
@@ -32,7 +30,7 @@ namespace ProceduralLevel.UI.Samples
 
 			bottomBar.AddStatic("BottomLeft", 100, m_LayoutComponentPrefab);
 			bottomBar.Layout.AddFlexible();
-			bottomBar.AddStatic("BottomRight", 200).SpawnAndNest(m_NestedPrefab);
+			bottomBar.AddStatic("BottomRight", 200, m_NestedPrefab);
 
 			FitToScreen();
 		}
@@ -50,8 +48,8 @@ namespace ProceduralLevel.UI.Samples
 		private void FitToScreen()
 		{
 			RectTransform rect = GetComponent<RectTransform>();
-			m_Container.Rect = new LayoutRect(20, 20, (int)rect.rect.width-40, (int)rect.rect.height-40);
-			m_Container.DoLayout();
+			m_Container.Layout.Rect = new LayoutRect(20, 20, (int)rect.rect.width-40, (int)rect.rect.height-40);
+			m_Container.Layout.DoLayout();
 		}
 	}
 }
