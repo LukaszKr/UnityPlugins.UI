@@ -38,6 +38,10 @@ namespace ProceduralLevel.UI.Samples.Editor
 			line.AddFlexible(1);
 			line.AddFlexible(3);
 
+			line = m_VerticalLine.AddStatic(50, ELayoutOrientation.Horizontal);
+			line.Align = 0.5f;
+			line.AddStatic(100);
+
 			Layout horizontalLine = new Layout(ELayoutOrientation.Horizontal);
 			horizontalLine.AddStatic(25);
 			horizontalLine.AddFlexible(1);

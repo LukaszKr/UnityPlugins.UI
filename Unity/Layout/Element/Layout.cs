@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using ProceduralLevel.Common.Unity;
 using UnityEngine;
 
@@ -11,6 +12,7 @@ namespace ProceduralLevel.UI.Unity
 		public ELayoutOrientation Orientation = ELayoutOrientation.Horizontal;
 		public int GapSize = 5;
 		public bool ShouldExpand = true;
+		public float Align = 0f;
 
 		private readonly List<LayoutEntry> m_Childrens = new List<LayoutEntry>();
 
@@ -51,14 +53,19 @@ namespace ProceduralLevel.UI.Unity
 			availableSpace -= staticSum;
 			availableSpace -= gapSpace;
 			int perFlexibleUnit = 0;
+			int usedSpace = 0;
 			if(flexibleSum > 0)
 			{
 				perFlexibleUnit = Mathf.CeilToInt(availableSpace/(float)flexibleSum);
 			}
+			else
+			{
+				usedSpace += (int)(Align*availableSpace);
+			}
 
 			ELayoutOrientation otherOrientation = Orientation.GetOther();
 
-			int usedSpace = 0;
+
 			for(int x = 0; x < count; ++x)
 			{
 				if(x > 0)

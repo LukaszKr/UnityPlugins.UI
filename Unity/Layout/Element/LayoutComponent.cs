@@ -113,6 +113,12 @@ namespace ProceduralLevel.UI.Unity
 		}
 		#endregion
 
+		public LayoutComponent SetAlign(float align)
+		{
+			m_Context.Align = align;
+			return this;
+		}
+
 		private void OnValidate()
 		{
 			if(m_RectComponent == null)
