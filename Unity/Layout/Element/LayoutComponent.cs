@@ -61,10 +61,12 @@ namespace ProceduralLevel.UI.Unity
 			return AddStatic(name, value, null, orientation);
 		}
 
-		public TPrefab AddStatic<TPrefab>(string name, int value, TPrefab prefab, ELayoutOrientation orientation = ELayoutOrientation.Vertical)
+		public LayoutInstancePair<TPrefab> AddStatic<TPrefab>(string name, int value, TPrefab prefab, ELayoutOrientation orientation = ELayoutOrientation.Vertical)
 			where TPrefab : Component
 		{
-			return AddStatic(name, value, null, orientation).Spawn(prefab);
+			LayoutComponent layout = AddStatic(name, value, null, orientation);
+			TPrefab instance = layout.Spawn(prefab);
+			return new LayoutInstancePair<TPrefab>(layout, instance);
 		}
 
 		public LayoutComponent AddStatic(string name, int value, LayoutComponent prefab, ELayoutOrientation orientation = ELayoutOrientation.Vertical)
