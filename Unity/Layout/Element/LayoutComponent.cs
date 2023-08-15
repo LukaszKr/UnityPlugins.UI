@@ -13,6 +13,7 @@ namespace ProceduralLevel.UI.Unity
 		private RectTransform m_RectComponent;
 
 		public Layout Layout => m_Context;
+		public RectTransform RectComponent => m_RectComponent;
 
 		#region Context
 		protected override void OnInitialize()
