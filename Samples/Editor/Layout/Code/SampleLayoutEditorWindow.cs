@@ -36,7 +36,9 @@ namespace ProceduralLevel.UI.Samples.Editor
 			line = m_VerticalLine.AddStatic(50, ELayoutOrientation.Horizontal);
 			line.AddFlexible(2);
 			line.AddFlexible(1);
-			line.AddFlexible(3);
+			//inactive element is not included in calculations
+			Layout flex3 = line.AddFlexible(3);
+			flex3.Active = false;
 
 			line = m_VerticalLine.AddStatic(50, ELayoutOrientation.Horizontal);
 			line.Align = 0.5f;

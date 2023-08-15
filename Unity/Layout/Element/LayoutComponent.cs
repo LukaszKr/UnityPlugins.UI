@@ -119,6 +119,12 @@ namespace ProceduralLevel.UI.Unity
 			return this;
 		}
 
+		public LayoutComponent SetActive(bool active)
+		{
+			m_Context.Active = active;
+			return this;
+		}
+
 		private void OnValidate()
 		{
 			if(m_RectComponent == null)

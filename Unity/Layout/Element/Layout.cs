@@ -13,6 +13,7 @@ namespace ProceduralLevel.UI.Unity
 		public int GapSize = 5;
 		public bool ShouldExpand = true;
 		public float Align = 0f;
+		public bool Active = true;
 
 		private readonly List<LayoutEntry> m_Childrens = new List<LayoutEntry>();
 
@@ -40,7 +41,7 @@ namespace ProceduralLevel.UI.Unity
 		#region Layout
 		public void DoLayout()
 		{
-			int count = m_Childrens.Count;
+			int count = CountActive();
 			if(count == 0)
 			{
 				return;
@@ -65,15 +66,20 @@ namespace ProceduralLevel.UI.Unity
 
 			ELayoutOrientation otherOrientation = Orientation.GetOther();
 
-
 			for(int x = 0; x < count; ++x)
 			{
+				LayoutEntry entry = m_Childrens[x];
+				Layout layout = entry.Layout;
+				if(!layout.Active)
+				{
+					continue;
+				}
+
 				if(x > 0)
 				{
 					usedSpace += GapSize;
 				}
-				LayoutEntry entry = m_Childrens[x];
-				Layout layout = entry.Layout;
+
 				if(entry.Expand)
 				{
 					int expandTo = Rect.GetSize(otherOrientation);
@@ -108,6 +114,20 @@ namespace ProceduralLevel.UI.Unity
 			}
 		}
 
+		private int CountActive()
+		{
+			int count = m_Childrens.Count;
+			int activeCount = 0;
+			for(int x = 0; x < count; ++x)
+			{
+				if(m_Childrens[x].Layout.Active)
+				{
+					activeCount++;
+				}
+			}
+			return activeCount;
+		}
+
 		private int SumValues(ELayoutEntryType type)
 		{
 			int sum = 0;
@@ -115,7 +135,7 @@ namespace ProceduralLevel.UI.Unity
 			for(int x = 0; x < count; ++x)
 			{
 				LayoutEntry entry = m_Childrens[x];
-				if(entry.Type == type)
+				if(entry.Layout.Active && entry.Type == type)
 				{
 					sum += entry.GetValue(Orientation);
 				}
