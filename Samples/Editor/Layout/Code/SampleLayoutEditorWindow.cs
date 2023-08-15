@@ -71,7 +71,16 @@ namespace ProceduralLevel.UI.Samples.Editor
 		{
 			m_VerticalLine.Rect.Width = Screen.width;
 			m_VerticalLine.Rect.Height = Screen.height;
-			m_VerticalLine.DoLayout();
+			EditorGUILayout.BeginHorizontal();
+			if(GUILayout.Button("Layout"))
+			{
+				m_VerticalLine.DoLayout();
+			}
+			if(GUILayout.Button("RESET"))
+			{
+				PrepareLayout();
+			}
+			EditorGUILayout.EndHorizontal();
 			Draw(m_VerticalLine, 1);
 			//Draw(m_LineLayout, 1);
 		}

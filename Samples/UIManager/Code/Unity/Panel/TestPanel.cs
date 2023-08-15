@@ -40,11 +40,7 @@ namespace ProceduralLevel.UI.Samples
 			base.Show();
 		}
 
-		private void Update()
-		{
-			FitToScreen();
-		}
-
+		[ContextMenu(nameof(FitToScreen))]
 		private void FitToScreen()
 		{
 			RectTransform rect = GetComponent<RectTransform>();

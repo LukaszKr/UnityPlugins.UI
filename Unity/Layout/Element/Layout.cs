@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
+using ProceduralLevel.Common.Event;
 using ProceduralLevel.Common.Unity;
 using UnityEngine;
 
@@ -16,6 +17,8 @@ namespace ProceduralLevel.UI.Unity
 		public bool Active = true;
 
 		private readonly List<LayoutEntry> m_Childrens = new List<LayoutEntry>();
+
+		public readonly CustomEvent OnChanged = new CustomEvent();
 
 		public Layout(ELayoutOrientation orientation = ELayoutOrientation.Vertical, int width = 0, int height = 20)
 		{
@@ -44,6 +47,7 @@ namespace ProceduralLevel.UI.Unity
 			int count = CountActive();
 			if(count == 0)
 			{
+				OnChanged.Invoke();
 				return;
 			}
 
@@ -87,14 +91,16 @@ namespace ProceduralLevel.UI.Unity
 				}
 				int layoutSize = entry.GetValue(Orientation, perFlexibleUnit);
 				layout.Rect.SetSize(Orientation, layoutSize);
-				layout.DoLayout();
 				SetPosition(layout, usedSpace);
+				layout.DoLayout();
 				usedSpace += layoutSize;
 			}
 			if(ShouldExpand)
 			{
 				Rect.SetSize(Orientation, usedSpace);
 			}
+
+			OnChanged.Invoke();
 		}
 
 		private void SetPosition(Layout layout, int value)

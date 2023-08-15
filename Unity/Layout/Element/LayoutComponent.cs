@@ -26,6 +26,7 @@ namespace ProceduralLevel.UI.Unity
 
 		protected override void OnAttach(EventBinder binder)
 		{
+			binder.Bind(m_Context.OnChanged, OnLayoutChangedHandler);
 		}
 
 		protected override void OnDetach()
@@ -99,10 +100,6 @@ namespace ProceduralLevel.UI.Unity
 		#endregion
 
 		#region Update
-		private void Update()
-		{
-			UpdateRect();
-		}
 
 		public void UpdateRect()
 		{
@@ -127,6 +124,13 @@ namespace ProceduralLevel.UI.Unity
 			m_Context.Active = active;
 			return this;
 		}
+
+		#region Callbacks
+		private void OnLayoutChangedHandler()
+		{
+			UpdateRect();
+		}
+		#endregion
 
 		private void OnValidate()
 		{
