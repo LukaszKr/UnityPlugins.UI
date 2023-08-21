@@ -150,6 +150,35 @@ namespace ProceduralLevel.UI.Unity
 		}
 		#endregion
 
+		public int IndexOf(Layout layout)
+		{
+			int count = m_Childrens.Count;
+			for(int x = 0; x < count; ++x)
+			{
+				if(m_Childrens[x].Layout == layout)
+				{
+					return x;
+				}
+			}
+			return -1;
+		}
+
+		public bool Remove(Layout layout)
+		{
+			int index = IndexOf(layout);
+			if(index == -1)
+			{
+				return false;
+			}
+			m_Childrens.RemoveAt(index);
+			return true;
+		}
+
+		public void Clear()
+		{
+			m_Childrens.Clear();
+		}
+
 		public Layout AddFlexible(Layout layout, int value)
 		{
 			Add(new LayoutEntry(layout, ELayoutEntryType.Flexible, value));
