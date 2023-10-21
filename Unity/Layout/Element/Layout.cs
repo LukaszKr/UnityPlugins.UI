@@ -11,13 +11,13 @@ namespace ProceduralLevel.UI.Unity
 		public LayoutRect Rect;
 		public ELayoutOrientation Orientation;
 		public int GapSize = 5;
-		public bool ShouldExpand = true;
+		public bool StretchToChildrenSize = true;
 		public float Align = 0f;
 		public bool Active = true;
 
-		public readonly ELayoutEntryType ElementType;
+		public ELayoutEntryType ElementType;
 		public int ElementSize;
-		public bool Expand = true;
+		public bool ExpandToParent = true;
 
 		private readonly List<Layout> m_Childrens = new List<Layout>();
 
@@ -82,7 +82,7 @@ namespace ProceduralLevel.UI.Unity
 					usedSpace += GapSize;
 				}
 
-				if(layout.Expand)
+				if(layout.ExpandToParent)
 				{
 					int expandTo = Rect.GetSize(otherOrientation);
 					layout.Rect.SetSize(otherOrientation, expandTo);
@@ -93,7 +93,7 @@ namespace ProceduralLevel.UI.Unity
 				layout.DoLayout();
 				usedSpace += layoutSize;
 			}
-			if(ShouldExpand)
+			if(StretchToChildrenSize)
 			{
 				Rect.SetSize(Orientation, usedSpace);
 			}
