@@ -12,7 +12,7 @@ namespace ProceduralLevel.UI.Samples.Editor
 
 		public override string Title => TITLE;
 
-		private Layout m_VerticalLine;
+		private Layout m_Root;
 
 		[MenuItem(UIUnityConsts.SAMPLE_MENU+TITLE)]
 		public static void OpenEditorWindow()
@@ -27,62 +27,56 @@ namespace ProceduralLevel.UI.Samples.Editor
 
 		private void PrepareLayout()
 		{
-			m_VerticalLine = new Layout();
-			m_VerticalLine.Rect.Y = 20;
-			Layout line = m_VerticalLine.AddStatic(50, ELayoutOrientation.Horizontal);
+			m_Root = new Layout(ELayoutOrientation.Vertical);
+			m_Root.Rect.Y = 20;
+			Layout line = m_Root.AddStatic(50, ELayoutOrientation.Horizontal);
 			line.AddFlexible(3);
 			line.AddFlexible(2);
 
-			line = m_VerticalLine.AddStatic(50, ELayoutOrientation.Horizontal);
+			line = m_Root.AddStatic(50, ELayoutOrientation.Horizontal);
 			line.AddFlexible(2);
 			line.AddFlexible(1);
 			//inactive element is not included in calculations
 			Layout flex3 = line.AddFlexible(3);
 			flex3.Active = false;
 
-			line = m_VerticalLine.AddStatic(50, ELayoutOrientation.Horizontal);
+			line = m_Root.AddStatic(50, ELayoutOrientation.Horizontal);
 			line.Align = 0.5f;
 			line.AddStatic(100);
 
-			Layout horizontalLine = new Layout(ELayoutOrientation.Horizontal);
+			Layout horizontalLine = m_Root.AddStatic(20, ELayoutOrientation.Horizontal);
 			horizontalLine.AddStatic(25);
 			horizontalLine.AddFlexible(1);
 			horizontalLine.AddStatic(25);
 			horizontalLine.AddFlexible(1);
 			horizontalLine.AddStatic(25);
 
-			Layout verticalLine = new Layout();
-			verticalLine.Orientation = ELayoutOrientation.Vertical;
+			Layout verticalLine = m_Root.AddStatic(0, ELayoutOrientation.Vertical);
 			verticalLine.AddStatic(50);
 			verticalLine.AddStatic(100);
 			verticalLine.AddStatic(70);
 
-			Layout horizontalLine2 = new Layout(ELayoutOrientation.Horizontal);
+			Layout horizontalLine2 = m_Root.AddStatic(40, ELayoutOrientation.Horizontal);
 			horizontalLine2.AddStatic(150);
 			horizontalLine2.AddFlexible(2);
 			horizontalLine2.AddFlexible(3);
 
-			m_VerticalLine.AddStatic(horizontalLine, 20);
-			m_VerticalLine.AddStatic(verticalLine);
-			m_VerticalLine.AddStatic(horizontalLine2, 40);
+			DoLayout();
 		}
 
 		protected override void Draw()
 		{
-			m_VerticalLine.Rect.Width = Screen.width;
-			m_VerticalLine.Rect.Height = Screen.height;
 			EditorGUILayout.BeginHorizontal();
 			if(GUILayout.Button("Layout"))
 			{
-				m_VerticalLine.DoLayout();
+				DoLayout();
 			}
 			if(GUILayout.Button("RESET"))
 			{
 				PrepareLayout();
 			}
 			EditorGUILayout.EndHorizontal();
-			Draw(m_VerticalLine, 1);
-			//Draw(m_LineLayout, 1);
+			Draw(m_Root, 1);
 		}
 
 		protected void Draw(Layout element, int depth)
@@ -99,6 +93,13 @@ namespace ProceduralLevel.UI.Samples.Editor
 				Draw(child, depth+1);
 			}
 			GUIExt.PopMatrix();
+		}
+
+		private void DoLayout()
+		{
+			m_Root.Rect.Width = Screen.width;
+			m_Root.Rect.Height = Screen.height;
+			m_Root.DoLayout();
 		}
 	}
 }

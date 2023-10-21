@@ -38,7 +38,7 @@ namespace ProceduralLevel.UI.Unity
 		#region Create
 		public static LayoutComponent Create(Transform parent, string name, ELayoutOrientation orientation = ELayoutOrientation.Vertical)
 		{
-			return LayoutFactory.Create(new Layout(orientation), parent, name);
+			return LayoutFactory.Create(new Layout(orientation, ELayoutEntryType.Flexible, 1), parent, name);
 		}
 
 		public LayoutComponent AddFlexible(string name, int value, ELayoutOrientation orientation = ELayoutOrientation.Vertical)

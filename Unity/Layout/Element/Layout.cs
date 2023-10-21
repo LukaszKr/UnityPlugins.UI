@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using JetBrains.Annotations;
 using ProceduralLevel.Common.Event;
 using ProceduralLevel.Common.Unity;
 using UnityEngine;
@@ -10,26 +9,26 @@ namespace ProceduralLevel.UI.Unity
 	public class Layout
 	{
 		public LayoutRect Rect;
-		public ELayoutOrientation Orientation = ELayoutOrientation.Horizontal;
+		public ELayoutOrientation Orientation;
 		public int GapSize = 5;
 		public bool ShouldExpand = true;
 		public float Align = 0f;
 		public bool Active = true;
 
-		private readonly List<LayoutEntry> m_Childrens = new List<LayoutEntry>();
+		public readonly ELayoutEntryType ElementType;
+		public int ElementSize;
+		public bool Expand = true;
+
+		private readonly List<Layout> m_Childrens = new List<Layout>();
 
 		public readonly CustomEvent OnChanged = new CustomEvent();
 
-		public Layout(ELayoutOrientation orientation = ELayoutOrientation.Vertical, int width = 0, int height = 20)
+		public Layout(ELayoutOrientation orientation = ELayoutOrientation.Horizontal, ELayoutEntryType elementType = ELayoutEntryType.Flexible, int elementSize = 1)
 		{
 			Orientation = orientation;
-			Rect = new LayoutRect(0, 0, width, height);
-		}
-
-		public Layout(ELayoutOrientation orientation, int size)
-		{
-			Orientation = orientation;
-			Rect.SetSize(orientation.GetOther(), size);
+			Rect = new LayoutRect(0, 0, 10, 10);
+			ElementType = elementType;
+			ElementSize = elementSize;
 		}
 
 		public IEnumerable<Layout> GetChildrens()
@@ -37,7 +36,7 @@ namespace ProceduralLevel.UI.Unity
 			int count = m_Childrens.Count;
 			for(int x = 0; x < count; ++x)
 			{
-				yield return m_Childrens[x].Layout;
+				yield return m_Childrens[x];
 			}
 		}
 
@@ -72,8 +71,7 @@ namespace ProceduralLevel.UI.Unity
 
 			for(int x = 0; x < count; ++x)
 			{
-				LayoutEntry entry = m_Childrens[x];
-				Layout layout = entry.Layout;
+				Layout layout = m_Childrens[x];
 				if(!layout.Active)
 				{
 					continue;
@@ -84,12 +82,12 @@ namespace ProceduralLevel.UI.Unity
 					usedSpace += GapSize;
 				}
 
-				if(entry.Expand)
+				if(layout.Expand)
 				{
 					int expandTo = Rect.GetSize(otherOrientation);
 					layout.Rect.SetSize(otherOrientation, expandTo);
 				}
-				int layoutSize = entry.GetValue(Orientation, perFlexibleUnit);
+				int layoutSize = layout.GetValue(Orientation, perFlexibleUnit);
 				layout.Rect.SetSize(Orientation, layoutSize);
 				SetPosition(layout, usedSpace);
 				layout.DoLayout();
@@ -126,7 +124,7 @@ namespace ProceduralLevel.UI.Unity
 			int activeCount = 0;
 			for(int x = 0; x < count; ++x)
 			{
-				if(m_Childrens[x].Layout.Active)
+				if(m_Childrens[x].Active)
 				{
 					activeCount++;
 				}
@@ -140,10 +138,10 @@ namespace ProceduralLevel.UI.Unity
 			int count = m_Childrens.Count;
 			for(int x = 0; x < count; ++x)
 			{
-				LayoutEntry entry = m_Childrens[x];
-				if(entry.Layout.Active && entry.Type == type)
+				Layout layout = m_Childrens[x];
+				if(layout.Active && layout.ElementType == type)
 				{
-					sum += entry.GetValue(Orientation);
+					sum += layout.GetValue(Orientation);
 				}
 			}
 			return sum;
@@ -155,7 +153,7 @@ namespace ProceduralLevel.UI.Unity
 			int count = m_Childrens.Count;
 			for(int x = 0; x < count; ++x)
 			{
-				if(m_Childrens[x].Layout == layout)
+				if(m_Childrens[x] == layout)
 				{
 					return x;
 				}
@@ -179,36 +177,35 @@ namespace ProceduralLevel.UI.Unity
 			m_Childrens.Clear();
 		}
 
-		public Layout AddFlexible(Layout layout, int value)
+		public int GetValue(ELayoutOrientation orientation, int flexibleMultiplier = 1)
 		{
-			Add(new LayoutEntry(layout, ELayoutEntryType.Flexible, value));
-			return layout;
+			switch(ElementType)
+			{
+				case ELayoutEntryType.Flexible:
+					return ElementSize * flexibleMultiplier;
+				case ELayoutEntryType.Static:
+					if(ElementSize == 0)
+					{
+						return Rect.GetSize(orientation);
+					}
+					return ElementSize;
+				default:
+					throw new NotImplementedException(orientation.ToString());
+			}
 		}
 
 		public Layout AddFlexible(int value = 1, ELayoutOrientation orientation = ELayoutOrientation.Vertical)
 		{
-			return AddFlexible(new Layout(orientation), value);
-		}
-
-		public Layout AddStatic(Layout layout, int value)
-		{
-			Add(new LayoutEntry(layout, ELayoutEntryType.Static, value));
+			Layout layout = new Layout(orientation, ELayoutEntryType.Flexible, value);
+			m_Childrens.Add(layout);
 			return layout;
-		}
-
-		public Layout AddStatic(Layout layout)
-		{
-			return AddStatic(layout, 0);
 		}
 
 		public Layout AddStatic(int value, ELayoutOrientation orientation = ELayoutOrientation.Vertical)
 		{
-			return AddStatic(new Layout(orientation), value);
-		}
-
-		private void Add(LayoutEntry entry)
-		{
-			m_Childrens.Add(entry);
+			Layout layout = new Layout(orientation, ELayoutEntryType.Static, value);
+			m_Childrens.Add(layout);
+			return layout;
 		}
 
 		public void UseOnGUI()
