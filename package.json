@@ -16,6 +16,11 @@
 			"displayName": "UIManager",
 			"description": "UIManager",
 			"path": "Samples/UIManager"
+		},
+		{
+			"displayName": "UI Editor Layout",
+			"description": "UI Editor Layout",
+			"path": "Samples/Editor"
 		}
 	],
 	"author": {
