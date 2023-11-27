@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using ProceduralLevel.Common.Event;
+﻿using ProceduralLevel.Common.Event;
 
 namespace ProceduralLevel.UI.Unity
 {
 	public abstract class AContextPanel<TContext> : APanel
-		where TContext : class
 	{
 		protected TContext m_Context;
 		private readonly EventBinder m_ContextBinder = new EventBinder();
@@ -15,6 +12,10 @@ namespace ProceduralLevel.UI.Unity
 		protected override void Awake()
 		{
 			base.Awake();
+			if(!m_ContextIsSet)
+			{
+				enabled = false;
+			}
 		}
 
 		public void Show(TContext context)
@@ -33,7 +34,7 @@ namespace ProceduralLevel.UI.Unity
 		}
 
 		#region Context
-		public void ClearContext()
+		private void ClearContext()
 		{
 			if(m_ContextIsSet)
 			{
@@ -44,8 +45,10 @@ namespace ProceduralLevel.UI.Unity
 			}
 		}
 
-		public void SetContext(TContext context)
+		private void SetContext(TContext context)
 		{
+			TryInitialize();
+
 			m_ContextBinder.UnbindAll();
 
 			if(m_ContextIsSet)
@@ -60,6 +63,7 @@ namespace ProceduralLevel.UI.Unity
 				m_Context = context;
 				OnAttach(m_ContextBinder);
 			}
+			enabled = true;
 		}
 
 		protected virtual void OnReplace(EventBinder binder, TContext oldContext)
