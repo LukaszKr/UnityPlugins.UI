@@ -15,7 +15,7 @@ namespace ProceduralLevel.UI.Samples
 
 		protected override void OnInitialize(EventBinder binder)
 		{
-			m_Container = LayoutComponent.Create(Transform, "Container");
+			m_Container = LayoutComponent.Create(null, Transform, "Container");
 			LayoutComponent topBar = m_Container.AddStatic("TopBar", 100, ELayoutOrientation.Horizontal);
 			LayoutComponent middle = m_Container.AddFlexible("Middle", 1, ELayoutOrientation.Vertical);
 			for(int x = 0; x < 3; ++x)

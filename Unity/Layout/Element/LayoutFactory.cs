@@ -19,7 +19,7 @@ namespace ProceduralLevel.UI.Unity
 				component = Object.Instantiate(prefab, parent, false);
 				component.name = name;
 			}
-			component.SetContext(layout);
+			component.Setup(layout);
 			return component;
 		}
 	}

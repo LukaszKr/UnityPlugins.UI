@@ -1,44 +1,46 @@
-﻿using ProceduralLevel.Common.Event;
-using ProceduralLevel.Common.Unity;
+﻿using System;
+using ProceduralLevel.Common.Unity.Extended;
 using UnityEngine;
 
 namespace ProceduralLevel.UI.Unity
 {
 	[RequireComponent(typeof(RectTransform))]
-	public class LayoutComponent : AContextComponent<Layout>
+	public class LayoutComponent : ExtendedMonoBehaviour
 	{
+		private Layout m_Layout;
 		private LayoutRect m_DisplayedRect;
 
 		[SerializeField]
 		private RectTransform m_RectComponent;
 
-		public Layout Layout => m_Context;
+		public Layout Layout => m_Layout;
 		public RectTransform RectComponent => m_RectComponent;
 
 		#region Context
-		protected override void OnInitialize()
+		public void Setup(Layout layout)
 		{
+			if(m_Layout != null)
+			{
+				throw new InvalidOperationException();
+			}
 			if(m_RectComponent == null)
 			{
 				m_RectComponent = GetComponent<RectTransform>();
 			}
+			m_Layout = layout;
+			m_Layout.OnChanged.AddListener(OnLayoutChangedHandler);
 		}
 
-		protected override void OnAttach(EventBinder binder)
+		private void OnDestroy()
 		{
-			binder.Bind(m_Context.OnChanged, OnLayoutChangedHandler);
-		}
-
-		protected override void OnDetach()
-		{
-			m_DisplayedRect = default;
+			m_Layout.Destroy();
 		}
 		#endregion
 
 		#region Create
-		public static LayoutComponent Create(Transform parent, string name, ELayoutOrientation orientation = ELayoutOrientation.Vertical)
+		public static LayoutComponent Create(Layout parent, Transform parentTransform, string name, ELayoutOrientation orientation = ELayoutOrientation.Vertical)
 		{
-			return LayoutFactory.Create(new Layout(orientation, ELayoutEntryType.Flexible, 1), parent, name);
+			return LayoutFactory.Create(new Layout(parent, orientation, ELayoutEntryType.Flexible, 1), parentTransform, name);
 		}
 
 		public LayoutComponent AddFlexible(string name, int value, ELayoutOrientation orientation = ELayoutOrientation.Vertical)
@@ -54,7 +56,7 @@ namespace ProceduralLevel.UI.Unity
 
 		public LayoutComponent AddFlexible(string name, int value, LayoutComponent prefab, ELayoutOrientation orientation = ELayoutOrientation.Vertical)
 		{
-			Layout layout = m_Context.AddFlexible(value, orientation);
+			Layout layout = m_Layout.AddFlexible(value, orientation);
 			return LayoutFactory.Create(layout, Transform, name, prefab);
 		}
 
@@ -73,7 +75,7 @@ namespace ProceduralLevel.UI.Unity
 
 		public LayoutComponent AddStatic(string name, int value, LayoutComponent prefab, ELayoutOrientation orientation = ELayoutOrientation.Vertical)
 		{
-			Layout layout = m_Context.AddStatic(value, orientation);
+			Layout layout = m_Layout.AddStatic(value, orientation);
 			return LayoutFactory.Create(layout, Transform, name, prefab);
 		}
 		#endregion
@@ -100,28 +102,27 @@ namespace ProceduralLevel.UI.Unity
 		#endregion
 
 		#region Update
-
 		public void UpdateRect()
 		{
-			if(m_Context == null || m_Context.Rect == m_DisplayedRect)
+			if(m_Layout.Rect == m_DisplayedRect)
 			{
 				return;
 			}
 
-			m_RectComponent.ApplyLayout(m_Context);
-			m_DisplayedRect = m_Context.Rect;
+			m_RectComponent.ApplyLayout(m_Layout);
+			m_DisplayedRect = m_Layout.Rect;
 		}
 		#endregion
 
 		public LayoutComponent SetAlign(float align)
 		{
-			m_Context.Align = align;
+			m_Layout.Align = align;
 			return this;
 		}
 
 		public LayoutComponent SetActive(bool active)
 		{
-			m_Context.Active = active;
+			m_Layout.Active = active;
 			return this;
 		}
 

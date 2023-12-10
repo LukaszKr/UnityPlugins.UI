@@ -27,7 +27,7 @@ namespace ProceduralLevel.UI.Samples.Editor
 
 		private void PrepareLayout()
 		{
-			m_Root = new Layout(ELayoutOrientation.Vertical);
+			m_Root = new Layout(null, ELayoutOrientation.Vertical);
 			m_Root.Rect.Y = 20;
 			Layout line = m_Root.AddStatic(50, ELayoutOrientation.Horizontal);
 			line.AddFlexible(3);

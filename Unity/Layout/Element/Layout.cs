@@ -8,6 +8,7 @@ namespace ProceduralLevel.UI.Unity
 {
 	public class Layout
 	{
+		public readonly Layout Parent;
 		public LayoutRect Rect;
 		public ELayoutOrientation Orientation;
 		public int GapSize = 5;
@@ -23,8 +24,9 @@ namespace ProceduralLevel.UI.Unity
 
 		public readonly CustomEvent OnChanged = new CustomEvent();
 
-		public Layout(ELayoutOrientation orientation = ELayoutOrientation.Horizontal, ELayoutEntryType elementType = ELayoutEntryType.Flexible, int elementSize = 1)
+		public Layout(Layout parent, ELayoutOrientation orientation = ELayoutOrientation.Horizontal, ELayoutEntryType elementType = ELayoutEntryType.Flexible, int elementSize = 1)
 		{
+			Parent = parent;
 			Orientation = orientation;
 			Rect = new LayoutRect(0, 0, 10, 10);
 			ElementType = elementType;
@@ -38,6 +40,15 @@ namespace ProceduralLevel.UI.Unity
 			{
 				yield return m_Childrens[x];
 			}
+		}
+
+		public void Destroy()
+		{
+			if(Parent != null)
+			{
+				Parent.Remove(this);
+			}
+			OnChanged.RemoveAllListeners();
 		}
 
 		#region Layout
@@ -196,14 +207,14 @@ namespace ProceduralLevel.UI.Unity
 
 		public Layout AddFlexible(int value = 1, ELayoutOrientation orientation = ELayoutOrientation.Vertical)
 		{
-			Layout layout = new Layout(orientation, ELayoutEntryType.Flexible, value);
+			Layout layout = new Layout(this, orientation, ELayoutEntryType.Flexible, value);
 			m_Childrens.Add(layout);
 			return layout;
 		}
 
 		public Layout AddStatic(int value, ELayoutOrientation orientation = ELayoutOrientation.Vertical)
 		{
-			Layout layout = new Layout(orientation, ELayoutEntryType.Static, value);
+			Layout layout = new Layout(this, orientation, ELayoutEntryType.Static, value);
 			m_Childrens.Add(layout);
 			return layout;
 		}
