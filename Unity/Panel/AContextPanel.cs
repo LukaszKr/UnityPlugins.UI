@@ -38,10 +38,10 @@ namespace ProceduralLevel.UI.Unity
 		{
 			if(m_ContextIsSet)
 			{
+				OnDetach();
 				m_ContextIsSet = false;
 				m_Context = default;
 				m_ContextBinder.UnbindAll();
-				OnDetach();
 			}
 		}
 
