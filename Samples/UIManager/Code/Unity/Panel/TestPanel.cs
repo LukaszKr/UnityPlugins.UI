@@ -15,22 +15,30 @@ namespace ProceduralLevel.UI.Samples
 
 		protected override void OnInitialize(EventBinder binder)
 		{
-			m_Container = LayoutComponent.Create(null, Transform, "Container");
-			LayoutComponent topBar = m_Container.AddStatic("TopBar", 100, ELayoutOrientation.Horizontal);
-			LayoutComponent middle = m_Container.AddFlexible("Middle", 1, ELayoutOrientation.Vertical);
+			UIBuilder builder = new UIBuilder(Transform);
+			builder.BeginHorizontal("TopBar");
+			
+			builder.EndHorizontal();
+			builder.BeginHorizontal("Middle");
+
+			builder.EndHorizontal();
+
+			m_Container = LayoutComponent.Create("Container", Transform);
+			LayoutComponent topBar = m_Container.Create("TopBar").SetHorizontal().SetStatic(100);
+			LayoutComponent middle = m_Container.Create("Middle").SetHorizontal();
 			for(int x = 0; x < 3; ++x)
 			{
-				middle.AddFlexible($"{x}", x+1, m_LayoutComponentPrefab);
+				middle.Create($"{x}", m_LayoutComponentPrefab).SetFlexible(x+1);
 			}
-			LayoutComponent bottomBar = m_Container.AddStatic("BottomBar", 100, ELayoutOrientation.Horizontal);
+			LayoutComponent bottomBar = m_Container.Create("BottomBar").SetHorizontal().SetStatic(100);
 
-			topBar.AddStatic("TopLeft", 100, m_LayoutComponentPrefab);
-			topBar.Layout.AddFlexible();
-			topBar.AddStatic("TopRight", 100, m_LayoutComponentPrefab);
+			topBar.Create("TopLeft", m_LayoutComponentPrefab).SetStatic(100);
+			topBar.Create("TopMiddle");
+			topBar.Create("TopRight", m_LayoutComponentPrefab).SetStatic(100);
 
-			bottomBar.AddStatic("BottomLeft", 100, m_LayoutComponentPrefab);
-			bottomBar.Layout.AddFlexible();
-			bottomBar.AddStatic("BottomRight", 200, m_NestedPrefab);
+			bottomBar.Create("BottomLeft", m_LayoutComponentPrefab).SetStatic(100);
+			bottomBar.Create("BottomMiddle");
+			bottomBar.Create("BottomRight").SetStatic(200).Spawn(m_NestedPrefab);
 
 			FitToScreen();
 		}
@@ -44,8 +52,8 @@ namespace ProceduralLevel.UI.Samples
 		private void FitToScreen()
 		{
 			RectTransform rect = GetComponent<RectTransform>();
-			m_Container.Layout.Rect = new LayoutRect(20, 20, (int)rect.rect.width-40, (int)rect.rect.height-40);
-			m_Container.Layout.DoLayout();
+			m_Container.SetRect(new LayoutRect(20, 20, (int)rect.rect.width-40, (int)rect.rect.height-40));
+			m_Container.DoLayout();
 		}
 	}
 }

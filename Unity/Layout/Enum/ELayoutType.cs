@@ -1,6 +1,6 @@
 ﻿namespace ProceduralLevel.UI.Unity
 {
-	public enum ELayoutEntryType
+	public enum ELayoutType
 	{
 		Static = 0,
 		Flexible = 1
