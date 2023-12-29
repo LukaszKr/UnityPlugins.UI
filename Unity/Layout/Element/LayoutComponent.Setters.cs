@@ -1,4 +1,6 @@
-﻿namespace ProceduralLevel.UI.Unity
+﻿using UnityEngine;
+
+namespace ProceduralLevel.UI.Unity
 {
 	public partial class LayoutComponent
 	{
@@ -12,6 +14,12 @@
 		public LayoutComponent SetActive(bool active)
 		{
 			m_Layout.Active = active;
+			return this;
+		}
+
+		public LayoutComponent SetRect(Rect rect)
+		{
+			m_Layout.Rect = new LayoutRect(rect);
 			return this;
 		}
 

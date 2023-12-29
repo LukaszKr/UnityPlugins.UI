@@ -1,4 +1,5 @@
 ﻿using ProceduralLevel.Common.Event;
+using ProceduralLevel.Common.Unity;
 using ProceduralLevel.UI.Unity;
 using UnityEngine;
 
@@ -64,8 +65,8 @@ namespace ProceduralLevel.UI.Samples
 		[ContextMenu(nameof(FitToScreen))]
 		private void FitToScreen()
 		{
-			RectTransform rect = GetComponent<RectTransform>();
-			m_Container.SetRect(new LayoutRect(20, 20, (int)rect.rect.width-40, (int)rect.rect.height-40));
+			RectTransform rectTransform = GetComponent<RectTransform>();
+			m_Container.SetRect(new LayoutRect(20, 20, (int)rectTransform.rect.width-40, (int)rectTransform.rect.height-40));
 			m_Container.DoLayout();
 		}
 	}

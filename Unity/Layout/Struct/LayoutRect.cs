@@ -15,6 +15,14 @@ namespace ProceduralLevel.UI.Unity
 
 		public static implicit operator Rect(LayoutRect rect) => rect.ToUnity();
 
+		public LayoutRect(Rect rect)
+		{
+			X = (int)rect.x;
+			Y = (int)rect.y;
+			Width = (int)rect.width;
+			Height = (int)rect.height;
+		}
+
 		public LayoutRect(int x, int y, int width, int height)
 		{
 			X = x;
