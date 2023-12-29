@@ -21,9 +21,9 @@
 			return this;
 		}
 
-		public LayoutComponent SetGapBetweenElements(int gapBetweenElements)
+		public LayoutComponent SetElementsSpacing(int elementsSpacing)
 		{
-			m_Layout.GapBetweenElements = gapBetweenElements;
+			m_Layout.ElementsSpacing = elementsSpacing;
 			return this;
 		}
 

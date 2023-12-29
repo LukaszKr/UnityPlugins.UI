@@ -5,43 +5,32 @@ namespace ProceduralLevel.UI.Unity
 {
 	public class UIBuilder
 	{
+		public readonly LayoutComponent Root;
+
 		private readonly Stack<LayoutComponent> m_Stack = new Stack<LayoutComponent>();
 		private LayoutComponent m_Current;
 
 		public UIBuilder(Transform parent)
 		{
-			m_Current = LayoutComponent.Create("Root", parent);
+			Root = LayoutComponent.Create("Root", parent);
+			m_Current = Root;
 		}
 
-		public LayoutComponent BeginGroup(string name, ELayoutOrientation orientation)
+		public LayoutComponent Create(string name, LayoutComponent prefab = null)
+		{
+			return m_Current.Create(name, prefab);
+		}
+
+		public LayoutComponent BeginGroup(string name)
 		{
 			m_Stack.Push(m_Current);
+			m_Current = m_Current.Create(name);
 			return m_Current;
 		}
 
 		public void EndGroup()
 		{
 			m_Current = m_Stack.Pop();
-		}
-
-		public LayoutComponent BeginVertical(string name)
-		{
-			return BeginGroup(name, ELayoutOrientation.Vertical);
-		}
-
-		public void EndVertical()
-		{
-			EndGroup();
-		}
-
-		public LayoutComponent BeginHorizontal(string name)
-		{
-			return BeginGroup(name, ELayoutOrientation.Horizontal);
-		}
-
-		public void EndHorizontal()
-		{
-			EndGroup();
 		}
 	}
 }

@@ -16,29 +16,42 @@ namespace ProceduralLevel.UI.Samples
 		protected override void OnInitialize(EventBinder binder)
 		{
 			UIBuilder builder = new UIBuilder(Transform);
-			builder.BeginHorizontal("TopBar");
-			
-			builder.EndHorizontal();
-			builder.BeginHorizontal("Middle");
+			m_Container = builder.Root;
+			builder.BeginGroup("TopBar").SetHorizontal().SetStatic(100);
+			builder.Create("TopLeft", m_LayoutComponentPrefab).SetStatic(100);
+			builder.Create("TopMiddle");
+			builder.Create("TopRight", m_LayoutComponentPrefab).SetStatic(100);
+			builder.EndGroup();
 
-			builder.EndHorizontal();
-
-			m_Container = LayoutComponent.Create("Container", Transform);
-			LayoutComponent topBar = m_Container.Create("TopBar").SetHorizontal().SetStatic(100);
-			LayoutComponent middle = m_Container.Create("Middle").SetHorizontal();
+			builder.BeginGroup("Middle").SetHorizontal();
 			for(int x = 0; x < 3; ++x)
 			{
-				middle.Create($"{x}", m_LayoutComponentPrefab).SetFlexible(x+1);
+				builder.Create($"{x}", m_LayoutComponentPrefab).SetFlexible(x+1);
 			}
-			LayoutComponent bottomBar = m_Container.Create("BottomBar").SetHorizontal().SetStatic(100);
+			builder.EndGroup();
 
-			topBar.Create("TopLeft", m_LayoutComponentPrefab).SetStatic(100);
-			topBar.Create("TopMiddle");
-			topBar.Create("TopRight", m_LayoutComponentPrefab).SetStatic(100);
+			builder.BeginGroup("BottomBar").SetHorizontal().SetStatic(100);
+			builder.Create("BottomLeft", m_LayoutComponentPrefab).SetStatic(100);
+			builder.Create("BottomMiddle");
+			builder.Create("BottomRight").SetStatic(200).Spawn(m_NestedPrefab);
+			builder.EndGroup();
 
-			bottomBar.Create("BottomLeft", m_LayoutComponentPrefab).SetStatic(100);
-			bottomBar.Create("BottomMiddle");
-			bottomBar.Create("BottomRight").SetStatic(200).Spawn(m_NestedPrefab);
+			//m_Container = LayoutComponent.Create("Container", Transform);
+			//LayoutComponent topBar = m_Container.Create("TopBar").SetHorizontal().SetStatic(100);
+			//LayoutComponent middle = m_Container.Create("Middle").SetHorizontal();
+			//for(int x = 0; x < 3; ++x)
+			//{
+			//	middle.Create($"{x}", m_LayoutComponentPrefab).SetFlexible(x+1);
+			//}
+			//LayoutComponent bottomBar = m_Container.Create("BottomBar").SetHorizontal().SetStatic(100);
+
+			//topBar.Create("TopLeft", m_LayoutComponentPrefab).SetStatic(100);
+			//topBar.Create("TopMiddle");
+			//topBar.Create("TopRight", m_LayoutComponentPrefab).SetStatic(100);
+
+			//bottomBar.Create("BottomLeft", m_LayoutComponentPrefab).SetStatic(100);
+			//bottomBar.Create("BottomMiddle");
+			//bottomBar.Create("BottomRight").SetStatic(200).Spawn(m_NestedPrefab);
 
 			FitToScreen();
 		}

@@ -10,7 +10,7 @@ namespace ProceduralLevel.UI.Unity
 		public readonly Layout Parent;
 		public LayoutRect Rect = new LayoutRect(0, 0, 10, 10);
 		public ELayoutOrientation Orientation = ELayoutOrientation.Vertical;
-		public int GapBetweenElements = 5;
+		public int ElementsSpacing = 5;
 		public bool StretchWithChildren = true;
 		public float Align = 0f;
 		public bool Active = true;
@@ -49,7 +49,7 @@ namespace ProceduralLevel.UI.Unity
 
 			int availableSpace = Rect.GetSize(Orientation);
 			int staticSum = SumValues(ELayoutType.Static);
-			int gapSpace = (count-1)*GapBetweenElements;
+			int gapSpace = (count-1)*ElementsSpacing;
 			int flexibleSum = SumValues(ELayoutType.Flexible);
 			availableSpace -= staticSum;
 			availableSpace -= gapSpace;
@@ -76,7 +76,7 @@ namespace ProceduralLevel.UI.Unity
 
 				if(x > 0)
 				{
-					usedSpace += GapBetweenElements;
+					usedSpace += ElementsSpacing;
 				}
 
 				if(layout.ExpandToParent)
