@@ -9,7 +9,7 @@ namespace ProceduralLevel.UI.Unity
 	{
 		public readonly Layout Parent;
 		public LayoutRect Rect = new LayoutRect(0, 0, 10, 10);
-		public ELayoutOrientation Orientation = ELayoutOrientation.Vertical;
+		public ELayoutAxis Axis = ELayoutAxis.Vertical;
 		public int ElementsSpacing = 5;
 		public bool StretchWithChildren = true;
 		public float Align = 0f;
@@ -47,7 +47,7 @@ namespace ProceduralLevel.UI.Unity
 				return;
 			}
 
-			int availableSpace = Rect.GetSize(Orientation);
+			int availableSpace = Rect.GetSize(Axis);
 			int staticSum = SumValues(ELayoutType.Static);
 			int gapSpace = (count-1)*ElementsSpacing;
 			int flexibleSum = SumValues(ELayoutType.Flexible);
@@ -64,7 +64,7 @@ namespace ProceduralLevel.UI.Unity
 				usedSpace += (int)(Align*availableSpace);
 			}
 
-			ELayoutOrientation otherOrientation = Orientation.GetOther();
+			ELayoutAxis otherAxis = Axis.GetOther();
 
 			for(int x = 0; x < count; ++x)
 			{
@@ -81,18 +81,18 @@ namespace ProceduralLevel.UI.Unity
 
 				if(layout.ExpandToParent)
 				{
-					int expandTo = Rect.GetSize(otherOrientation);
-					layout.Rect.SetSize(otherOrientation, expandTo);
+					int expandTo = Rect.GetSize(otherAxis);
+					layout.Rect.SetSize(otherAxis, expandTo);
 				}
-				int layoutSize = layout.GetValue(Orientation, perFlexibleUnit);
-				layout.Rect.SetSize(Orientation, layoutSize);
+				int layoutSize = layout.GetValue(Axis, perFlexibleUnit);
+				layout.Rect.SetSize(Axis, layoutSize);
 				SetPosition(layout, usedSpace);
 				layout.DoLayout();
 				usedSpace += layoutSize;
 			}
 			if(StretchWithChildren)
 			{
-				Rect.SetSize(Orientation, usedSpace);
+				Rect.SetSize(Axis, usedSpace);
 			}
 
 			OnChanged.Invoke();
@@ -100,18 +100,18 @@ namespace ProceduralLevel.UI.Unity
 
 		private void SetPosition(Layout layout, int value)
 		{
-			switch(Orientation)
+			switch(Axis)
 			{
-				case ELayoutOrientation.Horizontal:
+				case ELayoutAxis.Horizontal:
 					layout.Rect.X = value;
 					layout.Rect.Y = 0;
 					break;
-				case ELayoutOrientation.Vertical:
+				case ELayoutAxis.Vertical:
 					layout.Rect.X = 0;
 					layout.Rect.Y = value;
 					break;
 				default:
-					throw new NotImplementedException(Orientation.ToString());
+					throw new NotImplementedException(Axis.ToString());
 			}
 		}
 
@@ -138,7 +138,7 @@ namespace ProceduralLevel.UI.Unity
 				Layout layout = m_Childrens[x];
 				if(layout.Active && layout.ElementType == type)
 				{
-					sum += layout.GetValue(Orientation);
+					sum += layout.GetValue(Axis);
 				}
 			}
 			return sum;
@@ -169,7 +169,7 @@ namespace ProceduralLevel.UI.Unity
 			return true;
 		}
 
-		public int GetValue(ELayoutOrientation orientation, int flexibleMultiplier = 1)
+		public int GetValue(ELayoutAxis axis, int flexibleMultiplier = 1)
 		{
 			switch(ElementType)
 			{
@@ -178,11 +178,11 @@ namespace ProceduralLevel.UI.Unity
 				case ELayoutType.Static:
 					if(ElementSize == 0)
 					{
-						return Rect.GetSize(orientation);
+						return Rect.GetSize(axis);
 					}
 					return ElementSize;
 				default:
-					throw new NotImplementedException(orientation.ToString());
+					throw new NotImplementedException(axis.ToString());
 			}
 		}
 

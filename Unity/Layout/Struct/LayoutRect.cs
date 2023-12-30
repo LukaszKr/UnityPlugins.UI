@@ -31,14 +31,14 @@ namespace ProceduralLevel.UI.Unity
 			Height = height;
 		}
 
-		public void SetPosition(ELayoutOrientation orientation, int value)
+		public void SetPosition(ELayoutAxis axis, int value)
 		{
-			switch(orientation)
+			switch(axis)
 			{
-				case ELayoutOrientation.Horizontal:
+				case ELayoutAxis.Horizontal:
 					X = value;
 					break;
-				case ELayoutOrientation.Vertical:
+				case ELayoutAxis.Vertical:
 					Y = value;
 					break;
 				default:
@@ -46,14 +46,14 @@ namespace ProceduralLevel.UI.Unity
 			}
 		}
 
-		public void SetSize(ELayoutOrientation orientation, int value)
+		public void SetSize(ELayoutAxis axis, int value)
 		{
-			switch(orientation)
+			switch(axis)
 			{
-				case ELayoutOrientation.Horizontal:
+				case ELayoutAxis.Horizontal:
 					Width = value;
 					break;
-				case ELayoutOrientation.Vertical:
+				case ELayoutAxis.Vertical:
 					Height = value;
 					break;
 				default:
@@ -61,13 +61,13 @@ namespace ProceduralLevel.UI.Unity
 			}
 		}
 
-		public int GetSize(ELayoutOrientation orientation)
+		public int GetSize(ELayoutAxis orientation)
 		{
 			switch(orientation)
 			{
-				case ELayoutOrientation.Horizontal:
+				case ELayoutAxis.Horizontal:
 					return Width;
-				case ELayoutOrientation.Vertical:
+				case ELayoutAxis.Vertical:
 					return Height;
 				default:
 					throw new NotImplementedException(orientation.ToString());

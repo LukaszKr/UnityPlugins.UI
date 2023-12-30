@@ -1,5 +1,4 @@
 ﻿using ProceduralLevel.Common.Event;
-using ProceduralLevel.Common.Unity;
 using ProceduralLevel.UI.Unity;
 using UnityEngine;
 
@@ -32,27 +31,11 @@ namespace ProceduralLevel.UI.Samples
 			builder.EndGroup();
 
 			builder.BeginGroup("BottomBar").SetHorizontal().SetStatic(100);
-			builder.Create("BottomLeft", m_LayoutComponentPrefab).SetStatic(100);
+			//example of element not occupying full height/width of parent
+			builder.Create("BottomLeft", m_LayoutComponentPrefab).SetStatic(100).SetExpandToParent(false).SetHeight(50);
 			builder.Create("BottomMiddle");
 			builder.Create("BottomRight").SetStatic(200).Spawn(m_NestedPrefab);
 			builder.EndGroup();
-
-			//m_Container = LayoutComponent.Create("Container", Transform);
-			//LayoutComponent topBar = m_Container.Create("TopBar").SetHorizontal().SetStatic(100);
-			//LayoutComponent middle = m_Container.Create("Middle").SetHorizontal();
-			//for(int x = 0; x < 3; ++x)
-			//{
-			//	middle.Create($"{x}", m_LayoutComponentPrefab).SetFlexible(x+1);
-			//}
-			//LayoutComponent bottomBar = m_Container.Create("BottomBar").SetHorizontal().SetStatic(100);
-
-			//topBar.Create("TopLeft", m_LayoutComponentPrefab).SetStatic(100);
-			//topBar.Create("TopMiddle");
-			//topBar.Create("TopRight", m_LayoutComponentPrefab).SetStatic(100);
-
-			//bottomBar.Create("BottomLeft", m_LayoutComponentPrefab).SetStatic(100);
-			//bottomBar.Create("BottomMiddle");
-			//bottomBar.Create("BottomRight").SetStatic(200).Spawn(m_NestedPrefab);
 
 			FitToScreen();
 		}

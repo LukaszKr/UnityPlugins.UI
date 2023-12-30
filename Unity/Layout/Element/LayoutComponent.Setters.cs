@@ -49,20 +49,20 @@ namespace ProceduralLevel.UI.Unity
 		#endregion
 
 		#region Orientation
-		public LayoutComponent SetOrientation(ELayoutOrientation orientation)
+		public LayoutComponent SetAxis(ELayoutAxis axis)
 		{
-			m_Layout.Orientation = orientation;
+			m_Layout.Axis = axis;
 			return this;
 		}
 
 		public LayoutComponent SetVertical()
 		{
-			return SetOrientation(ELayoutOrientation.Vertical);
+			return SetAxis(ELayoutAxis.Vertical);
 		}
 
 		public LayoutComponent SetHorizontal()
 		{
-			return SetOrientation(ELayoutOrientation.Horizontal);
+			return SetAxis(ELayoutAxis.Horizontal);
 		}
 		#endregion
 
@@ -82,6 +82,24 @@ namespace ProceduralLevel.UI.Unity
 		public LayoutComponent SetStatic(int size)
 		{
 			return SetType(ELayoutType.Static, size);
+		}
+		#endregion
+
+		#region Size
+		public LayoutComponent SetDimension(ELayoutAxis axis, int value)
+		{
+			m_Layout.Rect.SetSize(axis, value);
+			return this;
+		}
+
+		public LayoutComponent SetHeight(int value)
+		{
+			return SetDimension(ELayoutAxis.Vertical, value);
+		}
+
+		public LayoutComponent SetWidth(int value)
+		{
+			return SetDimension(ELayoutAxis.Horizontal, value);
 		}
 		#endregion
 	}
