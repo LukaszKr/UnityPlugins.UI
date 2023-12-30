@@ -17,6 +17,8 @@ namespace ProceduralLevel.UI.Unity
 
 		public readonly CustomEvent OnClicked = new CustomEvent();
 
+		public EInteractionState State => m_State;
+
 		public bool IsHovered => m_State.Contains(EInteractionState.Hovered);
 		public bool IsActive => m_State.Contains(EInteractionState.Active);
 		public bool IsSelected => m_State.Contains(EInteractionState.Selected);
