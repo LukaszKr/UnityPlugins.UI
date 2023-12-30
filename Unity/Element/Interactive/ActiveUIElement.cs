@@ -28,6 +28,11 @@ namespace ProceduralLevel.UI.Unity
 		{
 		}
 
+		public void Click()
+		{
+			OnClicked.Invoke();
+		}
+
 		#region State
 		public bool TrySetHovered(bool hovered)
 		{

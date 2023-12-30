@@ -29,6 +29,12 @@ namespace ProceduralLevel.UI.Unity
 			return this;
 		}
 
+		public LayoutComponent SetRect(int x, int y, int width, int height)
+		{
+			m_Layout.Rect = new LayoutRect(x, y, width, height);
+			return this;
+		}
+
 		public LayoutComponent SetElementsSpacing(int elementsSpacing)
 		{
 			m_Layout.ElementsSpacing = elementsSpacing;
