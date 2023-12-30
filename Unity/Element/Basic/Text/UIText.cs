@@ -1,7 +1,7 @@
 ﻿using ProceduralLevel.Common.Event;
-using UnityEngine;
-using TMPro;
 using ProceduralLevel.Localization.Unity;
+using TMPro;
+using UnityEngine;
 
 namespace ProceduralLevel.UI.Unity
 {
@@ -9,9 +9,27 @@ namespace ProceduralLevel.UI.Unity
 	{
 		private bool m_IsLocalized;
 		private LocalizationKey m_Key;
+		private readonly EventBinder m_Binder = new EventBinder();
 
 		[SerializeField]
 		private TextMeshProUGUI m_Text = null;
+
+		protected override void OnEnable()
+		{
+			base.OnEnable();
+			m_Binder.Enable();
+		}
+
+		protected override void OnDisable()
+		{
+			base.OnDisable();
+			m_Binder.Disable();
+		}
+
+		private void OnDestroy()
+		{
+			m_Binder.UnbindAll();
+		}
 
 		#region Element
 		protected override void OnInitialize(EventBinder binder)
@@ -47,12 +65,12 @@ namespace ProceduralLevel.UI.Unity
 				m_IsLocalized = localized;
 				if(localized)
 				{
-					LocalizationManager.Instance.OnLanguageChanged.AddListener(OnLanguageChangedHandler);
+					m_Binder.Bind(LocalizationManager.Instance.OnLanguageChanged, OnLanguageChangedHandler);
 					RefreshLocalization();
 				}
 				else
 				{
-					LocalizationManager.Instance.OnLanguageChanged.RemoveListener(OnLanguageChangedHandler);
+					m_Binder.UnbindAll();
 					m_Key = default;
 				}
 			}
