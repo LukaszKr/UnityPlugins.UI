@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 
 namespace ProceduralLevel.UI.Unity
 {
-	public abstract class AInteractiveUIElement : AUIElement, 
+	public class ActiveUIElement : AUIElement, 
 		IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
 	{
 		private EInteractionState m_State = EInteractionState.Enabled;
@@ -17,12 +17,14 @@ namespace ProceduralLevel.UI.Unity
 
 		public readonly CustomEvent OnClicked = new CustomEvent();
 
-		public EInteractionState State => m_State;
-
 		public bool IsHovered => m_State.Contains(EInteractionState.Hovered);
 		public bool IsActive => m_State.Contains(EInteractionState.Active);
 		public bool IsSelected => m_State.Contains(EInteractionState.Selected);
 		public bool IsEnabled => m_State.Contains(EInteractionState.Enabled);
+
+		protected override void OnInitialize(EventBinder binder)
+		{
+		}
 
 		#region State
 		public bool TrySetHovered(bool hovered)

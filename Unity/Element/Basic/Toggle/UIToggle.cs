@@ -2,7 +2,7 @@
 
 namespace ProceduralLevel.UI.Unity
 {
-	public class UIToggle : AInteractiveUIElement
+	public class UIToggle : ActiveUIElement
 	{
 		private bool m_Value;
 
