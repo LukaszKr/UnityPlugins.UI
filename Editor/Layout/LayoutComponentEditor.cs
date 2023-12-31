@@ -15,8 +15,7 @@ namespace ProceduralLevel.UI.Editor
 
 		protected override void Draw()
 		{
-			FieldInfo field = Target.GetType().GetField("m_Layout", BindingFlags.Instance | BindingFlags.NonPublic);
-			Layout layout = (Layout)field.GetValue(Target);
+			Layout layout = Target.Layout;
 			if(layout != null)
 			{
 				EditorGUI.BeginDisabledGroup(true);

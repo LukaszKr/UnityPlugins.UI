@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace ProceduralLevel.UI.Unity
 {
-	public class UIText : AUIElement
+	public class UILabel : AUIElement
 	{
 		private bool m_IsLocalized;
 		private LocalizationKey m_Key;
@@ -39,17 +39,19 @@ namespace ProceduralLevel.UI.Unity
 		}
 		#endregion
 
-		public void SetText(string text)
+		public UILabel SetText(string text)
 		{
 			m_Text.text = text;
 			SetLocalized(false);
+			return this;
 		}
 
 		#region Localization
-		public void SetLocalization(LocalizationKey key)
+		public UILabel SetLocalization(LocalizationKey key)
 		{
 			m_Key = key;
 			SetLocalized(true);
+			return this;
 		}
 
 		private void RefreshLocalization()

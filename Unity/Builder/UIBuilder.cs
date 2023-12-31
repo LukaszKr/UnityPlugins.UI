@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace ProceduralLevel.UI.Unity
 {
 	public class UIBuilder
 	{
-		public readonly LayoutComponent Root;
-
 		private readonly Stack<LayoutComponent> m_Stack = new Stack<LayoutComponent>();
 		private LayoutComponent m_CurrentGroup;
 		private LayoutComponent m_CurrentLayout;
@@ -14,10 +13,21 @@ namespace ProceduralLevel.UI.Unity
 		public LayoutComponent CurrentGroup => m_CurrentGroup;
 		public LayoutComponent CurrentLayout => m_CurrentLayout;
 
-		public UIBuilder(Transform parent, string name = "Root")
+		public LayoutComponent Begin(Transform parent, string name = "Root")
 		{
-			Root = LayoutComponent.Create(name, parent);
-			m_CurrentGroup = Root;
+			m_CurrentGroup = LayoutComponent.Create(name, parent);
+			m_CurrentLayout = m_CurrentGroup;
+			return m_CurrentGroup;
+		}
+
+		public void End()
+		{
+			if(m_Stack.Count > 0)
+			{
+				throw new NotSupportedException($"{m_Stack.Count} groups are still not closed.");
+			}
+			m_CurrentGroup = null;
+			m_CurrentLayout = null;
 		}
 
 		public virtual LayoutComponent Create(string name, LayoutComponent prefab = null)

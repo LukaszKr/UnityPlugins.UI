@@ -11,9 +11,10 @@ namespace ProceduralLevel.UI.Unity
 		private LayoutRect m_DisplayedRect;
 
 		[SerializeField]
-		private RectTransform m_RectComponent;
+		private RectTransform m_RectTransform;
 
-		public RectTransform RectComponent => m_RectComponent;
+		public Layout Layout => m_Layout;
+		public RectTransform RectTransform => m_RectTransform;
 
 		#region Context
 		private void Setup(Layout layout)
@@ -22,9 +23,12 @@ namespace ProceduralLevel.UI.Unity
 			{
 				throw new InvalidOperationException();
 			}
-			if(m_RectComponent == null)
+			if(m_RectTransform == null)
 			{
-				m_RectComponent = GetComponent<RectTransform>();
+				if(!TryGetComponent(out m_RectTransform))
+				{
+					m_RectTransform = GameObject.AddComponent<RectTransform>();
+				}
 			}
 			m_Layout = layout;
 			m_Layout.OnChanged.AddListener(OnLayoutChangedHandler);
@@ -44,16 +48,47 @@ namespace ProceduralLevel.UI.Unity
 			return Insert(spawned);
 		}
 
-		public TObject Insert<TObject>(TObject target)
-			where TObject : Component
+		public TComponent Insert<TComponent>(TComponent component)
+			where TComponent : Component
 		{
-			RectTransform rect = target.GetComponent<RectTransform>();
+			RectTransform rect = component.GetComponent<RectTransform>();
 			rect.SetParent(Transform, false);
 			rect.anchorMin = new Vector2(0f, 0f);
 			rect.anchorMax = new Vector2(1f, 1f);
 			rect.anchoredPosition = new Vector2(0f, 0f);
 			rect.sizeDelta = default;
-			return target;
+			return component;
+		}
+		#endregion
+
+		#region Create
+		public static LayoutComponent Create(string name, Transform parent, LayoutComponent prefab = null)
+		{
+			Layout layout = new Layout(null);
+			return Create(name, parent, layout, prefab);
+		}
+
+		private static LayoutComponent Create(string name, Transform parent, Layout layout, LayoutComponent prefab = null)
+		{
+			LayoutComponent component;
+			if(prefab == null)
+			{
+				GameObject go = new GameObject(name);
+				go.transform.SetParent(parent, false);
+				component = go.AddComponent<LayoutComponent>();
+			}
+			else
+			{
+				component = Instantiate(prefab, parent, false);
+				component.name = name;
+			}
+			component.Setup(layout);
+			return component;
+		}
+
+		public LayoutComponent Create(string name, LayoutComponent prefab = null)
+		{
+			return Create(name, Transform, m_Layout.CreateChild(), prefab);
 		}
 		#endregion
 
@@ -70,7 +105,7 @@ namespace ProceduralLevel.UI.Unity
 				return;
 			}
 
-			m_RectComponent.ApplyLayout(m_Layout);
+			m_RectTransform.ApplyLayout(m_Layout);
 			m_DisplayedRect = m_Layout.Rect;
 		}
 		#endregion
@@ -85,9 +120,9 @@ namespace ProceduralLevel.UI.Unity
 
 		private void OnValidate()
 		{
-			if(m_RectComponent == null)
+			if(m_RectTransform == null)
 			{
-				m_RectComponent = GetComponent<RectTransform>();
+				m_RectTransform = GetComponent<RectTransform>();
 			}
 		}
 	}

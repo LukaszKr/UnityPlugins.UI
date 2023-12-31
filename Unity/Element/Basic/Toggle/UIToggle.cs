@@ -13,6 +13,8 @@ namespace ProceduralLevel.UI.Unity
 		#region Element
 		protected override void OnInitialize(EventBinder binder)
 		{
+			base.OnInitialize(binder);
+
 			binder.Bind(OnClicked, OnClickHandler);
 		}
 		#endregion

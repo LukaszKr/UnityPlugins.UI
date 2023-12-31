@@ -2,7 +2,7 @@
 
 namespace ProceduralLevel.UI.Unity
 {
-	public class UILabelToggle : UIToggle
+	public class UILabelButton : UIButton
 	{
 		[SerializeField]
 		private UILabel m_Label = null;

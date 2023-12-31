@@ -10,13 +10,15 @@ namespace ProceduralLevel.UI.Samples
 		private LayoutComponent m_LayoutComponentPrefab = null;
 		[SerializeField]
 		private RectTransform m_NestedPrefab = null;
+		[SerializeField]
+		private BasicUIBuilderConfig m_UIBuilderConfig = null;
 
 		private LayoutComponent m_Container;
 
 		protected override void OnInitialize(EventBinder binder)
 		{
-			UIBuilder builder = new UIBuilder(Transform);
-			m_Container = builder.Root;
+			BasicUIBuilder builder = new BasicUIBuilder(m_UIBuilderConfig);
+			m_Container = builder.Begin(Transform);
 			builder.BeginGroup("TopBar").SetHorizontal().SetStatic(100);
 			builder.Create("TopLeft", m_LayoutComponentPrefab).SetStatic(100);
 			builder.Create("TopMiddle");
@@ -27,6 +29,7 @@ namespace ProceduralLevel.UI.Samples
 			for(int x = 0; x < 3; ++x)
 			{
 				builder.BeginGroup($"{x}", m_LayoutComponentPrefab).SetFlexible(x+1).SetExpandToParent(true);
+				builder.Label("Label", $"Column {x}");
 				for(int y = 0; y < 10; ++y)
 				{
 					builder.Create($"{x}:{y}", m_LayoutComponentPrefab).SetStatic(40);
@@ -41,6 +44,8 @@ namespace ProceduralLevel.UI.Samples
 			builder.Create("BottomMiddle");
 			builder.Create("BottomRight").SetStatic(200).Spawn(m_NestedPrefab);
 			builder.EndGroup();
+			
+			builder.End();
 
 			FitToScreen();
 		}
