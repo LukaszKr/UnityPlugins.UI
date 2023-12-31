@@ -53,11 +53,11 @@ namespace ProceduralLevel.UI.Unity
 			int flexibleSum = SumValues(ELayoutType.Flexible);
 			availableSpace -= staticSum;
 			availableSpace -= gapSpace;
-			int perFlexibleUnit = 0;
-			int usedSpace = 0;
+			float flexibleUnit = 0;
+			float usedSpace = 0;
 			if(flexibleSum > 0)
 			{
-				perFlexibleUnit = Mathf.CeilToInt(availableSpace/(float)flexibleSum);
+				flexibleUnit = availableSpace/(float)flexibleSum;
 			}
 			else
 			{
@@ -84,15 +84,16 @@ namespace ProceduralLevel.UI.Unity
 					int expandTo = Rect.GetSize(otherAxis);
 					layout.Rect.SetSize(otherAxis, expandTo);
 				}
-				int layoutSize = layout.GetValue(Axis, perFlexibleUnit);
-				layout.Rect.SetSize(Axis, layoutSize);
-				SetPosition(layout, usedSpace);
+				float layoutSize = layout.GetValue(Axis, flexibleUnit);
+
+				layout.Rect.SetSize(Axis, Mathf.CeilToInt(layoutSize));
+				SetPosition(layout, Mathf.FloorToInt(usedSpace));
 				layout.DoLayout();
 				usedSpace += layoutSize;
 			}
 			if(StretchWithChildren)
 			{
-				Rect.SetSize(Axis, usedSpace);
+				Rect.SetSize(Axis, Mathf.CeilToInt(usedSpace));
 			}
 
 			OnChanged.Invoke();
@@ -131,7 +132,7 @@ namespace ProceduralLevel.UI.Unity
 
 		private int SumValues(ELayoutType type)
 		{
-			int sum = 0;
+			float sum = 0;
 			int count = m_Childrens.Count;
 			for(int x = 0; x < count; ++x)
 			{
@@ -141,7 +142,7 @@ namespace ProceduralLevel.UI.Unity
 					sum += layout.GetValue(Axis);
 				}
 			}
-			return sum;
+			return (int)sum;
 		}
 		#endregion
 
@@ -169,7 +170,7 @@ namespace ProceduralLevel.UI.Unity
 			return true;
 		}
 
-		public int GetValue(ELayoutAxis axis, int flexibleMultiplier = 1)
+		public float GetValue(ELayoutAxis axis, float flexibleMultiplier = 1)
 		{
 			switch(ElementType)
 			{

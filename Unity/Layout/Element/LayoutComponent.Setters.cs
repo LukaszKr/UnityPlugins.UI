@@ -80,14 +80,14 @@ namespace ProceduralLevel.UI.Unity
 			return this;
 		}
 
-		public LayoutComponent SetFlexible(int size = 1)
+		public LayoutComponent SetFlexible(int flexibleUnits = 1)
 		{
-			return SetType(ELayoutType.Flexible, size);
+			return SetType(ELayoutType.Flexible, flexibleUnits);
 		}
 
-		public LayoutComponent SetStatic(int size)
+		public LayoutComponent SetStatic(int staticSize)
 		{
-			return SetType(ELayoutType.Static, size);
+			return SetType(ELayoutType.Static, staticSize);
 		}
 		#endregion
 
@@ -98,14 +98,14 @@ namespace ProceduralLevel.UI.Unity
 			return this;
 		}
 
-		public LayoutComponent SetHeight(int value)
+		public LayoutComponent SetHeight(int height)
 		{
-			return SetDimension(ELayoutAxis.Vertical, value);
+			return SetDimension(ELayoutAxis.Vertical, height);
 		}
 
-		public LayoutComponent SetWidth(int value)
+		public LayoutComponent SetWidth(int width)
 		{
-			return SetDimension(ELayoutAxis.Horizontal, value);
+			return SetDimension(ELayoutAxis.Horizontal, width);
 		}
 		#endregion
 	}

@@ -10,13 +10,15 @@ namespace ProceduralLevel.UI.Unity
 		private readonly Stack<LayoutComponent> m_Stack = new Stack<LayoutComponent>();
 		private LayoutComponent m_Current;
 
+		public LayoutComponent Current => m_Current;
+
 		public UIBuilder(Transform parent, string name = "Root")
 		{
 			Root = LayoutComponent.Create(name, parent);
 			m_Current = Root;
 		}
 
-		public LayoutComponent Create(string name, LayoutComponent prefab = null)
+		public virtual LayoutComponent Create(string name, LayoutComponent prefab = null)
 		{
 			return m_Current.Create(name, prefab);
 		}
