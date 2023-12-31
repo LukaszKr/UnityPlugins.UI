@@ -8,8 +8,13 @@ namespace ProceduralLevel.UI.Unity
 	public class Layout
 	{
 		public readonly Layout Parent;
-		public LayoutRect Rect = new LayoutRect(0, 0, 10, 10);
-		public bool StretchWithChildren = false;
+
+		public LayoutMargin Margin;
+		public LayoutVector Size;
+		public LayoutRect Rect;
+
+		//Properties
+		public bool FitToChildren = false;
 		public float Align = 0f;
 		public bool Active = true;
 
@@ -18,8 +23,8 @@ namespace ProceduralLevel.UI.Unity
 		public int ElementsSpacing = 5;
 
 		//Element Dimensions
-		public ELayoutType ElementType = ELayoutType.Flexible;
-		public int ElementSize = 1;
+		public ELayoutMode LayoutMode = ELayoutMode.Flexible;
+		public int LayoutModeSize = 1;
 		public bool ExpandToParent = true;
 
 		private readonly List<Layout> m_Childrens = new List<Layout>();
@@ -43,17 +48,22 @@ namespace ProceduralLevel.UI.Unity
 		#region Layout
 		public void DoLayout()
 		{
-			int count = CountActive();
-			if(count == 0)
-			{
-				OnChanged.Invoke();
-				return;
-			}
+			DoLayout(new LayoutVector());
+		}
+
+		private void DoLayout(LayoutVector offset)
+		{
+			int activeElementCount = CountActive();
+			int px = offset.X+Margin.Left;
+			int py = offset.Y+Margin.Top;
+			int width = Size.X-Margin.Horizontal;
+			int height = Size.Y-Margin.Vertical;
+			Rect = new LayoutRect(px, py, width, height);
 
 			int availableSpace = Rect.GetSize(Axis);
-			int staticSum = SumValues(ELayoutType.Static);
-			int gapSpace = (count-1)*ElementsSpacing;
-			int flexibleSum = SumValues(ELayoutType.Flexible);
+			int staticSum = SumElementLayoutSizes(ELayoutMode.Static);
+			int gapSpace = (activeElementCount-1)*ElementsSpacing;
+			int flexibleSum = SumElementLayoutSizes(ELayoutMode.Flexible);
 			availableSpace -= staticSum;
 			availableSpace -= gapSpace;
 			float flexibleUnit = 0;
@@ -69,7 +79,7 @@ namespace ProceduralLevel.UI.Unity
 
 			ELayoutAxis otherAxis = Axis.GetOther();
 
-			for(int x = 0; x < count; ++x)
+			for(int x = 0; x < activeElementCount; ++x)
 			{
 				Layout layout = m_Childrens[x];
 				if(!layout.Active)
@@ -85,38 +95,22 @@ namespace ProceduralLevel.UI.Unity
 				if(layout.ExpandToParent)
 				{
 					int expandTo = Rect.GetSize(otherAxis);
-					layout.Rect.SetSize(otherAxis, expandTo);
+					layout.Size.SetValue(otherAxis, expandTo);
 				}
-				float layoutSize = layout.GetValue(Axis, flexibleUnit);
 
-				layout.Rect.SetSize(Axis, Mathf.CeilToInt(layoutSize));
-				SetPosition(layout, Mathf.FloorToInt(usedSpace));
-				layout.DoLayout();
+				float layoutSize = layout.CalculateElementSize(Axis, flexibleUnit);
+
+				layout.Size.SetValue(Axis, Mathf.CeilToInt(layoutSize));
+				LayoutVector childOffset = new LayoutVector(Axis, Mathf.FloorToInt(usedSpace), 0);
+				layout.DoLayout(childOffset);
 				usedSpace += layoutSize;
 			}
-			if(StretchWithChildren)
+			if(FitToChildren)
 			{
 				Rect.SetSize(Axis, Mathf.CeilToInt(usedSpace));
 			}
 
 			OnChanged.Invoke();
-		}
-
-		private void SetPosition(Layout layout, int value)
-		{
-			switch(Axis)
-			{
-				case ELayoutAxis.Horizontal:
-					layout.Rect.X = value;
-					layout.Rect.Y = 0;
-					break;
-				case ELayoutAxis.Vertical:
-					layout.Rect.X = 0;
-					layout.Rect.Y = value;
-					break;
-				default:
-					throw new NotImplementedException(Axis.ToString());
-			}
 		}
 
 		private int CountActive()
@@ -133,16 +127,16 @@ namespace ProceduralLevel.UI.Unity
 			return activeCount;
 		}
 
-		private int SumValues(ELayoutType type)
+		private int SumElementLayoutSizes(ELayoutMode mode)
 		{
 			float sum = 0;
 			int count = m_Childrens.Count;
 			for(int x = 0; x < count; ++x)
 			{
 				Layout layout = m_Childrens[x];
-				if(layout.Active && layout.ElementType == type)
+				if(layout.Active && layout.LayoutMode == mode)
 				{
-					sum += layout.GetValue(Axis);
+					sum += layout.CalculateElementSize(Axis);
 				}
 			}
 			return (int)sum;
@@ -173,18 +167,14 @@ namespace ProceduralLevel.UI.Unity
 			return true;
 		}
 
-		public float GetValue(ELayoutAxis axis, float flexibleMultiplier = 1)
+		private float CalculateElementSize(ELayoutAxis axis, float flexibleMultiplier = 1)
 		{
-			switch(ElementType)
+			switch(LayoutMode)
 			{
-				case ELayoutType.Flexible:
-					return ElementSize * flexibleMultiplier;
-				case ELayoutType.Static:
-					if(ElementSize == 0)
-					{
-						return Rect.GetSize(axis);
-					}
-					return ElementSize;
+				case ELayoutMode.Flexible:
+					return LayoutModeSize * flexibleMultiplier;
+				case ELayoutMode.Static:
+					return LayoutModeSize;
 				default:
 					throw new NotImplementedException(axis.ToString());
 			}

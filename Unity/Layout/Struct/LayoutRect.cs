@@ -31,19 +31,10 @@ namespace ProceduralLevel.UI.Unity
 			Height = height;
 		}
 
-		public void SetPosition(ELayoutAxis axis, int value)
+		public void SetSize(int width, int height)
 		{
-			switch(axis)
-			{
-				case ELayoutAxis.Horizontal:
-					X = value;
-					break;
-				case ELayoutAxis.Vertical:
-					Y = value;
-					break;
-				default:
-					throw new NotImplementedException();
-			}
+			Width = width;
+			Height = height;
 		}
 
 		public void SetSize(ELayoutAxis axis, int value)

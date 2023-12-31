@@ -1,6 +1,6 @@
 ﻿namespace ProceduralLevel.UI.Unity
 {
-	public enum ELayoutType
+	public enum ELayoutMode
 	{
 		Static = 0,
 		Flexible = 1

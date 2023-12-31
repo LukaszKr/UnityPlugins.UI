@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using ProceduralLevel.Common.Editor;
+﻿using ProceduralLevel.Common.Editor;
 using ProceduralLevel.UI.Unity;
 using UnityEditor;
 
@@ -23,7 +22,15 @@ namespace ProceduralLevel.UI.Editor
 				EditorGUILayout.BeginVertical("box");
 				{
 					EditorGUILayout.RectField(nameof(layout.Rect), layout.Rect.ToUnity());
-					EditorGUILayout.Toggle(nameof(layout.StretchWithChildren), layout.StretchWithChildren);
+					EditorGUILayout.LabelField($"{nameof(layout.Margin)}: {layout.Margin}");
+					EditorGUILayout.LabelField($"{nameof(layout.Size)}: {layout.Size}");
+				}
+				EditorGUILayout.EndVertical();
+
+				EditorGUILayout.BeginVertical("box");
+				{
+					EditorGUILayout.LabelField("Properties", EditorStyles.boldLabel);
+					EditorGUILayout.Toggle(nameof(layout.FitToChildren), layout.FitToChildren);
 					EditorGUILayout.FloatField(nameof(layout.Align), layout.Align);
 					EditorGUILayout.Toggle(nameof(layout.Active), layout.Active);
 				}
@@ -40,8 +47,8 @@ namespace ProceduralLevel.UI.Editor
 				EditorGUILayout.BeginVertical("box");
 				{
 					EditorGUILayout.LabelField("Element Dimensions", EditorStyles.boldLabel);
-					EditorGUILayout.EnumPopup(nameof(layout.ElementType), layout.ElementType);
-					EditorGUILayout.IntField(nameof(layout.ElementSize), layout.ElementSize);
+					EditorGUILayout.EnumPopup(nameof(layout.LayoutMode), layout.LayoutMode);
+					EditorGUILayout.IntField(nameof(layout.LayoutModeSize), layout.LayoutModeSize);
 					EditorGUILayout.Toggle(nameof(layout.ExpandToParent), layout.ExpandToParent);
 				}
 				EditorGUILayout.EndVertical();

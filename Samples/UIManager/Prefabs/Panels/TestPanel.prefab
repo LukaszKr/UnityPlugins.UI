@@ -52,7 +52,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfa2556a99c2faf47a5abea0366fc5f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_LayoutComponentPrefab: {fileID: 6280139674512382583, guid: 83ba74d63fba7004e9ae1f67cd22bb7e,
+  m_FramePrefab: {fileID: 7360776798437097701, guid: 83ba74d63fba7004e9ae1f67cd22bb7e,
     type: 3}
   m_NestedPrefab: {fileID: 5162008888024192185, guid: 97521571016e2ee49afed721586ddafe,
     type: 3}

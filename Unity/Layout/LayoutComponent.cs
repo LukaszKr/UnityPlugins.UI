@@ -62,33 +62,24 @@ namespace ProceduralLevel.UI.Unity
 		#endregion
 
 		#region Create
-		public static LayoutComponent Create(string name, Transform parent, LayoutComponent prefab = null)
+		public static LayoutComponent Create(string name, Transform parent)
 		{
 			Layout layout = new Layout(null);
-			return Create(name, parent, layout, prefab);
+			return Create(name, parent, layout);
 		}
 
-		private static LayoutComponent Create(string name, Transform parent, Layout layout, LayoutComponent prefab = null)
+		private static LayoutComponent Create(string name, Transform parent, Layout layout)
 		{
-			LayoutComponent component;
-			if(prefab == null)
-			{
-				GameObject go = new GameObject(name);
-				go.transform.SetParent(parent, false);
-				component = go.AddComponent<LayoutComponent>();
-			}
-			else
-			{
-				component = Instantiate(prefab, parent, false);
-				component.name = name;
-			}
+			GameObject go = new GameObject(name);
+			go.transform.SetParent(parent, false);
+			LayoutComponent component = go.AddComponent<LayoutComponent>();
 			component.Setup(layout);
 			return component;
 		}
 
-		public LayoutComponent Create(string name, LayoutComponent prefab = null)
+		public LayoutComponent Create(string name)
 		{
-			return Create(name, Transform, m_Layout.CreateChild(), prefab);
+			return Create(name, Transform, m_Layout.CreateChild());
 		}
 		#endregion
 

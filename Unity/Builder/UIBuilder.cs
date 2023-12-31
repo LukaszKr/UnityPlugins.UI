@@ -30,16 +30,16 @@ namespace ProceduralLevel.UI.Unity
 			m_CurrentLayout = null;
 		}
 
-		public virtual LayoutComponent Create(string name, LayoutComponent prefab = null)
+		public virtual LayoutComponent Create(string name)
 		{
-			m_CurrentLayout = m_CurrentGroup.Create(name, prefab);
+			m_CurrentLayout = m_CurrentGroup.Create(name);
 			return m_CurrentLayout;
 		}
 
-		public LayoutComponent BeginGroup(string name, LayoutComponent prefab = null)
+		public LayoutComponent BeginGroup(string name)
 		{
 			m_Stack.Push(m_CurrentGroup);
-			m_CurrentGroup = Create(name, prefab);
+			m_CurrentGroup = Create(name);
 			return m_CurrentGroup;
 		}
 

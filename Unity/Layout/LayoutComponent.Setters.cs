@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace ProceduralLevel.UI.Unity
+﻿namespace ProceduralLevel.UI.Unity
 {
 	public partial class LayoutComponent
 	{
@@ -17,21 +15,9 @@ namespace ProceduralLevel.UI.Unity
 			return this;
 		}
 
-		public LayoutComponent SetRect(Rect rect)
-		{
-			m_Layout.Rect = new LayoutRect(rect);
-			return this;
-		}
-
 		public LayoutComponent SetRect(LayoutRect rect)
 		{
 			m_Layout.Rect = rect;
-			return this;
-		}
-
-		public LayoutComponent SetRect(int x, int y, int width, int height)
-		{
-			m_Layout.Rect = new LayoutRect(x, y, width, height);
 			return this;
 		}
 
@@ -41,9 +27,9 @@ namespace ProceduralLevel.UI.Unity
 			return this;
 		}
 
-		public LayoutComponent SetStretchWithChildren(bool stretch)
+		public LayoutComponent SetFitToChildren(bool fitToChildren)
 		{
-			m_Layout.StretchWithChildren = stretch;
+			m_Layout.FitToChildren = fitToChildren;
 			return this;
 		}
 
@@ -51,6 +37,29 @@ namespace ProceduralLevel.UI.Unity
 		{
 			m_Layout.ExpandToParent = expand;
 			return this;
+		}
+		#endregion
+
+		#region Margin
+		public LayoutComponent SetMargin(LayoutMargin margin)
+		{
+			m_Layout.Margin = margin;
+			return this;
+		}
+
+		public LayoutComponent SetMargin(int top, int right, int bottom, int left)
+		{
+			return SetMargin(new LayoutMargin(top, right, bottom, left));
+		}
+
+		public LayoutComponent SetMargin(int horizontal, int vertical)
+		{
+			return SetMargin(new LayoutMargin(horizontal, vertical));
+		}
+
+		public LayoutComponent SetMargin(int margin)
+		{
+			return SetMargin(new LayoutMargin(margin));
 		}
 		#endregion
 
@@ -73,28 +82,34 @@ namespace ProceduralLevel.UI.Unity
 		#endregion
 
 		#region Type
-		public LayoutComponent SetType(ELayoutType type, int size = 1)
+		public LayoutComponent SetType(ELayoutMode type, int size = 1)
 		{
-			m_Layout.ElementType = type;
-			m_Layout.ElementSize = size;
+			m_Layout.LayoutMode = type;
+			m_Layout.LayoutModeSize = size;
 			return this;
 		}
 
 		public LayoutComponent SetFlexible(int flexibleUnits = 1)
 		{
-			return SetType(ELayoutType.Flexible, flexibleUnits);
+			return SetType(ELayoutMode.Flexible, flexibleUnits);
 		}
 
 		public LayoutComponent SetStatic(int staticSize)
 		{
-			return SetType(ELayoutType.Static, staticSize);
+			return SetType(ELayoutMode.Static, staticSize);
 		}
 		#endregion
 
 		#region Size
+		public LayoutComponent SetSize(int width, int height)
+		{
+			m_Layout.Size = new LayoutVector(width, height);
+			return this;
+		}
+
 		public LayoutComponent SetDimension(ELayoutAxis axis, int value)
 		{
-			m_Layout.Rect.SetSize(axis, value);
+			m_Layout.Size.SetValue(axis, value);
 			return this;
 		}
 
