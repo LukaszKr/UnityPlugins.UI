@@ -11,6 +11,7 @@ namespace ProceduralLevel.UI.Unity
 		private bool m_IsInitialized;
 		private readonly EventBinder m_ElementBinder = new EventBinder();
 
+		public bool IsInitialized => m_IsInitialized;
 		public RectTransform RectTransform => m_RectTransform;
 
 		#region Unity
@@ -19,14 +20,10 @@ namespace ProceduralLevel.UI.Unity
 			TryInitialize();
 		}
 
-		private void OnDestroy()
+		protected virtual void OnDestroy()
 		{
-			if(m_IsInitialized)
-			{
-				m_IsInitialized = false;
-				m_ElementBinder.UnbindAll();
-				OnCleanup();
-			}
+			m_IsInitialized = false;
+			m_ElementBinder.UnbindAll();
 		}
 
 		protected virtual void OnEnable()
@@ -51,9 +48,5 @@ namespace ProceduralLevel.UI.Unity
 		}
 
 		protected abstract void OnInitialize(EventBinder binder);
-
-		protected virtual void OnCleanup()
-		{
-		}
 	}
 }

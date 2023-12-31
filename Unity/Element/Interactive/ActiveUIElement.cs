@@ -28,6 +28,18 @@ namespace ProceduralLevel.UI.Unity
 		{
 		}
 
+		protected override void OnDestroy()
+		{
+			base.OnDestroy();
+
+			OnHovered.RemoveAllListeners();
+			OnActive.RemoveAllListeners();
+			OnSelected.RemoveAllListeners();
+			OnEnabled.RemoveAllListeners();
+
+			OnClicked.RemoveAllListeners();
+		}
+
 		public void Click()
 		{
 			OnClicked.Invoke();

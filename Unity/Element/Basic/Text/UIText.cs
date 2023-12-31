@@ -26,8 +26,10 @@ namespace ProceduralLevel.UI.Unity
 			m_Binder.Disable();
 		}
 
-		private void OnDestroy()
+		protected override void OnDestroy()
 		{
+			base.OnDestroy();
+
 			m_Binder.UnbindAll();
 		}
 
