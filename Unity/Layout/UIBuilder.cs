@@ -23,10 +23,10 @@ namespace ProceduralLevel.UI.Unity
 			return m_Current.Create(name, prefab);
 		}
 
-		public LayoutComponent BeginGroup(string name)
+		public LayoutComponent BeginGroup(string name, LayoutComponent prefab = null)
 		{
 			m_Stack.Push(m_Current);
-			m_Current = m_Current.Create(name);
+			m_Current = m_Current.Create(name, prefab);
 			return m_Current;
 		}
 

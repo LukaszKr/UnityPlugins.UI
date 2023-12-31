@@ -26,7 +26,12 @@ namespace ProceduralLevel.UI.Samples
 			builder.BeginGroup("Middle").SetHorizontal();
 			for(int x = 0; x < 3; ++x)
 			{
-				builder.Create($"{x}", m_LayoutComponentPrefab).SetFlexible(x+1);
+				builder.BeginGroup($"{x}", m_LayoutComponentPrefab).SetFlexible(x+1).SetExpandToParent(true);
+				for(int y = 0; y < 10; ++y)
+				{
+					builder.Create($"{x}:{y}", m_LayoutComponentPrefab).SetStatic(40);
+				}
+				builder.EndGroup();
 			}
 			builder.EndGroup();
 
@@ -45,7 +50,11 @@ namespace ProceduralLevel.UI.Samples
 			base.Show();
 		}
 
-		[ContextMenu(nameof(FitToScreen))]
+		private void Update()
+		{
+			FitToScreen();
+		}
+
 		private void FitToScreen()
 		{
 			RectTransform rectTransform = GetComponent<RectTransform>();

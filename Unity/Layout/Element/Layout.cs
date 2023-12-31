@@ -9,7 +9,7 @@ namespace ProceduralLevel.UI.Unity
 	{
 		public readonly Layout Parent;
 		public LayoutRect Rect = new LayoutRect(0, 0, 10, 10);
-		public bool StretchWithChildren = true;
+		public bool StretchWithChildren = false;
 		public float Align = 0f;
 		public bool Active = true;
 
