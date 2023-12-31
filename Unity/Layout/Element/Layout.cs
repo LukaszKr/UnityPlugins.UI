@@ -9,12 +9,15 @@ namespace ProceduralLevel.UI.Unity
 	{
 		public readonly Layout Parent;
 		public LayoutRect Rect = new LayoutRect(0, 0, 10, 10);
-		public ELayoutAxis Axis = ELayoutAxis.Vertical;
-		public int ElementsSpacing = 5;
 		public bool StretchWithChildren = true;
 		public float Align = 0f;
 		public bool Active = true;
 
+		//Child Layout
+		public ELayoutAxis Axis = ELayoutAxis.Vertical;
+		public int ElementsSpacing = 5;
+
+		//Element Dimensions
 		public ELayoutType ElementType = ELayoutType.Flexible;
 		public int ElementSize = 1;
 		public bool ExpandToParent = true;
