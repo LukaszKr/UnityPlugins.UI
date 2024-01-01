@@ -10,6 +10,12 @@ namespace ProceduralLevel.UI.Samples
 		private RectTransform m_FramePrefab = null;
 		[SerializeField]
 		private RectTransform m_NestedPrefab = null;
+		[SerializeField]
+		private UITextField m_TextField = null;
+		[SerializeField]
+		private UIIntField m_IntField = null;
+		[SerializeField]
+		private UIFloatField m_FloatField = null;
 
 		private LayoutComponent m_Container;
 
@@ -28,7 +34,10 @@ namespace ProceduralLevel.UI.Samples
 			{
 				builder.BeginGroup($"{x}").SetFlexible(x+1).SetExpandToParent(true).Spawn(m_FramePrefab);
 				builder.Create("Label").SetStatic(50).SetMargin(20);
-				for(int y = 0; y < 10; ++y)
+				builder.Create($"{x}:Text").SetStatic(40).SetMargin(10, 0).Spawn(m_TextField);
+				builder.Create($"{x}:Int").SetStatic(40).SetMargin(10, 0).Spawn(m_IntField);
+				builder.Create($"{x}:Float").SetStatic(40).SetMargin(10, 0).Spawn(m_FloatField);
+				for(int y = 0; y < 5; ++y)
 				{
 					builder.Create($"{x}:{y}").SetStatic(40).SetMargin(10, 0).Spawn(m_FramePrefab);
 				}

@@ -1,7 +1,17 @@
-﻿namespace ProceduralLevel.UI.Unity
+﻿using ProceduralLevel.Common.Event;
+using TMPro;
+
+namespace ProceduralLevel.UI.Unity
 {
-	internal class UIIntField : AUIInputField<int>
+	public class UIIntField : AUIInputField<int>
 	{
+		protected override void OnInitialize(EventBinder binder)
+		{
+			base.OnInitialize(binder);
+			
+			m_InputField.contentType = TMP_InputField.ContentType.IntegerNumber;
+		}
+
 		protected override int StringToValue(string raw)
 		{
 			int value;

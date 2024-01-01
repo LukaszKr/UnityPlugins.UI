@@ -56,7 +56,12 @@ MonoBehaviour:
     type: 3}
   m_NestedPrefab: {fileID: 5162008888024192185, guid: 97521571016e2ee49afed721586ddafe,
     type: 3}
-  m_UIBuilderConfig: {fileID: 11400000, guid: 63cb6f1da17c80946b3b77fdfe22def2, type: 2}
+  m_TextField: {fileID: 2419931034295358274, guid: e145b9d49b9f6684883a4cd9bd011bcf,
+    type: 3}
+  m_IntField: {fileID: 3516770455751019265, guid: 383667057670f1d46ad759528d18ca8c,
+    type: 3}
+  m_FloatField: {fileID: 4649586341087100159, guid: 33ea1261c5dbf4d468851ba8eba0c1ac,
+    type: 3}
 --- !u!222 &290490333821958263
 CanvasRenderer:
   m_ObjectHideFlags: 0

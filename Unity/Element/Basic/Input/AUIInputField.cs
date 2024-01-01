@@ -28,6 +28,7 @@ namespace ProceduralLevel.UI.Unity
 			base.OnInitialize(binder);
 
 			binder.Bind(OnActive, OnActiveHandler);
+			m_Value = StringToValue(m_InputField.text);
 
 			m_InputField.onValueChanged.AddListener(OnInputFieldValueChangedHandler);
 		}
