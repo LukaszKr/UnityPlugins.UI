@@ -15,12 +15,6 @@
 			return this;
 		}
 
-		public LayoutComponent SetRect(LayoutRect rect)
-		{
-			m_Layout.Rect = rect;
-			return this;
-		}
-
 		public LayoutComponent SetElementsSpacing(int elementsSpacing)
 		{
 			m_Layout.ElementsSpacing = elementsSpacing;
