@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ProceduralLevel.UI.Unity
 {
-	public class UIBuilder
+	public class LayoutBuilder
 	{
 		private readonly Stack<LayoutComponent> m_Stack = new Stack<LayoutComponent>();
 		private LayoutComponent m_CurrentGroup;
