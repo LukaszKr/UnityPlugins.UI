@@ -8,6 +8,7 @@ namespace ProceduralLevel.UI.Unity
 	public class Layout
 	{
 		public readonly Layout Parent;
+		private LayoutVector m_Position;
 
 		public LayoutMargin Margin;
 		public LayoutVector Size;
@@ -48,14 +49,9 @@ namespace ProceduralLevel.UI.Unity
 		#region Layout
 		public void DoLayout()
 		{
-			DoLayout(new LayoutVector());
-		}
-
-		private void DoLayout(LayoutVector offset)
-		{
 			int activeElementCount = CountActive();
-			int px = offset.X+Margin.Left;
-			int py = offset.Y+Margin.Top;
+			int px = m_Position.X+Margin.Left;
+			int py = m_Position.Y+Margin.Top;
 			int width = Size.X-Margin.Horizontal;
 			int height = Size.Y-Margin.Vertical;
 			Rect = new LayoutRect(px, py, width, height);
@@ -101,8 +97,9 @@ namespace ProceduralLevel.UI.Unity
 				float layoutSize = layout.CalculateElementSize(Axis, flexibleUnit);
 
 				layout.Size.SetValue(Axis, Mathf.CeilToInt(layoutSize));
-				LayoutVector childOffset = new LayoutVector(Axis, Mathf.FloorToInt(usedSpace), 0);
-				layout.DoLayout(childOffset);
+				LayoutVector childPosition = new LayoutVector(Axis, Mathf.FloorToInt(usedSpace), 0);
+				layout.m_Position = childPosition;
+				layout.DoLayout();
 				usedSpace += layoutSize;
 			}
 			if(FitToChildren)
