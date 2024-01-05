@@ -1,0 +1,25 @@
+{
+	"name": "procedurallevel.ui",
+	"version": "1.5.0",
+	"displayName": "UI",
+	"description": "",
+	"unity": "2020.3",
+	"unityRelease": "14f1",
+	"dependencies": {
+		"procedurallevel.common": "https://github.com/LukaszKr/UnityPlugins.Common.git",
+		"procedurallevel.input": "https://github.com/LukaszKr/UnityPlugins.Input.git"
+	},
+	"keywords": [
+	],
+	"samples": [
+		{
+			"displayName": "UIManager",
+			"description": "UIManager",
+			"path": "Samples/UIManager"
+		}
+	],
+	"author": {
+		"name": "Procedural Level",
+		"url": "https://www.procedurallevel.com"
+	}
+}
