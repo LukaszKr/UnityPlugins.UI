@@ -9,12 +9,6 @@
 			return this;
 		}
 
-		public LayoutComponent SetActive(bool active)
-		{
-			m_Layout.Active = active;
-			return this;
-		}
-
 		public LayoutComponent SetElementsSpacing(int elementsSpacing)
 		{
 			m_Layout.ElementsSpacing = elementsSpacing;

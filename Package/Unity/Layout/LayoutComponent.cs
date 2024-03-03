@@ -31,7 +31,24 @@ namespace ProceduralLevel.UI.Unity
 				}
 			}
 			m_Layout = layout;
+			m_Layout.Active = GameObject.activeSelf;
 			m_Layout.OnChanged.AddListener(OnLayoutChangedHandler);
+		}
+
+		protected virtual void OnEnable()
+		{
+			if(m_Layout != null)
+			{
+				m_Layout.Active = true;
+			}
+		}
+
+		protected virtual void OnDisable()
+		{
+			if(m_Layout != null)
+			{
+				m_Layout.Active = false;
+			}
 		}
 
 		private void OnDestroy()
