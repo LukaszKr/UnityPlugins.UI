@@ -1,0 +1,25 @@
+{
+	"name": "unityplugins.ui",
+	"version": "2.0.0",
+	"displayName": "UnityPlugins.UI",
+	"description": "",
+	"unity": "2020.3",
+	"unityRelease": "14f1",
+	"dependencies": {
+		"unityplugins.common": "https://github.com/LukaszKr/UnityPlugins.Common.git",
+		"unityplugins.input": "https://github.com/LukaszKr/UnityPlugins.Input.git"
+	},
+	"keywords": [
+	],
+	"samples": [
+		{
+			"displayName": "UIManager",
+			"description": "UIManager",
+			"path": "Samples/UIManager"
+		}
+	],
+	"author": {
+		"name": "Procedural Level",
+		"url": "https://www.procedurallevel.com"
+	}
+}
