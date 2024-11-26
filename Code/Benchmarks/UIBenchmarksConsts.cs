@@ -1,4 +1,4 @@
-namespace UnityPlugins.UI.Benchmarks
+namespace UnityPlugins.UI
 {
 	public static class UIBenchmarksConsts
 	{
