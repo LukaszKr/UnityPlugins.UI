@@ -175,7 +175,7 @@ namespace UnityPlugins.UI.Unity
 		}
 
 		[ContextMenu("DoLayout")]
-		private void Editor_DoLayout()
+		public void Editor_DoLayout()
 		{
 			AutoPopulate();
 			DoLayout();
