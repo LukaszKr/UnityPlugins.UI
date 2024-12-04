@@ -4,9 +4,11 @@ using UnityEngine;
 
 namespace UnityPlugins.UI.Unity
 {
-	[CreateAssetMenu(fileName = nameof(AssetPanelProvider), menuName = UIUnityConsts.MENU+nameof(AssetPanelProvider))]
+	[CreateAssetMenu(fileName = NAME, menuName = UIUnityConsts.MENU+NAME)]
 	public class AssetPanelProvider : APanelProvider
 	{
+		public const string NAME = nameof(AssetPanelProvider);
+
 		[SerializeField]
 		private APanel[] m_Panels = null;
 

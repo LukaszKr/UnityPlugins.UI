@@ -2,9 +2,11 @@
 
 namespace UnityPlugins.UI.Unity
 {
-	[CreateAssetMenu(fileName = nameof(ProceduralStyleSheet), menuName = UIUnityConsts.MENU+nameof(ProceduralStyleSheet))]
+	[CreateAssetMenu(fileName = NAME, menuName = UIUnityConsts.MENU+NAME)]
 	public class ProceduralStyleSheet : ScriptableObject
 	{
+		public const string NAME = nameof(ProceduralStyleSheet);
+
 		[Header("Buttons")]
 		public UIButton Button;
 		public UITextButton TextButton;
