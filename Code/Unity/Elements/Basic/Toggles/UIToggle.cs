@@ -24,7 +24,7 @@ namespace UnityPlugins.UI.Unity
 			SetValue(!m_Value);
 		}
 
-		public void SetValue(bool value)
+		public virtual void SetValue(bool value)
 		{
 			m_Value = value;
 			OnValueChanged.Invoke(m_Value);
