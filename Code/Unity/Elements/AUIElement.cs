@@ -1,17 +1,29 @@
-﻿using UnityPlugins.Common.Logic;
-using UnityPlugins.Common.Unity;
+﻿using System;
 using UnityEngine;
+using UnityPlugins.Common.Logic;
+using UnityPlugins.Common.Unity;
 
 namespace UnityPlugins.UI.Unity
 {
 	public abstract class AUIElement : ExtendedMonoBehaviour
 	{
-		private RectTransform m_RectTransform;
-
 		private bool m_IsInitialized;
 		private readonly EventBinder m_ElementBinder = new EventBinder();
 
-		public RectTransform RectTransform => m_RectTransform;
+		[NonSerialized]
+		private RectTransform m_RectTransform;
+
+		public RectTransform RectTransform
+		{
+			get
+			{
+				if(ReferenceEquals(m_RectTransform, null))
+				{
+					m_RectTransform = GetComponent<RectTransform>();
+				}
+				return m_RectTransform;
+			}
+		}
 
 		#region Unity
 		protected virtual void Awake()
@@ -40,7 +52,6 @@ namespace UnityPlugins.UI.Unity
 			if(!m_IsInitialized)
 			{
 				m_IsInitialized = true;
-				m_RectTransform = GetComponent<RectTransform>();
 				OnInitialize(m_ElementBinder);
 			}
 		}
