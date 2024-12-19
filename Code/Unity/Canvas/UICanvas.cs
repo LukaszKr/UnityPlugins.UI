@@ -7,8 +7,11 @@ namespace UnityPlugins.UI.Unity
 	{
 		[SerializeField]
 		private Canvas m_Canvas = null;
+		[SerializeField]
+		private CanvasGroup m_CanvasGroup = null;
 
 		public Canvas UnityCanvas => m_Canvas;
+		public CanvasGroup CanvasGroup => m_CanvasGroup;
 
 		public int SortingOrder
 		{
