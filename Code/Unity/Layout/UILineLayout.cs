@@ -8,7 +8,7 @@ namespace UnityPlugins.UI.Unity
 	public class UILineLayout : ExtendedMonoBehaviour
 	{
 		[SerializeField]
-		private bool m_ControlAxis = false;
+		private bool m_ExpandMainAxis = false;
 		[SerializeField]
 		private bool m_ExpandOtherAxis = false;
 		[SerializeField]
@@ -104,7 +104,7 @@ namespace UnityPlugins.UI.Unity
 							target.anchorMax = new Vector2(0f, 0.5f);
 						}
 
-						if(m_ControlAxis)
+						if(m_ExpandMainAxis)
 						{
 							target.SetAnchorX(minAnchor, maxAnchor);
 							Vector2 sizeDelta = target.sizeDelta;
@@ -113,7 +113,7 @@ namespace UnityPlugins.UI.Unity
 						}
 						size = (int)target.rect.width;
 
-						if(m_ControlAxis)
+						if(m_ExpandMainAxis)
 						{
 							target.anchoredPosition = new Vector3(0f, 0f, 0f);
 						}
