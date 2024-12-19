@@ -30,6 +30,7 @@ namespace UnityPlugins.UI.Unity
 			{
 				m_IsShown = true;
 				m_Manager.Add(this, m_Canvas);
+				m_ElementBinder.Enable();
 				OnShow();
 			}
 			else
@@ -43,6 +44,7 @@ namespace UnityPlugins.UI.Unity
 			if(CanHide())
 			{
 				m_IsShown = false;
+				m_ElementBinder.Disable();
 				OnHide();
 				m_Manager.Remove(this);
 			}
@@ -55,13 +57,11 @@ namespace UnityPlugins.UI.Unity
 		protected virtual void OnShow()
 		{
 			m_Canvas.GameObject.SetActive(true);
-			m_ElementBinder.Enable();
 		}
 
 		protected virtual void OnHide()
 		{
 			m_Canvas.GameObject.SetActive(false);
-			m_ElementBinder.Disable();
 		}
 
 		protected virtual bool CanShow()
