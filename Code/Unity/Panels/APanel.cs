@@ -18,6 +18,7 @@ namespace UnityPlugins.UI.Unity
 		internal void Setup(UICanvas canvas, PanelsManager manager)
 		{
 			m_Canvas = canvas;
+			canvas.name = $"Canvas - {name}";
 			m_Manager = manager;
 			OnInitialize(m_ElementBinder);
 		}
