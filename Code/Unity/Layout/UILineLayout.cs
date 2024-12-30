@@ -131,7 +131,6 @@ namespace UnityPlugins.UI.Unity
 			}
 
 			totalSize += m_PaddingAfter;
-			Vector2 currentDelta = m_Rect.sizeDelta;
 
 			switch(m_Axis)
 			{
@@ -144,8 +143,6 @@ namespace UnityPlugins.UI.Unity
 				default:
 					throw new NotImplementedException(m_Axis.ToString());
 			}
-
-			m_Rect.sizeDelta = currentDelta;
 		}
 
 		public void AutoPopulate()
