@@ -3,7 +3,6 @@
 namespace UnityPlugins.UI.Unity
 {
 	public abstract class AUIContextElement<TContext> : AUIElement
-		where TContext : class
 	{
 		private readonly ContextHandler<TContext> m_ContextHandler;
 		protected TContext m_Context;
@@ -34,7 +33,6 @@ namespace UnityPlugins.UI.Unity
 			OnAttach(binder);
 		}
 
-		protected abstract void OnInitialize();
 		protected abstract void OnAttach(EventBinder binder);
 		protected abstract void OnDetach();
 
