@@ -40,6 +40,13 @@ namespace UnityPlugins.UI.Unity
 			OnClicked.RemoveAllListeners();
 		}
 
+		protected override void OnDisable()
+		{
+			base.OnDisable();
+
+			m_State = m_State.SetFlag(EInteractionState.Hovered, false);
+		}
+
 		public void Click()
 		{
 			OnClicked.Invoke();
