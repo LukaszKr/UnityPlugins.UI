@@ -12,8 +12,11 @@ namespace UnityPlugins.UI.Unity
 		[SerializeField]
 		private UICanvas m_Canvas = null;
 		[SerializeField]
+		private CanvasGroup m_GlobalCanvasGroup = null;
+		[SerializeField]
 		private List<APanelProvider> m_PanelProviders = new List<APanelProvider>();
 
+		private bool m_UIShown = true;
 		private readonly List<APanelProvider> m_RuntimeProviders = new List<APanelProvider>();
 
 		private readonly List<APanel> m_SpawnedPanels = new List<APanel>();
@@ -63,6 +66,13 @@ namespace UnityPlugins.UI.Unity
 			}
 
 			return null;
+		}
+
+		public void ToggleUI()
+		{
+			m_UIShown = !m_UIShown;
+			float targetAlpha = (m_UIShown? 1f: 0f);
+			m_GlobalCanvasGroup.alpha = targetAlpha;
 		}
 
 		#region Panel Prefabs
