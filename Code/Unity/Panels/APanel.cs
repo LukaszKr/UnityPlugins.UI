@@ -30,9 +30,9 @@ namespace UnityPlugins.UI.Unity
 			if(CanShow())
 			{
 				m_IsShown = true;
-				m_Manager.Add(this, m_Canvas);
 				m_ElementBinder.Enable();
 				OnShow();
+				m_Manager.Add(this, m_Canvas);
 			}
 			else
 			{
