@@ -7,8 +7,6 @@ namespace UnityPlugins.UI.Unity
 		private readonly ContextHandler<TContext> m_ContextHandler;
 		protected TContext m_Context;
 
-		private readonly EventBinder m_ContextBinder = new EventBinder();
-
 		public AUIContextElement()
 		{
 			m_ContextHandler = new ContextHandler<TContext>(OnAttach, OnDetach, Replace);
