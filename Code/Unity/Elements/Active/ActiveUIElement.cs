@@ -63,12 +63,12 @@ namespace UnityPlugins.UI.Unity
 			return false;
 		}
 
-		public bool TrySetActive(bool active)
+		public bool TrySetActive(bool active, bool pointerAction = false)
 		{
 			if((IsEnabled || !active) && SetState(m_State.SetFlag(EInteractionState.Active, active)))
 			{
 				OnActive.Invoke(active);
-				if(!active && m_State.IsHovered())
+				if(pointerAction && !active && m_State.IsHovered())
 				{
 					OnClicked.Invoke();
 				}
@@ -112,12 +112,12 @@ namespace UnityPlugins.UI.Unity
 		#region Pointer Methods
 		public void OnPointerDown(PointerEventData eventData)
 		{
-			TrySetActive(true);
+			TrySetActive(true, true);
 		}
 
 		public void OnPointerUp(PointerEventData eventData)
 		{
-			TrySetActive(false);
+			TrySetActive(false, true);
 		}
 
 		public void OnPointerEnter(PointerEventData eventData)

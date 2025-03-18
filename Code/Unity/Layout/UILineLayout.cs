@@ -86,7 +86,7 @@ namespace UnityPlugins.UI.Unity
 						}
 						size = (int)target.rect.height;
 
-						target.anchoredPosition = new Vector3(0f, -totalSize - pivot.y*size, 0f);
+						target.anchoredPosition = new Vector3(0f, -totalSize - (1f-pivot.y)*size, 0f);
 						break;
 
 					case ELayoutAxis.Horizontal:
