@@ -51,7 +51,7 @@ namespace UnityPlugins.UI.Unity
 			return -1;
 		}
 
-		private int GetNextSortOrder()
+		public int GetNextSortOrder()
 		{
 			int count = m_Entries.Count;
 			int maxOrder = 0;

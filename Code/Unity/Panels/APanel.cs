@@ -74,5 +74,10 @@ namespace UnityPlugins.UI.Unity
 		{
 			return m_IsShown;
 		}
+
+		public void BringForward()
+		{
+			Canvas.SortingOrder = m_Manager.GetNextSortOrder();
+		}
 	}
 }
