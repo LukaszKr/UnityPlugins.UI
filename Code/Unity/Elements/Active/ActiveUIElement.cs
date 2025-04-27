@@ -44,7 +44,7 @@ namespace UnityPlugins.UI.Unity
 		{
 			base.OnDisable();
 
-			m_State = m_State.SetFlag(EInteractionState.Hovered, false);
+			m_State = EInteractionState.Enabled;
 		}
 
 		public void Click()
