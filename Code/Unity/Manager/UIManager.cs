@@ -16,12 +16,11 @@ namespace UnityPlugins.UI.Unity
 		[SerializeField]
 		private List<APanelProvider> m_PanelProviders = new List<APanelProvider>();
 
-		private bool m_IsVisible = true;
 		private readonly List<APanelProvider> m_RuntimeProviders = new List<APanelProvider>();
 
 		private readonly List<APanel> m_SpawnedPanels = new List<APanel>();
 
-		public bool IsVisible => m_IsVisible;
+		public CanvasGroup GlobalCanvasGroup => m_GlobalCanvasGroup;
 
 		public TPanel GetPanel<TPanel>()
 			where TPanel : APanel
@@ -68,27 +67,6 @@ namespace UnityPlugins.UI.Unity
 			}
 
 			return null;
-		}
-
-		public void ToggleVisibility()
-		{
-			SetVisibility(!m_IsVisible);
-		}
-
-		public void SetVisibility(bool visibility)
-		{
-			if(m_IsVisible == visibility)
-			{
-				return;
-			}
-			m_IsVisible = visibility;
-			float targetAlpha = (m_IsVisible? 1f: 0f);
-			SetAlpha(targetAlpha);
-		}
-
-		public void SetAlpha(float targetAlpha)
-		{
-			m_GlobalCanvasGroup.alpha = targetAlpha;
 		}
 
 		#region Panel Prefabs
