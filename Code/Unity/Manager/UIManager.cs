@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityPlugins.Common.Unity;
 using UnityEngine;
+using UnityPlugins.Common.Unity;
 
 namespace UnityPlugins.UI.Unity
 {
@@ -83,6 +83,11 @@ namespace UnityPlugins.UI.Unity
 			}
 			m_IsVisible = visibility;
 			float targetAlpha = (m_IsVisible? 1f: 0f);
+			SetAlpha(targetAlpha);
+		}
+
+		public void SetAlpha(float targetAlpha)
+		{
 			m_GlobalCanvasGroup.alpha = targetAlpha;
 		}
 
