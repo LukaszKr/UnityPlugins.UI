@@ -148,10 +148,10 @@ namespace UnityPlugins.UI.Unity
 		public void AutoPopulate()
 		{
 			Clear();
-			int childCount = Transform.childCount;
+			int childCount = m_Rect.childCount;
 			for(int x = 0; x < childCount; ++x)
 			{
-				Transform child = Transform.GetChild(x);
+				Transform child = m_Rect.GetChild(x);
 				Add(child.gameObject);
 			}
 		}
