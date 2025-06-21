@@ -1,10 +1,10 @@
-﻿using UnityPlugins.Common.Logic;
-using UnityEngine.EventSystems;
+﻿using UnityEngine.EventSystems;
+using UnityPlugins.Common.Logic;
 
 namespace UnityPlugins.UI.Unity
 {
 	public class ActiveUIElement : AUIElement,
-		IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
+		IPointerDownHandler, IPointerUpHandler, IPointerExitHandler, IPointerMoveHandler
 	{
 		private EInteractionState m_State = EInteractionState.Enabled;
 
@@ -112,6 +112,7 @@ namespace UnityPlugins.UI.Unity
 		#region Pointer Methods
 		public void OnPointerDown(PointerEventData eventData)
 		{
+			TrySetHovered(true);
 			TrySetActive(true, true);
 		}
 
@@ -120,14 +121,14 @@ namespace UnityPlugins.UI.Unity
 			TrySetActive(false, true);
 		}
 
-		public void OnPointerEnter(PointerEventData eventData)
-		{
-			TrySetHovered(true);
-		}
-
 		public void OnPointerExit(PointerEventData eventData)
 		{
 			TrySetHovered(false);
+		}
+
+		public void OnPointerMove(PointerEventData eventData)
+		{
+			TrySetHovered(true);
 		}
 		#endregion
 	}
