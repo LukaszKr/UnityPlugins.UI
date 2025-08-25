@@ -18,7 +18,7 @@ namespace UnityPlugins.UI.Unity
 			}
 		}
 
-		internal void Add(APanel panel, UICanvas canvas)
+		internal void Add(APanelComponent panel, UICanvasComponent canvas)
 		{
 			int index = IndexOf(panel);
 			if(index >= 0)
@@ -31,13 +31,13 @@ namespace UnityPlugins.UI.Unity
 			m_Entries.Add(entry);
 		}
 
-		internal void Remove(APanel panel)
+		internal void Remove(APanelComponent panel)
 		{
 			int index = IndexOf(panel);
 			m_Entries.RemoveAt(index);
 		}
 
-		private int IndexOf(APanel panel)
+		private int IndexOf(APanelComponent panel)
 		{
 			int count = m_Entries.Count;
 			for(int x = count-1; x >= 0; --x)

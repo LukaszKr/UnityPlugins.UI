@@ -2,10 +2,10 @@
 {
 	public class PanelsManagerEntry
 	{
-		public readonly APanel Panel;
-		public readonly UICanvas Canvas;
+		public readonly APanelComponent Panel;
+		public readonly UICanvasComponent Canvas;
 
-		public PanelsManagerEntry(APanel panel, UICanvas canvas)
+		public PanelsManagerEntry(APanelComponent panel, UICanvasComponent canvas)
 		{
 			Panel = panel;
 			Canvas = canvas;

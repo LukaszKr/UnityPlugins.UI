@@ -3,14 +3,14 @@ using UnityEngine;
 
 namespace UnityPlugins.UI.Unity
 {
-	public abstract class APanelProvider : ScriptableObject
+	public abstract class APanelProviderSO : ScriptableObject
 	{
 		public virtual TPanel FindPanelPrefab<TPanel>()
-			where TPanel : APanel
+			where TPanel : APanelComponent
 		{
 			return FindPanelPrefab(typeof(TPanel)) as TPanel;
 		}
 
-		public abstract APanel FindPanelPrefab(Type panelType);
+		public abstract APanelComponent FindPanelPrefab(Type panelType);
 	}
 }

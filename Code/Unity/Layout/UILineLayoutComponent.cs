@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace UnityPlugins.UI.Unity
 {
-	public class UILineLayout : ExtendedMonoBehaviour
+	public class UILineLayoutComponent : ExtendedMonoBehaviour
 	{
 		[SerializeField]
 		private bool m_ExpandMainAxis = false;

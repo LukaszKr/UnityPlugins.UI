@@ -3,7 +3,7 @@ using UnityPlugins.Common.Logic;
 
 namespace UnityPlugins.UI.Unity
 {
-	public class ActiveUIElement : AUIElement,
+	public class ActiveUIElement : AUIElementComponent,
 		IPointerDownHandler, IPointerUpHandler, IPointerExitHandler, IPointerMoveHandler
 	{
 		private EInteractionState m_State = EInteractionState.Enabled;

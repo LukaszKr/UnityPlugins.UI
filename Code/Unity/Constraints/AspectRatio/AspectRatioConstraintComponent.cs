@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace UnityPlugins.UI.Unity
 {
-	public class AspectRatioConstraint : ExtendedMonoBehaviour
+	public class AspectRatioConstraintComponent : ExtendedMonoBehaviour
 	{
 		private int m_KnownWidth;
 		private int m_KnownHeight;
@@ -12,7 +12,7 @@ namespace UnityPlugins.UI.Unity
 		private Canvas m_Canvas = null;
 
 		[SerializeField]
-		private AspectRatioConstraintConfig m_Settings = null;
+		private AspectRatioConstraintSO m_Settings = null;
 
 		private void Awake()
 		{

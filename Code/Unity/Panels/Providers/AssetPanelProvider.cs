@@ -5,24 +5,24 @@ using UnityEngine;
 namespace UnityPlugins.UI.Unity
 {
 	[CreateAssetMenu(fileName = NAME, menuName = UIUnityConsts.MENU+NAME)]
-	public class AssetPanelProvider : APanelProvider
+	public class AssetPanelProvider : APanelProviderSO
 	{
 		public const string NAME = nameof(AssetPanelProvider);
 
 		[SerializeField]
-		private APanel[] m_Panels = null;
+		private APanelComponent[] m_Panels = null;
 
-		public void SetPanels(List<APanel> panels)
+		public void SetPanels(List<APanelComponent> panels)
 		{
 			m_Panels = panels.ToArray();
 		}
 
-		public override APanel FindPanelPrefab(Type panelType)
+		public override APanelComponent FindPanelPrefab(Type panelType)
 		{
 			int length = m_Panels.Length;
 			for(int x = 0; x < length; ++x)
 			{
-				APanel panel = m_Panels[x];
+				APanelComponent panel = m_Panels[x];
 				if(panel.GetType() == panelType)
 				{
 					return panel;

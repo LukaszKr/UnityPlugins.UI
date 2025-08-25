@@ -12,31 +12,32 @@ namespace UnityPlugins.UI.Editor
 	{
 		protected override void Initialize()
 		{
-			DrawDefault = true;
 		}
 
 		protected override void Draw()
 		{
+			DrawDefaultGUI();
+
 			if(GUILayout.Button("Refresh List"))
 			{
-				List<APanel> panels = GetPanels();
+				List<APanelComponent> panels = GetPanels();
 				Target.SetPanels(panels);
 				EditorUtility.SetDirty(Target);
 			}
 		}
 
-		private List<APanel> GetPanels()
+		private List<APanelComponent> GetPanels()
 		{
 			string targetPath = AssetDatabase.GetAssetPath(Target);
 			string directoryPath = Path.GetDirectoryName(targetPath);
 			string[] guids = AssetDatabase.FindAssets("t:prefab", new string[] { directoryPath });
 			int length = guids.Length;
 
-			List<APanel> panels = new List<APanel>(length);
+			List<APanelComponent> panels = new List<APanelComponent>(length);
 			for(int x = 0; x < length; ++x)
 			{
 				string assetPath = AssetDatabase.GUIDToAssetPath(guids[x]);
-				APanel panelPrefab = AssetDatabase.LoadAssetAtPath<APanel>(assetPath);
+				APanelComponent panelPrefab = AssetDatabase.LoadAssetAtPath<APanelComponent>(assetPath);
 				if(panelPrefab != null)
 				{
 					panels.Add(panelPrefab);

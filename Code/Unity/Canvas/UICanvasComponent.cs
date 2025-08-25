@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace UnityPlugins.UI.Unity
 {
-	public sealed class UICanvas : ExtendedMonoBehaviour
+	public sealed class UICanvasComponent : ExtendedMonoBehaviour
 	{
 		[SerializeField]
 		private Canvas m_Canvas = null;

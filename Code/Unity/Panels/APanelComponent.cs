@@ -4,18 +4,18 @@ using UnityPlugins.Common.Unity;
 
 namespace UnityPlugins.UI.Unity
 {
-	public abstract class APanel : ExtendedMonoBehaviour
+	public abstract class APanelComponent : ExtendedMonoBehaviour
 	{
-		private UICanvas m_Canvas;
+		private UICanvasComponent m_Canvas;
 		private PanelsManager m_Manager;
 		private readonly EventBinder m_ElementBinder = new EventBinder();
 
 		private bool m_IsShown = false;
 
 		public bool IsShown => m_IsShown;
-		public UICanvas Canvas => m_Canvas;
+		public UICanvasComponent Canvas => m_Canvas;
 
-		internal void Setup(UICanvas canvas, PanelsManager manager)
+		internal void Setup(UICanvasComponent canvas, PanelsManager manager)
 		{
 			m_Canvas = canvas;
 			canvas.name = $"Canvas - {name}";

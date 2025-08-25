@@ -2,7 +2,7 @@
 
 namespace UnityPlugins.UI.Unity
 {
-	public abstract class AContextPanel<TContext> : APanel
+	public abstract class AContextPanel<TContext> : APanelComponent
 	{
 		private readonly ContextHandler<TContext> m_ContextHandler;
 		protected TContext m_Context;

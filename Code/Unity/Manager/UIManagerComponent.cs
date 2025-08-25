@@ -5,42 +5,40 @@ using UnityPlugins.Common.Unity;
 
 namespace UnityPlugins.UI.Unity
 {
-	public class UIManager : AUnitySingleton<UIManager>
+	public class UIManagerComponent : ExtendedMonoBehaviour
 	{
 		public readonly PanelsManager PanelsManager = new PanelsManager();
 
 		[SerializeField]
-		private UICanvas m_Canvas = null;
+		private Transform m_PanelsContainer = null;
 		[SerializeField]
-		private CanvasGroup m_GlobalCanvasGroup = null;
+		private UICanvasComponent m_Canvas = null;
 		[SerializeField]
-		private List<APanelProvider> m_PanelProviders = new List<APanelProvider>();
+		private List<APanelProviderSO> m_PanelProviders = new List<APanelProviderSO>();
 
-		private readonly List<APanelProvider> m_RuntimeProviders = new List<APanelProvider>();
+		private readonly List<APanelProviderSO> m_RuntimeProviders = new List<APanelProviderSO>();
 
-		private readonly List<APanel> m_SpawnedPanels = new List<APanel>();
-
-		public CanvasGroup GlobalCanvasGroup => m_GlobalCanvasGroup;
+		private readonly List<APanelComponent> m_SpawnedPanels = new List<APanelComponent>();
 
 		public TPanel GetPanel<TPanel>()
-			where TPanel : APanel
+			where TPanel : APanelComponent
 		{
 			return (TPanel)GetPanel(typeof(TPanel));
 		}
 
-		public APanel GetPanel(Type panelType)
+		public APanelComponent GetPanel(Type panelType)
 		{
-			APanel existingPanel = FindPanel(panelType);
+			APanelComponent existingPanel = FindPanel(panelType);
 			if(existingPanel != null)
 			{
 				return existingPanel;
 			}
 
-			APanel panelPrefab = GetPanelPrefab(panelType);
+			APanelComponent panelPrefab = GetPanelPrefab(panelType);
 			if(panelPrefab != null)
 			{
-				UICanvas canvas = Instantiate(m_Canvas, Transform, false);
-				APanel spawnedPanel = Instantiate(panelPrefab, canvas.Transform);
+				UICanvasComponent canvas = Instantiate(m_Canvas, m_PanelsContainer, false);
+				APanelComponent spawnedPanel = Instantiate(panelPrefab, canvas.Transform);
 				spawnedPanel.Setup(canvas, PanelsManager);
 				m_SpawnedPanels.Add(spawnedPanel);
 				return spawnedPanel;
@@ -49,17 +47,17 @@ namespace UnityPlugins.UI.Unity
 		}
 
 		public TPanel FindPanel<TPanel>()
-			where TPanel : APanel
+			where TPanel : APanelComponent
 		{
 			return FindPanel(typeof(TPanel)) as TPanel;
 		}
 
-		public APanel FindPanel(Type panelType)
+		public APanelComponent FindPanel(Type panelType)
 		{
 			int count = m_SpawnedPanels.Count;
 			for(int x = 0; x < count; ++x)
 			{
-				APanel panel = m_SpawnedPanels[x];
+				APanelComponent panel = m_SpawnedPanels[x];
 				if(panel.GetType() == panelType)
 				{
 					return panel;
@@ -71,14 +69,14 @@ namespace UnityPlugins.UI.Unity
 
 		#region Panel Prefabs
 		protected TPanel GetPanelPrefab<TPanel>()
-			where TPanel : APanel
+			where TPanel : APanelComponent
 		{
 			return GetPanelPrefab(typeof(TPanel)) as TPanel;
 		}
 
-		protected APanel GetPanelPrefab(Type panelType)
+		protected APanelComponent GetPanelPrefab(Type panelType)
 		{
-			APanel panel = GetPanelPrefab(panelType, m_PanelProviders);
+			APanelComponent panel = GetPanelPrefab(panelType, m_PanelProviders);
 			if(panel != null)
 			{
 				return panel;
@@ -87,13 +85,13 @@ namespace UnityPlugins.UI.Unity
 			return GetPanelPrefab(panelType, m_RuntimeProviders);
 		}
 
-		private APanel GetPanelPrefab(Type panelType, List<APanelProvider> panelProviders)
+		private APanelComponent GetPanelPrefab(Type panelType, List<APanelProviderSO> panelProviders)
 		{
 			int count = panelProviders.Count;
 			for(int x = 0; x < count; ++x)
 			{
-				APanelProvider provider = panelProviders[x];
-				APanel panelPrefab = provider.FindPanelPrefab(panelType);
+				APanelProviderSO provider = panelProviders[x];
+				APanelComponent panelPrefab = provider.FindPanelPrefab(panelType);
 				if(panelPrefab)
 				{
 					return panelPrefab;
@@ -104,12 +102,12 @@ namespace UnityPlugins.UI.Unity
 		#endregion
 
 		#region Panel Providers
-		public void AddProvider(APanelProvider provider)
+		public void AddProvider(APanelProviderSO provider)
 		{
 			m_RuntimeProviders.Add(provider);
 		}
 
-		public bool RemoveProvider(APanelProvider provider)
+		public bool RemoveProvider(APanelProviderSO provider)
 		{
 			return m_RuntimeProviders.Remove(provider);
 		}

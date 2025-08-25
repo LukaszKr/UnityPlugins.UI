@@ -5,7 +5,7 @@ using UnityPlugins.Common.Unity;
 
 namespace UnityPlugins.UI.Unity
 {
-	public abstract class AUIElement : ExtendedMonoBehaviour
+	public abstract class AUIElementComponent : ExtendedMonoBehaviour
 	{
 		private bool m_IsInitialized;
 		private readonly EventBinder m_ElementBinder = new EventBinder();
