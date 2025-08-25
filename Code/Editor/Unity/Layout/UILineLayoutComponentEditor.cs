@@ -6,7 +6,7 @@ using UnityPlugins.UI.Unity;
 namespace UnityPlugins.UI.Editor
 {
 	[CustomEditor(typeof(UILineLayoutComponent))]
-	public class UILineLayoutEditor : AExtendedEditor<UILineLayoutComponent>
+	public class UILineLayoutComponentEditor : AExtendedEditor<UILineLayoutComponent>
 	{
 		protected override void Initialize()
 		{

@@ -4,8 +4,8 @@ using UnityPlugins.UI.Unity;
 
 namespace UnityPlugins.UI.Editor
 {
-	[CustomEditor(typeof(ActiveUIElement))]
-	public class ActiveUIElementEditor : AExtendedEditor<ActiveUIElement>
+	[CustomEditor(typeof(ActiveUIElementComponent))]
+	public class ActiveUIElementComponentEditor : AExtendedEditor<ActiveUIElementComponent>
 	{
 		protected override void Initialize()
 		{
