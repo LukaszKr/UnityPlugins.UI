@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace UnityPlugins.UI.Unity
 {
-	[CreateAssetMenu(fileName = NAME, menuName = UIUnityConsts.MENU+NAME)]
+	[CreateAssetMenu(fileName = NAME, menuName = UIUnityConsts.MENU + NAME)]
 	public class AssetPanelProviderSO : APanelProviderSO
 	{
 		public const string NAME = nameof(AssetPanelProviderSO);
