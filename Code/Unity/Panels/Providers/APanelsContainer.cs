@@ -4,7 +4,7 @@ using UnityPlugins.Common.Unity;
 
 namespace UnityPlugins.UI.Unity
 {
-	public abstract class APanelProviderSO : AExtendedSO
+	public abstract class APanelsContainer : ADataContainer
 	{
 		public virtual TPanel FindPanelPrefab<TPanel>()
 			where TPanel : APanelComponent

@@ -14,9 +14,9 @@ namespace UnityPlugins.UI.Unity
 		[SerializeField]
 		private UICanvasComponent m_Canvas = null;
 		[SerializeField]
-		private List<APanelProviderSO> m_PanelProviders = new List<APanelProviderSO>();
+		private List<APanelsContainer> m_PanelProviders = new List<APanelsContainer>();
 
-		private readonly List<APanelProviderSO> m_RuntimeProviders = new List<APanelProviderSO>();
+		private readonly List<APanelsContainer> m_RuntimeProviders = new List<APanelsContainer>();
 
 		private readonly List<APanelComponent> m_SpawnedPanels = new List<APanelComponent>();
 
@@ -85,12 +85,12 @@ namespace UnityPlugins.UI.Unity
 			return GetPanelPrefab(panelType, m_RuntimeProviders);
 		}
 
-		private APanelComponent GetPanelPrefab(Type panelType, List<APanelProviderSO> panelProviders)
+		private APanelComponent GetPanelPrefab(Type panelType, List<APanelsContainer> panelProviders)
 		{
 			int count = panelProviders.Count;
 			for(int x = 0; x < count; ++x)
 			{
-				APanelProviderSO provider = panelProviders[x];
+				APanelsContainer provider = panelProviders[x];
 				APanelComponent panelPrefab = provider.FindPanelPrefab(panelType);
 				if(panelPrefab)
 				{
@@ -102,12 +102,12 @@ namespace UnityPlugins.UI.Unity
 		#endregion
 
 		#region Panel Providers
-		public void AddProvider(APanelProviderSO provider)
+		public void AddProvider(APanelsContainer provider)
 		{
 			m_RuntimeProviders.Add(provider);
 		}
 
-		public bool RemoveProvider(APanelProviderSO provider)
+		public bool RemoveProvider(APanelsContainer provider)
 		{
 			return m_RuntimeProviders.Remove(provider);
 		}

@@ -7,8 +7,8 @@ using UnityEngine;
 
 namespace UnityPlugins.UI.Editor
 {
-	[CustomEditor(typeof(AssetPanelProviderSO))]
-	public class AssetPanelProviderSOEditor : AExtendedEditor<AssetPanelProviderSO>
+	[CustomEditor(typeof(DefaultPanelsContainer))]
+	public class AssetPanelProviderSOEditor : AExtendedEditor<DefaultPanelsContainer>
 	{
 		protected override void Initialize()
 		{

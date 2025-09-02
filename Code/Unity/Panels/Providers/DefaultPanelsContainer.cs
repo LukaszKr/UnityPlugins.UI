@@ -5,9 +5,9 @@ using UnityEngine;
 namespace UnityPlugins.UI.Unity
 {
 	[CreateAssetMenu(fileName = NAME, menuName = UIUnityConsts.MENU + NAME)]
-	public class AssetPanelProviderSO : APanelProviderSO
+	public class DefaultPanelsContainer : APanelsContainer
 	{
-		public const string NAME = nameof(AssetPanelProviderSO);
+		public const string NAME = nameof(DefaultPanelsContainer);
 
 		[SerializeField]
 		private APanelComponent[] m_Panels = null;
