@@ -2,12 +2,12 @@
 
 namespace UnityPlugins.UI.Unity
 {
-	public abstract class AUIContextElement<TContext> : AUIElementComponent
+	public abstract class AUIContextElementComponent<TContext> : AUIElementComponent
 	{
 		private readonly ContextHandler<TContext> m_ContextHandler;
 		protected TContext m_Context;
 
-		public AUIContextElement()
+		public AUIContextElementComponent()
 		{
 			m_ContextHandler = new ContextHandler<TContext>(OnAttach, OnDetach, Replace);
 		}
