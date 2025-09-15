@@ -26,6 +26,12 @@ namespace UnityPlugins.UI.Unity
 			return (TPanel)GetPanel(typeof(TPanel));
 		}
 
+		public void GetPanel<TPanel>(ref TPanel target)
+			where TPanel : APanelComponent
+		{
+			target = GetPanel<TPanel>();
+		}
+
 		public APanelComponent GetPanel(Type panelType)
 		{
 			APanelComponent existingPanel = FindPanel(panelType);
