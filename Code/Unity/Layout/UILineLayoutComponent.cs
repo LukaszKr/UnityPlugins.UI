@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityPlugins.Common.Unity;
 using UnityEngine;
+using UnityPlugins.Common.Unity;
 
 namespace UnityPlugins.UI.Unity
 {
 	public class UILineLayoutComponent : ExtendedMonoBehaviour
 	{
-		[SerializeField]
+		[SerializeField, HideInInspector]
 		private bool m_ExpandMainAxis = false;
-		[SerializeField]
+		[SerializeField, HideInInspector]
 		private bool m_ExpandOtherAxis = false;
 		[SerializeField]
 		private ELayoutAxis m_Axis = ELayoutAxis.Vertical;
@@ -22,6 +22,7 @@ namespace UnityPlugins.UI.Unity
 		[SerializeField]
 		private int m_PaddingAfter = 0;
 
+		public ELayoutAxis Axis => m_Axis;
 		public RectTransform RectTransform => m_Rect;
 
 		private readonly List<RectTransform> m_Targets = new List<RectTransform>();
