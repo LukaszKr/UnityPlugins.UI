@@ -30,8 +30,9 @@ namespace UnityPlugins.UI.Editor
 
 		private void DrawExpandOptions()
 		{
-			SerializedProperty expandMain = serializedObject.FindProperty("m_ExpandMainAxis");
-			SerializedProperty expandOther = serializedObject.FindProperty("m_ExpandOtherAxis");
+			SerializedProperty axis = serializedObject.FindProperty(nameof(UILineLayoutComponent.Axis));
+			SerializedProperty expandMain = serializedObject.FindProperty(nameof(UILineLayoutComponent.ExpandMainAxis));
+			SerializedProperty expandOther = serializedObject.FindProperty(nameof(UILineLayoutComponent.ExpandOtherAxis));
 			string mainLabel = string.Empty;
 			string otherLabel = string.Empty;
 
@@ -47,8 +48,13 @@ namespace UnityPlugins.UI.Editor
 					break;
 			}
 
-			EditorGUILayout.PropertyField(expandMain, new GUIContent(mainLabel));
-			EditorGUILayout.PropertyField(expandOther, new GUIContent(otherLabel));
+			EditorGUILayout.BeginVertical("helpbox");
+			{
+				EditorGUILayout.PropertyField(axis);
+				EditorGUILayout.PropertyField(expandMain, new GUIContent(mainLabel));
+				EditorGUILayout.PropertyField(expandOther, new GUIContent(otherLabel));
+			}
+			EditorGUILayout.EndVertical();
 		}
 	}
 }

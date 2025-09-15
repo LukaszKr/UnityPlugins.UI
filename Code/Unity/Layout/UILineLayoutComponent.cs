@@ -7,23 +7,17 @@ namespace UnityPlugins.UI.Unity
 {
 	public class UILineLayoutComponent : ExtendedMonoBehaviour
 	{
-		[SerializeField, HideInInspector]
-		private bool m_ExpandMainAxis = false;
-		[SerializeField, HideInInspector]
-		private bool m_ExpandOtherAxis = false;
-		[SerializeField]
-		private ELayoutAxis m_Axis = ELayoutAxis.Vertical;
-		[SerializeField]
-		private RectTransform m_Rect = null;
-		[SerializeField]
-		private int m_Spacing = 20;
-		[SerializeField]
-		private int m_PaddingBefore = 0;
-		[SerializeField]
-		private int m_PaddingAfter = 0;
-
-		public ELayoutAxis Axis => m_Axis;
-		public RectTransform RectTransform => m_Rect;
+		public RectTransform RectToControl = null;
+		[HideInInspector]
+		public ELayoutAxis Axis = ELayoutAxis.Vertical;
+		[HideInInspector]
+		public bool ExpandMainAxis = false;
+		[HideInInspector]
+		public bool ExpandOtherAxis = false;
+		[Header("Spacing")]
+		public int m_Spacing = 20;
+		public int m_PaddingBefore = 0;
+		public int PaddingAfter = 0;
 
 		private readonly List<RectTransform> m_Targets = new List<RectTransform>();
 
@@ -69,10 +63,10 @@ namespace UnityPlugins.UI.Unity
 				float minAnchor = x*perSlotSize;
 				float maxAnchor = (x+1)*perSlotSize;
 
-				switch(m_Axis)
+				switch(Axis)
 				{
 					case ELayoutAxis.Vertical:
-						if(m_ExpandOtherAxis)
+						if(ExpandOtherAxis)
 						{
 							Vector2 sizeDelta = target.sizeDelta;
 							sizeDelta.x = 0f;
@@ -91,7 +85,7 @@ namespace UnityPlugins.UI.Unity
 						break;
 
 					case ELayoutAxis.Horizontal:
-						if(m_ExpandOtherAxis)
+						if(ExpandOtherAxis)
 						{
 							Vector2 sizeDelta = target.sizeDelta;
 							sizeDelta.y = 0f;
@@ -105,7 +99,7 @@ namespace UnityPlugins.UI.Unity
 							target.anchorMax = new Vector2(0f, 0.5f);
 						}
 
-						if(m_ExpandMainAxis)
+						if(ExpandMainAxis)
 						{
 							target.SetAnchorX(minAnchor, maxAnchor);
 							Vector2 sizeDelta = target.sizeDelta;
@@ -114,7 +108,7 @@ namespace UnityPlugins.UI.Unity
 						}
 						size = (int)target.rect.width;
 
-						if(m_ExpandMainAxis)
+						if(ExpandMainAxis)
 						{
 							target.anchoredPosition = new Vector3(0f, 0f, 0f);
 						}
@@ -125,34 +119,34 @@ namespace UnityPlugins.UI.Unity
 						break;
 
 					default:
-						throw new NotImplementedException(m_Axis.ToString());
+						throw new NotImplementedException(Axis.ToString());
 				}
 
 				totalSize += size;
 			}
 
-			totalSize += m_PaddingAfter;
+			totalSize += PaddingAfter;
 
-			switch(m_Axis)
+			switch(Axis)
 			{
 				case ELayoutAxis.Vertical:
-					m_Rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, totalSize);
+					RectToControl.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, totalSize);
 					break;
 				case ELayoutAxis.Horizontal:
-					m_Rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, totalSize);
+					RectToControl.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, totalSize);
 					break;
 				default:
-					throw new NotImplementedException(m_Axis.ToString());
+					throw new NotImplementedException(Axis.ToString());
 			}
 		}
 
 		public void AutoPopulate()
 		{
 			Clear();
-			int childCount = m_Rect.childCount;
+			int childCount = RectToControl.childCount;
 			for(int x = 0; x < childCount; ++x)
 			{
-				Transform child = m_Rect.GetChild(x);
+				Transform child = RectToControl.GetChild(x);
 				Add(child.gameObject);
 			}
 		}
