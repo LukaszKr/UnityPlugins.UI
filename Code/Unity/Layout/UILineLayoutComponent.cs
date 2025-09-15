@@ -156,6 +156,11 @@ namespace UnityPlugins.UI.Unity
 			Add(go.GetComponent<RectTransform>());
 		}
 
+		public void Add(Component go)
+		{
+			Add(go.GetComponent<RectTransform>());
+		}
+
 		public void Add(RectTransform target)
 		{
 			m_Targets.Add(target);
