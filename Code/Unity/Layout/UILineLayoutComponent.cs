@@ -15,8 +15,8 @@ namespace UnityPlugins.UI.Unity
 		[HideInInspector]
 		public bool ExpandOtherAxis = false;
 		[Header("Spacing")]
-		public int m_Spacing = 20;
-		public int m_PaddingBefore = 0;
+		public int Spacing = 20;
+		public int PaddingBefore = 0;
 		public int PaddingAfter = 0;
 
 		private readonly List<RectTransform> m_Targets = new List<RectTransform>();
@@ -43,7 +43,7 @@ namespace UnityPlugins.UI.Unity
 
 			float perSlotSize = 1f/activeCount;
 
-			int totalSize = m_PaddingBefore;
+			int totalSize = PaddingBefore;
 			for(int x = 0; x < count; ++x)
 			{
 				RectTransform target = m_Targets[x];
@@ -53,7 +53,7 @@ namespace UnityPlugins.UI.Unity
 				}
 				if(x > 0)
 				{
-					totalSize += m_Spacing;
+					totalSize += Spacing;
 				}
 
 				Rect rect = target.rect;
@@ -103,7 +103,7 @@ namespace UnityPlugins.UI.Unity
 						{
 							target.SetAnchorX(minAnchor, maxAnchor);
 							Vector2 sizeDelta = target.sizeDelta;
-							sizeDelta.x = -m_Spacing;
+							sizeDelta.x = -Spacing;
 							target.sizeDelta = sizeDelta;
 						}
 						size = (int)target.rect.width;
