@@ -1,11 +1,10 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 using UnityPlugins.Common.Logic;
 using UnityPlugins.Common.Unity;
 
 namespace UnityPlugins.UI.Unity
 {
-	[ExecuteInEditMode]
+	[ExecuteAlways]
 	public class UICanvasScaleComponent : ExtendedMonoBehaviour
 	{
 		private readonly EventBinder m_Binder = new EventBinder();
@@ -16,7 +15,7 @@ namespace UnityPlugins.UI.Unity
 		private float m_LastScaleModifier;
 
 		public Canvas Canvas = null;
-		public CanvasScaler CanvasScaler = null;
+		public int ReferenceWidth = 1920;
 
 		public float MinAspect = 1.5f;
 		public float MaxAspect = 2f;
@@ -38,13 +37,6 @@ namespace UnityPlugins.UI.Unity
 
 		private void Refresh()
 		{
-#if UNITY_EDITOR
-			if(CanvasScaler == null && !Application.isPlaying)
-			{
-				return;
-			}
-#endif
-
 			int rawWidth = Screen.width;
 			int rawHeight = Screen.height;
 
@@ -61,20 +53,18 @@ namespace UnityPlugins.UI.Unity
 			float width = rawWidth * m_ScaleModifier;
 			float height = rawHeight * m_ScaleModifier;
 
-			int referenceWidth = (int)CanvasScaler.referenceResolution.x;
-
 			float aspect = width/(float)height;
 			if(aspect < MinAspect)
 			{
-				scale = width/referenceWidth;
+				scale = width/ReferenceWidth;
 			}
 			else if(aspect > MaxAspect)
 			{
-				scale = (height*MaxAspect)/referenceWidth;
+				scale = (height*MaxAspect)/ReferenceWidth;
 			}
 			else
 			{
-				scale = width/referenceWidth;
+				scale = width/ReferenceWidth;
 			}
 
 			Canvas.scaleFactor = scale;
