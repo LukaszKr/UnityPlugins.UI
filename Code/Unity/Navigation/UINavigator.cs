@@ -37,14 +37,30 @@ namespace UnityPlugins.UI.Unity
 			return target;
 		}
 
-		public UINavigationTarget[] Add(params INavigationReceiver[] targets)
+		public UINavigationTarget[] Add(params INavigationReceiver[] receiver)
 		{
-			UINavigationTarget[] navTargets = new UINavigationTarget[targets.Length];
-			for(int x = 0; x <  navTargets.Length; ++x)
+			UINavigationTarget[] targets = new UINavigationTarget[receiver.Length];
+			for(int x = 0; x <  targets.Length; ++x)
 			{
-				navTargets[x] = Add(targets[x]);
+				targets[x] = Add(receiver[x]);
 			}
-			return navTargets;
+			return targets;
+		}
+
+		public void Add(List<UINavigationTarget> targets, INavigationReceiver receiver)
+		{
+			UINavigationTarget target = Add(receiver);
+			targets.Add(target);
+		}
+
+
+		public void Add(List<UINavigationTarget> targets, params INavigationReceiver[] receivers)
+		{
+			for(int x = 0; x <  receivers.Length; ++x)
+			{
+				UINavigationTarget target = Add(receivers[x]);
+				targets.Add(target);
+			}
 		}
 
 		public UINavigationTarget[] Add(INavigationReceiver[] targets, EGridCardinal2D direction, bool wrap = true)
