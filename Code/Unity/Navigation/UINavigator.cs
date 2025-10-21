@@ -17,6 +17,16 @@ namespace UnityPlugins.UI.Unity
 
 		public readonly CustomEvent<UINavigationTarget> OnCurrentChanged = new CustomEvent<UINavigationTarget>();
 
+		public void Push()
+		{
+			UINavigatorManager.Instance.PushNavigator(this);
+		}
+
+		public void Pop()
+		{
+			UINavigatorManager.Instance.PopNavigator(this);
+		}
+
 		public void Clear()
 		{
 			m_Targets.Clear();

@@ -3,11 +3,18 @@ using UnityPlugins.Common.Logic;
 
 namespace UnityPlugins.UI.Unity
 {
-	public class UINavigationManager
+	public class UINavigatorManager
 	{
+		public static readonly UINavigatorManager Instance = new UINavigatorManager();
+
 		private List<UINavigator> m_NavigatorsStack = new List<UINavigator>();
 
 		private UINavigator m_CurrentNavigator;
+
+		private UINavigatorManager()
+		{
+
+		}
 
 		public void PushNavigator(UINavigator navigator)
 		{
