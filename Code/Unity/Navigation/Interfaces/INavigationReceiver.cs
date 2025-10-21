@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-using UnityPlugins.Common.Logic;
+﻿using UnityPlugins.Common.Logic;
 
 namespace UnityPlugins.UI.Unity
 {
