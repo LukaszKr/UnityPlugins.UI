@@ -1,6 +1,6 @@
 ﻿namespace UnityPlugins.UI.Unity
 {
-	public interface INavigationReceiverComponent
+	public interface INavigationReceiverProvider
 	{
 		INavigationReceiver Navigation { get; }
 	}
