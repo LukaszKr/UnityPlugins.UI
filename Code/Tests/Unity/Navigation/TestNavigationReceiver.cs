@@ -36,6 +36,11 @@ namespace UnityPlugins.UI.Unity.Navigation
 			AcceptedCount++;
 		}
 
+		public bool Navigate(EGridCardinal2D direction)
+		{
+			return false;
+		}
+
 		public override string ToString()
 		{
 			return $"[{GetType().Name}, {IsNavigationActive}, {Name}]";

@@ -11,6 +11,8 @@ namespace UnityPlugins.UI.Unity
 
 		private UINavigator m_CurrentNavigator;
 
+		public UINavigator CurrentNavigator => m_CurrentNavigator;
+
 		private UINavigatorManager()
 		{
 

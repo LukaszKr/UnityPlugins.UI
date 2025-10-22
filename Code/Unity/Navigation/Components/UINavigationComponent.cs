@@ -1,40 +1,44 @@
 ﻿using UnityEngine;
 using UnityPlugins.Common.Logic;
-using UnityPlugins.Common.Unity;
 
 namespace UnityPlugins.UI.Unity
 {
 	[DisallowMultipleComponent]
-	public class UINavigationReceiverComponent : ExtendedMonoBehaviour, INavigationReceiver
+	public class UINavigationComponent : AUIElementComponent, INavigationReceiver
 	{
 		[SerializeField]
-		private UIActiveElementComponent m_ActiveElement = null;
+		protected UIActiveElementComponent m_ActiveElement = null;
 
 		public bool IsNavigationActive => GameObject.activeInHierarchy;
 
-		public CustomEvent<INavigationReceiver> OnNavigationSelected { get; private set; } = new CustomEvent<INavigationReceiver>();
+		public CustomEvent<INavigationReceiver> OnNavigationSelected { get; } = new CustomEvent<INavigationReceiver>();
 
-		private void Awake()
+		protected override void OnInitialize(EventBinder binder)
 		{
 			m_ActiveElement.OnHovered.AddListener(OnHoveredHandler);
 		}
 
-		public void NavigationAccepted()
+		public virtual void NavigationAccepted()
 		{
 			if(IsNavigationActive)
 			{
 				m_ActiveElement.Click();
 			}
-		}	
+		}
 
-		public void NavigationDeselected()
+		public virtual void NavigationDeselected()
 		{
 			m_ActiveElement.TrySetHovered(false);
 		}
 
-		public void NavigationSelected()
+		public virtual void NavigationSelected()
 		{
 			m_ActiveElement.TrySetHovered(true);
+		}
+
+		public virtual bool Navigate(EGridCardinal2D direction)
+		{
+			return false;
 		}
 
 		#region Callbacks

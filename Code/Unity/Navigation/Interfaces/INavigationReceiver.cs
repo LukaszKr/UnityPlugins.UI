@@ -9,6 +9,7 @@ namespace UnityPlugins.UI.Unity
 		void NavigationSelected();
 		void NavigationDeselected();
 		void NavigationAccepted();
+		bool Navigate(EGridCardinal2D direction);
 
 		CustomEvent<INavigationReceiver> OnNavigationSelected { get; }
 	}

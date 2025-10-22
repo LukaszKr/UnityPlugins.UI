@@ -116,6 +116,11 @@ namespace UnityPlugins.UI.Unity
 				return SetSelected(m_Targets[0]);
 			}
 
+			if(m_Selected.Receiver.Navigate(direction))
+			{
+				return true;
+			}
+
 			target = m_Selected.GetTargetInDirection(direction);
 			return SetSelected(target);
 		}
