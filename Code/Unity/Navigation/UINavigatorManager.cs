@@ -56,13 +56,13 @@ namespace UnityPlugins.UI.Unity
 			m_CurrentNavigator = null;
 		}
 
-		public void Navigate(EGridCardinal2D direction)
+		public bool Navigate(EGridCardinal2D direction)
 		{
 			if(m_CurrentNavigator == null)
 			{
-				return;
+				return false;
 			}
-			m_CurrentNavigator.Navigate(direction);
+			return m_CurrentNavigator.Navigate(direction);
 		}
 
 		public void Accept()
