@@ -12,7 +12,7 @@ namespace UnityPlugins.UI.Unity.Navigation
 
 		public bool IsNavigationActive { get; set; }
 
-		public CustomEvent<INavigationReceiver> OnNavigationSelected { get; private set; } = new CustomEvent<INavigationReceiver>();
+		public CustomEvent<INavigationReceiver> OnNavigationHovered { get; private set; } = new CustomEvent<INavigationReceiver>();
 		public RectTransform RectTransform => null;
 
 		public TestNavigationReceiver(bool active = true, string name = "")

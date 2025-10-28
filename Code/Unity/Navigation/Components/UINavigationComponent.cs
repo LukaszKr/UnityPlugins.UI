@@ -11,7 +11,7 @@ namespace UnityPlugins.UI.Unity
 
 		public bool IsNavigationActive => GameObject.activeInHierarchy;
 
-		public CustomEvent<INavigationReceiver> OnNavigationSelected { get; } = new CustomEvent<INavigationReceiver>();
+		public CustomEvent<INavigationReceiver> OnNavigationHovered { get; } = new CustomEvent<INavigationReceiver>();
 
 		protected override void OnInitialize(EventBinder binder)
 		{
@@ -28,12 +28,12 @@ namespace UnityPlugins.UI.Unity
 
 		public virtual void NavigationDeselected()
 		{
-			m_ActiveElement.TrySetHovered(false);
+			m_ActiveElement.TrySetSelected(false);
 		}
 
 		public virtual void NavigationSelected()
 		{
-			m_ActiveElement.TrySetHovered(true);
+			m_ActiveElement.TrySetSelected(true);
 		}
 
 		public virtual bool Navigate(EGridCardinal2D direction)
@@ -46,7 +46,7 @@ namespace UnityPlugins.UI.Unity
 		{
 			if(hovered && IsNavigationActive)
 			{
-				OnNavigationSelected.Invoke(this);
+				OnNavigationHovered.Invoke(this);
 			}
 		}
 		#endregion

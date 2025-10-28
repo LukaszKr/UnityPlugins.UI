@@ -42,7 +42,7 @@ namespace UnityPlugins.UI.Unity
 		{
 			UINavigationTarget target = new UINavigationTarget(receiver);
 			m_ElementLookup.Add(receiver, target);
-			m_Binder.Bind(receiver.OnNavigationSelected, OnReceiverSelectedHandler);
+			m_Binder.Bind(receiver.OnNavigationHovered, OnReceiverHoveredHandler);
 			m_Targets.Add(target);
 			return target;
 		}
@@ -124,7 +124,41 @@ namespace UnityPlugins.UI.Unity
 			target = m_Selected.GetTargetInDirection(direction);
 			return SetSelected(target);
 		}
+		#endregion
 
+		#region Hovered
+		public bool SetHovered(INavigationReceiver receiver)
+		{
+			if(receiver == null)
+			{
+				return SetHovered((UINavigationTarget)null);
+			}
+			else
+			{
+				UINavigationTarget target = m_ElementLookup[receiver];
+				return SetHovered(target);
+			}
+		}
+
+		private bool SetHovered(UINavigationTarget target)
+		{
+			if(target == m_Selected)
+			{
+				return false;
+			}
+
+			if(m_Selected != null)
+			{
+				m_Selected.Receiver.NavigationDeselected();
+			}
+
+			m_Selected = target;
+			OnCurrentChanged.Invoke(target);
+			return true;
+		}
+		#endregion
+
+		#region Selected
 		public bool SetSelected(INavigationReceiver receiver)
 		{
 			if(receiver == null)
@@ -149,14 +183,14 @@ namespace UnityPlugins.UI.Unity
 			{
 				m_Selected.Receiver.NavigationDeselected();
 			}
-			UINavigationTarget prev = m_Selected;
+
 			m_Selected = target;
 			if(m_Selected != null)
 			{
 				m_Selected.Receiver.NavigationSelected();
 			}
 			OnCurrentChanged.Invoke(target);
-			return prev != m_Selected;
+			return true;
 		}
 
 		public void AcceptSelected()
@@ -197,9 +231,9 @@ namespace UnityPlugins.UI.Unity
 		#endregion
 
 		#region Callbacks
-		private void OnReceiverSelectedHandler(INavigationReceiver receiver)
+		private void OnReceiverHoveredHandler(INavigationReceiver receiver)
 		{
-			SetSelected(receiver);
+			SetHovered(receiver);
 		}
 		#endregion
 	}
