@@ -44,6 +44,8 @@ namespace UnityPlugins.UI.Unity
 			float perSlotSize = 1f/activeCount;
 
 			int totalSize = PaddingBefore;
+			int validTargetsCount = 0;
+
 			for(int x = 0; x < count; ++x)
 			{
 				RectTransform target = m_Targets[x];
@@ -51,10 +53,11 @@ namespace UnityPlugins.UI.Unity
 				{
 					continue;
 				}
-				if(x > 0)
+				if(validTargetsCount > 0)
 				{
 					totalSize += Spacing;
 				}
+				validTargetsCount++;
 
 				Rect rect = target.rect;
 				int size;
