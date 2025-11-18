@@ -2,11 +2,11 @@
     "name": "UnityPlugins.UI.Editor",
     "rootNamespace": "UnityPlugins.UI.Editor",
     "references": [
-        "GUID:75469ad4d38634e559750d17036d5f7c",
-        "GUID:a4f27f4560b427748867decce1333bea",
-        "GUID:b3e8d852c59b26a49874f043a6c012c1",
-        "GUID:3ce9475b178ec2e439e356365496353f",
-        "GUID:a55a240bec49dfd4ebf5bec69dd5b324"
+        "Unity.InputSystem",
+        "UnityPlugins.Common.Logic",
+        "UnityPlugins.Common.Unity",
+        "UnityPlugins.Common.Editor",
+        "UnityPlugins.UI.Unity"
     ],
     "includePlatforms": [
         "Editor"

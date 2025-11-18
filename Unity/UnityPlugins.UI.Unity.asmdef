@@ -2,9 +2,9 @@
     "name": "UnityPlugins.UI.Unity",
     "rootNamespace": "UnityPlugins.UI.Unity",
     "references": [
-        "GUID:6055be8ebefd69e48b49212b09b47b2f",
-        "GUID:a4f27f4560b427748867decce1333bea",
-        "GUID:b3e8d852c59b26a49874f043a6c012c1"
+        "Unity.TextMeshPro",
+        "UnityPlugins.Common.Logic",
+        "UnityPlugins.Common.Unity"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
