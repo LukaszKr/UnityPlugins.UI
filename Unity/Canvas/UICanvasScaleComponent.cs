@@ -37,6 +37,11 @@ namespace UnityPlugins.UI.Unity
 
 		private void Refresh()
 		{
+			if(!Canvas)
+			{
+				return;
+			}
+
 			int rawWidth = Screen.width;
 			int rawHeight = Screen.height;
 
