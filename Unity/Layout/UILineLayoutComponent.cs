@@ -79,8 +79,8 @@ namespace UnityPlugins.UI.Unity
 						}
 						else
 						{
-							target.anchorMin = new Vector2(0.5f, 1f);
-							target.anchorMax = new Vector2(0.5f, 1f);
+							target.anchorMin = new Vector2(target.anchorMin.x, 1f);
+							target.anchorMax = new Vector2(target.anchorMax.x, 1f);
 						}
 						size = (int)target.rect.height;
 
@@ -98,8 +98,8 @@ namespace UnityPlugins.UI.Unity
 						}
 						else
 						{
-							target.anchorMin = new Vector2(0f, 0.5f);
-							target.anchorMax = new Vector2(0f, 0.5f);
+							target.anchorMin = new Vector2(0f, target.anchorMin.y);
+							target.anchorMax = new Vector2(0f, target.anchorMax.y);
 						}
 
 						if(ExpandMainAxis)
