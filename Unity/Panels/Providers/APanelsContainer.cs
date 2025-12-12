@@ -1,5 +1,4 @@
 ﻿using System;
-using UnityEngine;
 using UnityPlugins.Common.Unity;
 
 namespace UnityPlugins.UI.Unity
